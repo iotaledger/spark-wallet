@@ -1,0 +1,49 @@
+[package]
+name = "burner-wallet"
+version = "0.1.0"
+description = "IOTA Burner Wallet"
+author = [ "IOTA Foundation <contact@iota.org>" ]
+license = "mit"
+repository = "https://github.com/iotaledger/burner-wallet"
+default-run = "burner-wallet"
+
+[package.metadata.bundle]
+identifier = "org.iota.burner"
+icon = [
+  "../assets/icons/32x32.png",
+  "../assets/icons/128x128.png",
+  "../assets/icons/128x128@2x.png",
+  "../assets/icons/icon.icns",
+  "../assets/icons/icon.ico"
+]
+
+[dependencies]
+serde_json = "1.0.39"
+serde = "1.0"
+serde_derive = "1.0"
+tiny_http = "0.6"
+phf = "0.7.21"
+includedir = "0.5.0"
+iota-lib-rs = "0.3.0"
+rand = "0.6"
+
+  [dependencies.tauri-ui]
+  path = "../node_modules/@tauri-apps/tauri/bindings/rust"
+
+  [dependencies.tauri]
+  path = "../node_modules/@tauri-apps/tauri/lib/rust"
+  features = [ "all-api" ]
+
+[features]
+dev = [ "tauri/dev" ]
+
+[[bin]]
+name = "burner-wallet"
+path = "src/main.rs"
+
+[profile.release]
+panic = "abort"
+codegen-units = 1
+lto = true
+incremental = false
+opt-level = "z"

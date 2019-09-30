@@ -1,0 +1,29 @@
+{
+    "name": "burner-wallet",
+    "version": "0.1.0",
+    "description": "",
+    "scripts": {
+        "dev": "rollup -c -w",
+        "build": "npm run build:ui && npm run build:tauri",
+        "build:tauri": "tauri build",
+        "build:ui": "rollup -c"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "MIT",
+    "devDependencies": {
+        "@tauri-apps/tauri": "^0.0.1-utility.11",
+        "rollup": "^1.21.4",
+        "rollup-plugin-alias": "^2.0.0",
+        "rollup-plugin-commonjs": "^10.1.0",
+        "rollup-plugin-livereload": "^1.0.1",
+        "rollup-plugin-node-resolve": "^5.2.0",
+        "rollup-plugin-serve": "^1.0.1",
+        "rollup-plugin-svelte": "^5.1.0",
+        "rollup-plugin-terser": "^5.1.2",
+        "svelte": "^3.12.1"
+    },
+    "dependencies": {
+        "qrious": "^4.0.2"
+    }
+}
