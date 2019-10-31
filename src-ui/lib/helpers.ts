@@ -17,7 +17,6 @@ type cdaUrl = cda & { receiver?: string; reference?: string }
 
 /**
  * Update application path
- * @param {string} path - Target path
  */
 export const goto = (path: string): void => {
     window.location.hash = path
@@ -25,7 +24,6 @@ export const goto = (path: string): void => {
 
 /**
  * Generate a random seed
- * @returns {string} Random seed
  */
 export const generateSeed = (): string => {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ9'
@@ -52,7 +50,6 @@ export const generateSeed = (): string => {
 
 /**
  * Fetch list of and select a single random IRI node
- * @returns {string} Node URL
  */
 export const getRandomNode = async (): Promise<string> => {
     const requestOptions = {
@@ -89,8 +86,7 @@ export const getRandomNode = async (): Promise<string> => {
 }
 
 /**
- * Format iota value to nearest units and calculate market value
- * @returns {object}
+ * Format iota value to value units and calculate market value
  */
 export const formatValue = (
     iotas: number,
@@ -157,7 +153,6 @@ export const getIotas = (value: number, unit: iotaUnit): number => {
 
 /**
  * Create an iota CDA link
- * @returns {string}
  */
 export const createLink = (address: cda, amount: number, unit: iotaUnit, message: string, receiver: string): string => {
     if (!address) {
@@ -179,6 +174,9 @@ export const createLink = (address: cda, amount: number, unit: iotaUnit, message
     return link
 }
 
+/**
+ * Parse a CDA link
+ */
 export const parseLink = (input: string): cdaUrl => {
     if (input.toLowerCase().indexOf('iota://') !== 0) {
         return null
@@ -226,6 +224,9 @@ export const parseLink = (input: string): cdaUrl => {
     return result
 }
 
+/**
+ * Format timestamp to human readable date string
+ */
 export const formatDate = (time: number, type: 'short' | 'long' | 'time' = 'short'): string => {
     const options = { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' }
     const date = new Date(time * 1000)
@@ -240,6 +241,9 @@ export const formatDate = (time: number, type: 'short' | 'long' | 'time' = 'shor
     }
 }
 
+/**
+ * Get time units from a timestamp
+ */
 export const getTimeUnits = (input: number, unit: 'h' | 'm' | 's'): string => {
     switch (unit) {
         case 'h':
@@ -251,6 +255,9 @@ export const getTimeUnits = (input: number, unit: 'h' | 'm' | 's'): string => {
     }
 }
 
+/**
+ * Persist a writable Svelte store to local storage
+ */
 export const persistent = <T>(key: string, initialValue: T): WritableStore<T> => {
     let value = initialValue
 
@@ -272,6 +279,9 @@ export const persistent = <T>(key: string, initialValue: T): WritableStore<T> =>
     return state
 }
 
+/**
+ * Set text to clipboard
+ */
 export const setClipboard = (input: string): Promise<void> => {
     return new Promise((resolve) => {
         const range = document.createRange()

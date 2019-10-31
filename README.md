@@ -1,4 +1,3 @@
-![Spark wallet]()
 <img src="https://raw.githubusercontent.com/iotaledger/spark-wallet/master/assets/spark-wallet.jpg" alt="Spark wallet" width="380" height="264"/>
 
 # Spark wallet
