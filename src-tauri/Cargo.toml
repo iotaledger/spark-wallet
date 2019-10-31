@@ -1,14 +1,14 @@
 [package]
-name = "burner-wallet"
+name = "spark-wallet"
 version = "0.1.0"
-description = "IOTA Burner Wallet"
+description = "Spark wallet"
 author = [ "IOTA Foundation <contact@iota.org>" ]
 license = "mit"
-repository = "https://github.com/iotaledger/burner-wallet"
-default-run = "burner-wallet"
+repository = "https://github.com/iotaledger/spark-wallet"
+default-run = "spark-wallet"
 
 [package.metadata.bundle]
-identifier = "org.iota.burner"
+identifier = "org.iota.spark"
 icon = [
   "../assets/icons/32x32.png",
   "../assets/icons/128x128.png",
@@ -24,8 +24,9 @@ serde_derive = "1.0"
 tiny_http = "0.6"
 phf = "0.7.21"
 includedir = "0.5.0"
-iota-lib-rs = "0.3.0"
 rand = "0.6"
+keyring = "0.7.0"
+unwrap = "1.2.0"
 
   [dependencies.tauri-ui]
   path = "../node_modules/@tauri-apps/tauri/bindings/rust"
@@ -34,11 +35,16 @@ rand = "0.6"
   path = "../node_modules/@tauri-apps/tauri/lib/rust"
   features = [ "all-api" ]
 
+  [dependencies.system_uri]
+  version = "0.4.0"
+  default-features = false
+
 [features]
 dev = [ "tauri/dev" ]
+embedded-server = [ "tauri/embedded-server" ]
 
 [[bin]]
-name = "burner-wallet"
+name = "spark-wallet"
 path = "src/main.rs"
 
 [profile.release]

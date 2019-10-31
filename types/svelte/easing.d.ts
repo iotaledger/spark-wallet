@@ -1,0 +1,33 @@
+declare module "svelte/easing" {
+  export function linear(n: number): number;
+  export function backInOut(n: number): number;
+  export function backIn(n: number): number;
+  export function backOut(n: number): number;
+  export function bounceOut(n: number): number;
+  export function bounceInOut(n: number): number;
+  export function bounceIn(n: number): number;
+  export function circInOut(n: number): number;
+  export function circIn(n: number): number;
+  export function circOut(n: number): number;
+  export function cubicInOut(n: number): number;
+  export function cubicIn(n: number): number;
+  export function cubicOut(n: number): number;
+  export function elasticInOut(n: number): number;
+  export function elasticIn(n: number): number;
+  export function elasticOut(n: number): number;
+  export function expoInOut(n: number): number;
+  export function expoIn(n: number): number;
+  export function expoOut(n: number): number;
+  export function quadInOut(n: number): number;
+  export function quadIn(n: number): number;
+  export function quadOut(n: number): number;
+  export function quartInOut(n: number): number;
+  export function quartIn(n: number): number;
+  export function quartOut(n: number): number;
+  export function quintInOut(n: number): number;
+  export function quintIn(n: number): number;
+  export function quintOut(n: number): number;
+  export function sineInOut(n: number): number;
+  export function sineIn(n: number): number;
+  export function sineOut(n: number): number;
+}

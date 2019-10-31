@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist/",
+        "noImplicitAny": true,
+        "lib": ["es2017", "dom"],
+        "module": "es6",
+        "target": "es2016",
+        "moduleResolution": "node",
+        "jsx": "react",
+        "allowJs": true,
+        "baseUrl": "./src-ui",
+        "paths": {
+            "~*": ["./*"]
+        }
+    }
+}

@@ -20,8 +20,8 @@ fn update() -> Result<(), String> {
         .unwrap()
         .release(release)
         .bin_path_in_archive("github")
-        .bin_name("burner")
-        .bin_install_path(&tauri::command::command_path("burner".to_string()).unwrap())
+        .bin_name("spark-wallet")
+        .bin_install_path(&tauri::command::command_path("spark-wallet".to_string()).unwrap())
         .show_download_progress(true)
         .current_version(env!("CARGO_PKG_VERSION"))
         .build()
@@ -47,7 +47,7 @@ fn restart_app(app_command: String) -> Result<(), String> {
   let mut system = tauri::process::System::new();
   let parent_process = tauri::process::get_parent_process(&mut system)
     .map_err(|_| "Could not determine parent process")?;
-  if parent_process.name() == "burner" {
+  if parent_process.name() == "spark-wallet" {
     parent_process.kill(Signal::Kill);
     std::thread::sleep(std::time::Duration::from_secs(1));
     std::process::Command::new(app_command)
@@ -58,7 +58,7 @@ fn restart_app(app_command: String) -> Result<(), String> {
 }
 
 fn run_updater() -> Result<(), String> {
-  let app_command = tauri::command::relative_command("burner".to_string())
+  let app_command = tauri::command::relative_command("spark-wallet".to_string())
     .map_err(|_| "Could not determine app path")?;
   update()?;
   restart_app(app_command)?;

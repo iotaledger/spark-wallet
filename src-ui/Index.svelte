@@ -1,49 +1,66 @@
 <script>
     import { onMount } from 'svelte'
 
-    import { seed } from '~/lib/state'
+    import { seed } from '~/lib/account'
+    import { fetchMarketData } from '~/lib/market'
+    import API from '~/lib/api'
 
+    import { Notification, Route, Theme } from '~/components'
+
+    import Splash from '~/views/Splash'
     import Setup from '~/views/Setup'
-    import Receive from '~/views/Receive'
+    import Dashboard from '~/views/Dashboard'
+    import Send from '~/views/Send'
+    import Request from '~/views/Request'
+    import Settings from '~/views/Settings'
+    import History from '~/views/History'
+
+    let splash = true
+
+    onMount(async () => {
+        // Initiate wallet with a seed from  persistent storage
+        try {
+            const secret = await API.getSecret()
+            if (typeof secret === 'string' && secret.length === 81) {
+                seed.set(secret)
+            }
+        } catch (err) {
+            console.error(err)
+        }
+
+        fetchMarketData()
+
+        setTimeout(() => {
+            splash = false
+        }, 2000)
+    })
 </script>
 
-<style>
-    :global(:root) {
-        --background: #ffffff;
-        --background-gradient: linear-gradient(180deg, #edf1f5 25.48%, #edf1f5 100%);
-        --text: #41415d;
-        --text-light: #b1bcc4;
-        --highlight: #175add;
-        --highlight-text: #ffffff;
-        --highlight-gradient: linear-gradient(233.58deg, #175add 9.87%, #1633ca 97.93%);
-    }
-    :global(*, *:after, *:before) {
-        margin: 0;
-        padding: 0;
-        border: 0;
-        font-weight: 400;
-        box-sizing: border-box;
-        outline: none;
-    }
-    main {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 100vw;
-        height: 100vh;
-        background: var(--bg);
-        color: var(--fg);
-        user-select: none;
-        padding: 20px;
-        font-family: Sans-Serif;
-    }
-</style>
-
-<main>
-    {#if $seed}
-        <Receive />
+<Theme>
+    <Notification />
+    {#if splash}
+        <Route route="/">
+            <Splash />
+        </Route>
     {:else}
-        <Setup />
+        <Route route="/" primary>
+            {#if $seed}
+                <Dashboard />
+            {:else}
+                <Setup />
+            {/if}
+        </Route>
+        <Route route="/send">
+            <Send />
+        </Route>
+        <Route route="/request">
+            <Request />
+        </Route>
+        <Route route="/settings">
+            <Settings />
+        </Route>
+        <Route route="/history">
+            <History />
+        </Route>
     {/if}
-</main>
+</Theme>
