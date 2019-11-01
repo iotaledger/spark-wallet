@@ -1,0 +1,41 @@
+{
+    "name": "spark-wallet-tests",
+    "version": "0.1.0",
+    "scripts": {
+        "lint": "eslint -c .eslintrc ../src-ui/ --ext .ts",
+        "test": "jest ./"
+    },
+    "author": "IOTA Foundation <contact@iota.org>",
+    "license": "Apache-2.0",
+    "devDependencies": {
+        "@babel/core": "^7.6.4",
+        "@babel/preset-env": "^7.6.3",
+        "@testing-library/jest-dom": "^4.2.2",
+        "@testing-library/svelte": "^1.9.0",
+        "@typescript-eslint/eslint-plugin": "^2.6.0",
+        "@typescript-eslint/parser": "^2.6.0",
+        "babel-jest": "^24.9.0",
+        "eslint": "^6.6.0",
+        "eslint-config-airbnb-base": "^14.0.0",
+        "eslint-config-prettier": "^6.5.0",
+        "eslint-import-resolver-alias": "^1.1.2",
+        "eslint-plugin-import": "^2.18.2",
+        "eslint-plugin-prettier": "^3.1.1",
+        "jest": "^24.9.0",
+        "jest-transform-svelte": "^2.1.0",
+        "prettier": "^1.18.2"
+    },
+    "jest": {
+        "transform": {
+            "^.+\\.js$": "babel-jest",
+            "^.+\\.svelte$": "jest-transform-svelte"
+        },
+        "setupFilesAfterEnv": [
+            "@testing-library/jest-dom/extend-expect"
+        ],
+        "moduleFileExtensions": [
+            "js",
+            "svelte"
+        ]
+    }
+}

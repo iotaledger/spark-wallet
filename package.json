@@ -7,7 +7,7 @@
         "build": "npm run build:ui && npm run build:tauri",
         "build:tauri": "tauri build",
         "build:ui": "cross-env NODE_ENV=production webpack",
-        "lint": "eslint ./src-ui/ --ext .ts"
+        "test": "jest .tests"
     },
     "keywords": [],
     "author": "IOTA Foundation <contact@iota.org>",
@@ -19,24 +19,14 @@
     "devDependencies": {
         "@tauri-apps/tauri": "^0.0.1-utility.11",
         "@types/url-parse": "^1.4.3",
-        "@typescript-eslint/eslint-plugin": "^2.6.0",
-        "@typescript-eslint/parser": "^2.6.0",
         "copy-webpack-plugin": "^5.0.4",
         "cross-env": "^6.0.3",
-        "eslint": "^6.6.0",
-        "eslint-config-airbnb-base": "^14.0.0",
-        "eslint-config-prettier": "^6.5.0",
-        "eslint-import-resolver-alias": "^1.1.2",
-        "eslint-plugin-import": "^2.18.2",
-        "eslint-plugin-prettier": "^3.1.1",
-        "prettier": "^1.18.2",
         "svelte-loader": "^2.13.6",
         "ts-loader": "^6.2.1",
         "typescript": "^3.6.4",
         "webpack": "^4.41.2",
         "webpack-cli": "^3.3.9",
-        "webpack-dev-server": "^3.9.0",
-        "yarn": "^1.19.1"
+        "webpack-dev-server": "^3.9.0"
     },
     "dependencies": {
         "@iota/account": "^1.0.0-beta.22",

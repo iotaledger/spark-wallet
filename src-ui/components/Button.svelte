@@ -1,15 +1,15 @@
 <script>
     export let label
-    export let loadingLabel
+    export let loadingLabel = ''
     export let onClick
 
-    export let secondary
-    export let warning
-    export let small
-    export let double
-    export let loading
-    export let disabled
-    export let list
+    export let secondary = false
+    export let warning = false
+    export let small = false
+    export let double = false
+    export let loading = false
+    export let disabled = false
+    export let list = false
 </script>
 
 <style>

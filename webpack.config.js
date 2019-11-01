@@ -6,7 +6,7 @@ const devMode = mode !== 'production'
 
 module.exports = {
     entry: {
-        bundle: ['./src-ui/index.ts']
+        bundle: ['./src-ui/index.js']
     },
     resolve: {
         alias: {
