@@ -1,5 +1,5 @@
 /* eslint-disable no-await-in-loop */
-import * as URL from 'url-parse'
+import URL from 'url-parse'
 import { writable, Writable } from 'svelte/store'
 
 import { NODELIST_ENDPOINTS } from '~/lib/config'
