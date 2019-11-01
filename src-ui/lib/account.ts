@@ -1,4 +1,4 @@
-import { derived, get, writable } from 'svelte/store'
+import { derived, get, writable, Writable } from 'svelte/store'
 import { createAccount, Account } from '@iota/account'
 import { CDAParams, CDA } from '@iota/cda'
 
@@ -50,7 +50,7 @@ export const updateHistory = async (
         return
     }
 
-    const $history = get(history)
+    const $history = get(history) as Transaction[]
 
     const tx = incoming
         ? bundle.find((item) => item.value > 0 && item.address === targetAddress)
@@ -82,7 +82,7 @@ export const updateHistory = async (
 /**
  * iota.js Account object
  */
-export const account = derived<Account<CDAParams, CDA, readonly string[]>, string>(
+export const account = derived<Account<CDAParams, CDA, readonly string[]>, Writable<string>>(
     seed,
     ($seed, set): void => {
         if (!$seed || get(account) !== null) {
@@ -124,7 +124,7 @@ export const account = derived<Account<CDAParams, CDA, readonly string[]>, strin
 /**
  * Current total available account balance
  */
-export const balance = derived<number, Transaction[]>(history, ($history, set): void => {
+export const balance = derived<number, Writable<Transaction[]>>(history, ($history, set): void => {
     const total = $history.reduce((sum: number, { incoming, value, persistence }) => {
         if (!value || (incoming && !persistence)) {
             return 0

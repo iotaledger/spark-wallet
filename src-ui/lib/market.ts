@@ -1,19 +1,24 @@
-import { writable, derived } from 'svelte/store'
+import { writable, derived, Writable } from 'svelte/store'
 
-type chartEntry = {
+type MarketEntry = {
     time: number
     close: number
+}
+
+type MarketData = {
+    hourly: MarketEntry[]
+    daily: MarketEntry[]
 }
 
 /**
  * Historical IOTA market data
  */
-export const marketData = writable(null)
+export const marketData = writable<MarketData>(null)
 
 /**
  * Current IOTA market price
  */
-export const marketPrice = derived(marketData, ($marketData) =>
+export const marketPrice = derived<number, Writable<MarketData>>(marketData, ($marketData) =>
     $marketData ? $marketData.daily[$marketData.daily.length - 1].close : 0
 )
 
@@ -32,7 +37,7 @@ export const fetchMarketData = async (): Promise<void> => {
         }
     ]
 
-    const data: chartEntry[][] = await Promise.all(
+    const data: MarketEntry[][] = await Promise.all(
         timeframes.map(async ({ frame, limit }) => {
             try {
                 const response = await fetch(

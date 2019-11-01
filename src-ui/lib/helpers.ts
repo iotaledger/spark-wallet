@@ -1,6 +1,6 @@
 /* eslint-disable no-await-in-loop */
 import * as URL from 'url-parse'
-import { writable, WritableStore } from 'svelte/store'
+import { writable, Writable } from 'svelte/store'
 
 import { NODELIST_ENDPOINTS } from '~/lib/config'
 
@@ -258,7 +258,7 @@ export const getTimeUnits = (input: number, unit: 'h' | 'm' | 's'): string => {
 /**
  * Persist a writable Svelte store to local storage
  */
-export const persistent = <T>(key: string, initialValue: T): WritableStore<T> => {
+export const persistent = <T>(key: string, initialValue: T): Writable<T> => {
     let value = initialValue
 
     try {
