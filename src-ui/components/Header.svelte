@@ -5,6 +5,7 @@
 
     export let label
     export let help
+    export let secondary
 
     let popup = false
 </script>
@@ -20,16 +21,16 @@
         display: flex;
         align-items: center;
         width: 100%;
-        height: 65px;
+        height: 75px;
         background: var(--primary);
         color: var(--primary-fg);
-        padding: 0 20px;
+        padding: 10px 20px 0;
         font-size: 16px;
     }
 
     button.right {
         position: absolute;
-        top: 5px;
+        top: 15px;
         right: 0px;
         width: 61px;
         height: 60px;
@@ -49,8 +50,8 @@
         left: 50%;
         width: 100vw;
         height: 100vh;
-        max-width: 360px;
-        max-height: 640px;
+        max-width: var(--max-width);
+        max-height: var(--max-height);
         transform: translate(-50%, -50%);
         overflow: hidden;
         background: var(--bg);
@@ -108,9 +109,22 @@
 
 <header>
     <button on:click={() => goto('')}>
-        <Icon icon="back" primary />
+        {#if !secondary}
+            <Icon icon="back" primary />
+        {/if}
         <span>{label}</span>
     </button>
+    {#if secondary}
+        <button class="right" on:click={() => goto('')}>
+            <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M6.279 7.339L.53 1.59a.75.75 0 111.06-1.06L7.34 6.277 13.087.53a.75.75 0 011.06 1.06L8.4 7.34l5.75
+                    5.75a.75.75 0 11-1.06 1.06L7.34 8.4l-5.75 5.75a.75.75 0 01-1.061-1.06l5.75-5.75z"
+                    fill="#FFF"
+                    fill-rule="nonzero" />
+            </svg>
+        </button>
+    {/if}
     {#if help}
         <button
             on:click={() => {

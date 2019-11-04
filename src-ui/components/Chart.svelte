@@ -90,8 +90,7 @@
         const options = {
             chart: {
                 type: 'line',
-                height: 180,
-                width: 345,
+                height: 200,
                 toolbar: {
                     show: false
                 },
@@ -181,8 +180,7 @@
         const shadowOptions = Object.assign({}, options, {
             chart: {
                 type: 'area',
-                height: 180,
-                width: 400,
+                height: 200,
                 toolbar: {
                     show: false
                 },
@@ -232,7 +230,7 @@
         display: block;
         position: relative;
         width: 100%;
-        height: 180px;
+        height: 200px;
     }
     charts {
         overflow: hidden;
@@ -242,12 +240,13 @@
         position: absolute;
         left: -10px;
         top: 20px;
+        width: calc(100% - 30px);
         z-index: 2;
     }
 
     chart:nth-of-type(2) {
         position: absolute;
-        width: 400px;
+        width: calc(100% + 100px);
         left: 50%;
         top: 0px;
         transform: translate(-50%, 0);

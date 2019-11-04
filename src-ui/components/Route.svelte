@@ -1,5 +1,5 @@
 <script>
-    import { fly } from 'svelte/transition'
+    import { fly, scale } from 'svelte/transition'
     import { quintOut } from 'svelte/easing'
     import { readable } from 'svelte/store'
 
@@ -7,6 +7,8 @@
 
     export let route
     export let primary
+    export let secondary
+    export let left
 </script>
 
 <style>
@@ -24,7 +26,17 @@
 </style>
 
 {#if $path === route}
-    <div transition:fly={{ x: primary ? -20 : 360, duration: 380, opacity: 0.7, easing: quintOut }}>
-        <slot />
-    </div>
+    {#if primary}
+        <div transition:scale={{ duration: 380, start: 0.95, oapcity: 0.9 }}>
+            <slot />
+        </div>
+    {:else if secondary}
+        <div transition:scale={{ duration: 300, start: 1.05, opacity: 0 }}>
+            <slot />
+        </div>
+    {:else}
+        <div transition:fly={{ x: left ? 360 : -360, duration: 280, opacity: 0 }}>
+            <slot />
+        </div>
+    {/if}
 {/if}

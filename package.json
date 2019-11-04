@@ -3,10 +3,10 @@
     "version": "0.1.0",
     "description": "A low-security IOTA wallet for short-term use",
     "scripts": {
-        "dev": "webpack-dev-server --content-base .build/ --port 3000",
-        "build": "npm run build:ui && npm run build:tauri",
-        "build:tauri": "tauri build",
-        "build:ui": "cross-env NODE_ENV=production webpack",
+        "dev:ios": "concurrently \"npm run dev:browser\" \"cap open ios\"",
+        "dev:browser": "webpack-dev-server --content-base .build/ --port 3000",
+        "build:desktop": "npm run build:ui && tauri build",
+        "build:browser": "cross-env NODE_ENV=production webpack",
         "test": "jest .tests"
     },
     "keywords": [],
@@ -17,8 +17,10 @@
         "url": "git+https://github.com/iotaledger/spark-wallet.git"
     },
     "devDependencies": {
+        "@capacitor/cli": "^1.3.0",
         "@tauri-apps/tauri": "^0.0.1-utility.11",
         "@types/url-parse": "^1.4.3",
+        "concurrently": "^5.0.0",
         "copy-webpack-plugin": "^5.0.4",
         "cross-env": "^6.0.3",
         "svelte-loader": "^2.13.6",
@@ -29,11 +31,14 @@
         "webpack-dev-server": "^3.9.0"
     },
     "dependencies": {
+        "@capacitor/core": "^1.3.0",
+        "@capacitor/ios": "^1.3.0",
         "@iota/account": "^1.0.0-beta.22",
         "@iota/cda": "^1.0.0-beta.21",
         "@iota/converter": "^1.0.0-beta.21",
         "@iota/persistence": "^1.0.0-beta.21",
         "apexcharts": "^3.10.1",
+        "hammerjs": "^2.0.8",
         "qr-scanner": "^1.1.1",
         "qrious": "^4.0.2",
         "svelte": "^3.12.1",

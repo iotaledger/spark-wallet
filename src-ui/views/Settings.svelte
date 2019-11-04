@@ -76,7 +76,7 @@
     }
 </style>
 
-<Header label="Settings" />
+<Header label="Settings" secondary />
 
 <Tabs {tabs} bind:tab />
 

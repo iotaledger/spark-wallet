@@ -39,27 +39,27 @@
 <Theme>
     <Notification />
     {#if splash}
-        <Route route="/">
+        <Route route="">
             <Splash />
         </Route>
     {:else}
-        <Route route="/" primary>
+        <Route route="" primary>
             {#if $seed}
                 <Dashboard />
             {:else}
                 <Setup />
             {/if}
         </Route>
-        <Route route="/send">
+        <Route route="send">
             <Send />
         </Route>
-        <Route route="/request">
+        <Route route="request">
             <Request />
         </Route>
-        <Route route="/settings">
+        <Route secondary route="settings">
             <Settings />
         </Route>
-        <Route route="/history">
+        <Route secondary route="history">
             <History />
         </Route>
     {/if}

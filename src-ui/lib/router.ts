@@ -7,7 +7,7 @@ import { notification } from '~/lib/app'
 const path = readable<string>(null, (set) => {
     const updatePath = (): void => {
         const pathName = window.location.hash.substr(1)
-        set(`/${pathName}`)
+        set(pathName)
 
         notification.set(null)
     }

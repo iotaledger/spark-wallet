@@ -12,7 +12,7 @@
 <style>
     header {
         text-align: right;
-        padding: 18px 17px 16px;
+        padding: 33px 17px 16px;
     }
     header button {
         cursor: pointer;

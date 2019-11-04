@@ -20,8 +20,8 @@
         left: 50%;
         width: 100vw;
         height: 100vh;
-        max-width: 360px;
-        max-height: 640px;
+        max-width: var(--max-width);
+        max-height: var(--max-height);
         transform: translate(-50%, -50%);
         overflow: hidden;
         background: var(--popup-bg);
@@ -49,7 +49,7 @@
         top: 50%;
         left: 50%;
         width: 100%;
-        max-width: 312px;
+        max-width: var(--max-width);
         transform: translate(-50%, -50%);
         background: var(--list-bg);
         border-radius: 10px;

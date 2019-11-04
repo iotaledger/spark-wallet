@@ -14,7 +14,9 @@
         const filtered =
             tab === 'All'
                 ? $history.filter((item) => item.hash)
-                : $history.filter((item) => (tab === 'Sent' && item.outgoing) || (tab === 'Received' && item.incoming))
+                : $history.filter(
+                      (item) => item.hash && ((tab === 'Sent' && item.outgoing) || (tab === 'Received' && item.incoming))
+                  )
 
         filtered.sort((a, b) => b.timestamp - a.timestamp)
 
@@ -160,7 +162,7 @@
     }
 </style>
 
-<Header label="Transaction history" />
+<Header label="Transaction history" secondary />
 
 <Tabs {tabs} bind:tab />
 

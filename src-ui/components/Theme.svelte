@@ -1,13 +1,42 @@
 <script>
-    import { darkMode } from '~/lib/app'
+    import { onMount } from 'svelte'
+    import Hammer from 'hammerjs'
 
+    import { goto } from '~/lib/helpers'
+    import { account, balance } from '~/lib/account'
+    import { darkMode } from '~/lib/app'
+    import path from '~/lib/router'
+
+    let container
     $: dark = $darkMode === true
+
+    onMount(() => {
+        const hammer = new Hammer(document.body)
+        hammer.on('swiperight', (ev) => {
+            if ($account && $path === '') {
+                goto('request')
+            } else if ($path === 'send') {
+                goto('')
+            }
+        })
+
+        hammer.on('swipeleft', (ev) => {
+            if ($balance && $path === '') {
+                goto('send')
+            } else if ($path === 'request') {
+                goto('')
+            }
+        })
+    })
 </script>
 
 <style>
     @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap');
 
     main {
+        --max-width: 480px;
+        --max-height: 820px;
+
         --bg: #eef1f3;
         --fg: #485776;
         --primary: #3569d7;
@@ -140,8 +169,8 @@
     main {
         width: 100%;
         height: 100%;
-        max-width: 360px;
-        max-height: 640px;
+        max-width: var(--max-width);
+        max-height: var(--max-height);
         background: var(--bg);
         color: var(--fg);
         user-select: none;
@@ -152,6 +181,6 @@
     }
 </style>
 
-<main class:dark>
+<main bind:this={container} class:dark>
     <slot />
 </main>
