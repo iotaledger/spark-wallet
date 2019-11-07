@@ -1,0 +1,9 @@
+{
+    "name": "Spark wallet",
+    "short_name": "spark",
+    "lang": "en-US",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#eef1f3",
+    "theme_color": "#eef1f3"
+}

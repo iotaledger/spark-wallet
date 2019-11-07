@@ -42,7 +42,9 @@ module.exports = {
     plugins: [
         new CopyPlugin([
             { from: './node_modules/qr-scanner/qr-scanner-worker.min.js', to: './scanner.worker.min.js' },
-            { from: './src-ui/index.html', to: './index.html' }
+            { from: './src-ui/index.html', to: './index.html' },
+            { from: './src-ui/assets/manifest.json', to: './manifest.json' },
+            { from: './src-ui/assets/worker.js', to: './worker.js' }
         ])
     ],
     mode,

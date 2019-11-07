@@ -3,10 +3,10 @@
     "version": "0.1.0",
     "description": "A low-security IOTA wallet for short-term use",
     "scripts": {
+        "dev": "webpack-dev-server --content-base .build/ --port 3000",
         "dev:ios": "concurrently \"npm run dev:browser\" \"cap open ios\"",
-        "dev:browser": "webpack-dev-server --content-base .build/ --port 3000",
+        "build": "cross-env NODE_ENV=production webpack",
         "build:desktop": "npm run build:ui && tauri build",
-        "build:browser": "cross-env NODE_ENV=production webpack",
         "test": "jest .tests"
     },
     "keywords": [],

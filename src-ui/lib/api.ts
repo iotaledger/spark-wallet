@@ -1,9 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any, no-restricted-globals */
-import Tauri from '~/../src-tauri/tauri'
-
 type APICall = 'setSecret' | 'getSecret'
 
 type API = { [key in APICall]?: any }
+
+interface Window {
+    [key: string]: any
+}
 
 const ApiMock: API = {
     setSecret: ({ secret }: { secret: string }) => {
@@ -14,6 +15,35 @@ const ApiMock: API = {
     }
 }
 
+const tauriAPI = (args: any) => {
+    const generateID = (): string => {
+        return Math.random()
+            .toString(36)
+            .substr(2, 9)
+    }
+
+    const transformCallback = (callback: (payload: any) => void) => {
+        const id = generateID()
+        const win = window as any
+        win[id] = (result: any) => {
+            delete win[id]
+            return callback && callback(result)
+        }
+        return id
+    }
+
+    return new Promise<string>((resolve, reject) => {
+        const ext = external as any
+        ext.invoke(
+            JSON.stringify({
+                callback: transformCallback(resolve),
+                error: transformCallback(reject),
+                ...args
+            })
+        )
+    })
+}
+
 const Middleware = {
     get: (_target: object, cmd: APICall) => {
         return async (payload: object): Promise<string> => {
@@ -21,7 +51,7 @@ const Middleware = {
                 return ApiMock[cmd](payload)
             }
 
-            return Tauri.promisified({ cmd, ...payload })
+            return tauriAPI({ cmd, ...payload })
         }
     }
 }
