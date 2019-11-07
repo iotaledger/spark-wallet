@@ -24,15 +24,24 @@
         padding: 17px 0;
         border-radius: 30px;
     }
+    button:hover {
+        background: var(--primary-hover);
+    }
 
     button.secondary {
         background: var(--secondary);
         color: var(--secondary-fg);
     }
+    button.secondary:hover {
+        background: var(--secondary-hover);
+    }
 
     button.warning {
         background: var(--warning);
         color: var(--warning-fg);
+    }
+    button.warning:hover {
+        background: var(--warning-hover);
     }
 
     button.list {

@@ -64,7 +64,7 @@
 <main>
     <header>
         <button on:click={() => goto('settings')}>
-            <Icon icon="settings" />
+            <Icon icon="settings" hover/>
         </button>
     </header>
 

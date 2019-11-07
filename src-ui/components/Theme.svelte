@@ -39,10 +39,13 @@
 
         --bg: #eef1f3;
         --fg: #485776;
+        --fg-hover: #2f5a94;
         --primary: #3569d7;
         --primary-fg: #fff;
+        --primary-hover: #1454da;
         --secondary: #ffc555;
         --secondary-fg: #fff;
+        --secondary-hover: #f3b336;
         --secondary-dark: #615640;
         --trinary: #4cc3ff;
         --trinary-fg: #fff;
@@ -51,6 +54,7 @@
         --dark: #556273;
         --warning: #ef562d;
         --warning-fg: #fff;
+        --warning-hover: #f03f0f;
         --success: #67dab0;
         --input-bg: #fff;
         --input-border: #d1dae2;

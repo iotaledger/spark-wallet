@@ -2,6 +2,7 @@
     export let icon
     export let primary
     export let warning
+    export let hover
 
     $: selected = icons[icon]
 
@@ -43,6 +44,9 @@
     svg path {
         fill: var(--fg);
     }
+    svg.hover:hover path {
+        fill: var(--fg-hover);
+    }
     svg.primary path {
         fill: var(--primary-fg);
     }
@@ -52,7 +56,13 @@
 </style>
 
 {#if selected}
-    <svg class:primary class:warning width={selected.width} height={selected.height} xmlns="http://www.w3.org/2000/svg">
+    <svg
+        class:primary
+        class:hover
+        class:warning
+        width={selected.width}
+        height={selected.height}
+        xmlns="http://www.w3.org/2000/svg">
         <path d={selected.path} />
     </svg>
 {/if}
