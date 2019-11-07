@@ -81,7 +81,7 @@
     }
 </style>
 
-<Popup bind:active>
+<Popup bind:active solid>
     <header
         on:click={() => {
             active = false

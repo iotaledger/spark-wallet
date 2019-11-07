@@ -10,6 +10,7 @@
     export let loading = false
     export let disabled = false
     export let list = false
+    export let blank = false
 </script>
 
 <style>
@@ -59,8 +60,22 @@
         pointer-events: none;
         opacity: 0.4;
     }
+    button.blank {
+        background: none;
+        border: 1px solid var(--fg);
+        color: var(--fg);
+    }
 </style>
 
-<button class:list class:disabled class:warning class:secondary class:small class:double class:loading on:click={onClick}>
+<button
+    class:list
+    class:blank
+    class:disabled
+    class:warning
+    class:secondary
+    class:small
+    class:double
+    class:loading
+    on:click={onClick}>
     {loading ? loadingLabel : label}
 </button>

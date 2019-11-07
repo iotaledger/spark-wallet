@@ -2,9 +2,11 @@
     import { generatePersistenceID } from '@iota/persistence'
     import { trytesToTrits } from '@iota/converter'
 
-    import { Button, Dropdown, Footer, Header, Icon, Tabs, Toggle } from '~/components'
+    import { Button, Dropdown, Footer, Header, Icon, Tabs, Toggle, Warning } from '~/components'
     import { account, seed } from '~/lib/account'
     import { darkMode } from '~/lib/app'
+
+    let showWarning = false
 
     const destroyWallet = () => {
         try {
@@ -74,7 +76,27 @@
         font-size: 12px;
         line-height: 18px;
     }
+    h5 {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 22px;
+    }
+    p {
+        line-height: 18px;
+    }
 </style>
+
+<Warning bind:active={showWarning} onConfirm={destroyWallet}>
+    <h5>Destroy wallet?</h5>
+    <p>
+        You will permanently lose your:
+        <br />
+        – tokens in the wallet
+        <br />
+        – transaction history
+        <br />
+    </p>
+</Warning>
 
 <Header label="Settings" secondary />
 
@@ -121,6 +143,6 @@
                 </p>
             </div>
         </article>
-        <Button onClick={destroyWallet} warning label="Destroy this wallet" />
+        <Button onClick={() => (showWarning = true)} warning label="Destroy this wallet" />
     </Footer>
 {/if}

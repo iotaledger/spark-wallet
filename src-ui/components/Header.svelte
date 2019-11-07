@@ -75,6 +75,6 @@
                 <circle cx="9" cy="6" r="1" fill="#fff" />
             </svg>
         </button>
-        <Help bind:active={showHelp} />
+        <Help bind:active={showHelp}/>
     {/if}
 </header>

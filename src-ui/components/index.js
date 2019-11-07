@@ -15,8 +15,9 @@ import Amount from '~/components/inputs/Amount'
 import Dropdown from '~/components/inputs/Dropdown'
 import Toggle from '~/components/inputs/Toggle'
 
-import Transaction from '~/components/popups/Transaction'
 import Help from '~/components/popups/Help'
+import Transaction from '~/components/popups/Transaction'
+import Warning from '~/components/popups/Warning'
 
 export {
     Address,
@@ -35,5 +36,6 @@ export {
     Tabs,
     Transaction,
     Theme,
-    Spinner
+    Spinner,
+    Warning
 }
