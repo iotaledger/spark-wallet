@@ -1,7 +1,7 @@
 <script>
     import API from '~/lib/api'
     import { goto, formatValue } from '~/lib/helpers'
-    import { account, balance } from '~/lib/account'
+    import { account, balance, history } from '~/lib/account'
     import { marketPrice } from '~/lib/market'
 
     import { Button, Chart, Footer, Icon } from '~/components'
@@ -12,7 +12,7 @@
 <style>
     header {
         text-align: right;
-        padding: 33px 17px 16px;
+        padding: 18px 17px 16px;
     }
     header button {
         cursor: pointer;
@@ -77,7 +77,12 @@
     </balance>
 
     <history>
-        <Button onClick={() => goto('history')} label="Transaction history" secondary small />
+        <Button
+            disabled={$history.filter((item) => item.hash).length < 1}
+            onClick={() => goto('history')}
+            label="Transaction history"
+            secondary
+            small />
     </history>
 
     <h3>Trading price</h3>

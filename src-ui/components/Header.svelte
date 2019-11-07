@@ -21,16 +21,16 @@
         display: flex;
         align-items: center;
         width: 100%;
-        height: 75px;
+        height: 65px;
         background: var(--primary);
         color: var(--primary-fg);
-        padding: 10px 20px 0;
+        padding: 0 20px;
         font-size: 16px;
     }
 
     button.right {
         position: absolute;
-        top: 15px;
+        top: 5px;
         right: 0px;
         width: 61px;
         height: 60px;

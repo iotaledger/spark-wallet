@@ -33,6 +33,8 @@
                 value: getIotas(amount, unit)
             })
 
+            $account.start()
+
             history.update(($history) =>
                 $history.concat([{ address: cda.address.substr(0, 81), reference, receiver, incoming: false }])
             )

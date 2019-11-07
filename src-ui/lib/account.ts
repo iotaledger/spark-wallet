@@ -71,6 +71,7 @@ export const updateHistory = async (
     if (!existingTx.hash || existingTx.hash === tx.hash) {
         if (!existingTx.hash && !incoming) {
             sendState.set('done')
+            get(account).stop()
         }
         $history[addressExists] = { ...existingTx, ...tx }
         history.set($history)
@@ -107,8 +108,6 @@ export const account = derived<Account<CDAParams, CDA, readonly string[]>, Writa
                 acc.on('includedDeposit', (tx) => updateHistory(true, tx))
                 acc.on('pendingWithdrawal', (tx) => updateHistory(false, tx))
                 acc.on('includedWithdrawal', (tx) => updateHistory(false, tx))
-
-                acc.start()
             } catch (err) {
                 console.error(err)
             }

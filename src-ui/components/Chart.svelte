@@ -235,6 +235,7 @@
     charts {
         overflow: hidden;
         margin-bottom: 20px;
+        transform: translate3d(0, 0, 0);
     }
     chart:nth-of-type(1) {
         position: absolute;
@@ -261,6 +262,7 @@
         width: 100%;
         max-width: 180px;
         margin: 0 auto;
+        transform: translate3d(0, 0, 0);
     }
     button {
         font-size: 12px;

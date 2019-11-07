@@ -34,8 +34,8 @@
     @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap');
 
     main {
-        --max-width: 480px;
-        --max-height: 820px;
+        --max-width: 360px;
+        --max-height: 640px;
 
         --bg: #eef1f3;
         --fg: #485776;
