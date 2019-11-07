@@ -1,6 +1,7 @@
 <script>
     import { formatDate } from '~/lib/helpers'
 
+    import Popup from './Popup'
     import { Button } from '~/components'
 
     export let tx
@@ -14,27 +15,6 @@
 </script>
 
 <style>
-    popup {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        width: 100vw;
-        height: 100vh;
-        max-width: var(--max-width);
-        max-height: var(--max-height);
-        transform: translate(-50%, -50%);
-        overflow: hidden;
-        background: var(--popup-bg);
-        z-index: 3;
-        pointer-events: none;
-        transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        opacity: 0;
-    }
-    popup.active {
-        opacity: 1;
-        pointer-events: all;
-    }
-
     @keyframes slideIn {
         from {
             top: 53%;
@@ -49,7 +29,7 @@
         top: 50%;
         left: 50%;
         width: 100%;
-        max-width: var(--max-width);
+        max-width: calc(var(--max-width) - 48px);
         transform: translate(-50%, -50%);
         background: var(--list-bg);
         border-radius: 10px;
@@ -133,9 +113,7 @@
     }
 </style>
 
-<svelte:window on:keydown={onkey} />
-
-<popup class:active>
+<Popup bind:active>
     {#if tx}
         <section>
             <header class:incoming={tx.incoming} class:pending={!tx.persistence}>
@@ -177,4 +155,4 @@
             </article>
         </section>
     {/if}
-</popup>
+</Popup>

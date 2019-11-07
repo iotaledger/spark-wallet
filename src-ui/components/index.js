@@ -4,7 +4,6 @@ import Footer from '~/components/Footer'
 import Header from '~/components/Header'
 import Icon from '~/components/Icon'
 import Notification from '~/components/Notification'
-import Popup from '~/components/Popup'
 import QR from '~/components/QR'
 import Route from '~/components/Route'
 import Tabs from '~/components/Tabs'
@@ -16,6 +15,9 @@ import Amount from '~/components/inputs/Amount'
 import Dropdown from '~/components/inputs/Dropdown'
 import Toggle from '~/components/inputs/Toggle'
 
+import Transaction from '~/components/popups/Transaction'
+import Help from '~/components/popups/Help'
+
 export {
     Address,
     Amount,
@@ -24,13 +26,14 @@ export {
     Chart,
     Footer,
     Header,
+    Help,
     Icon,
     Notification,
-    Popup,
     Toggle,
     QR,
     Route,
     Tabs,
+    Transaction,
     Theme,
     Spinner
 }

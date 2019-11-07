@@ -44,7 +44,7 @@ export const sendState = persistent<string>('send-state', 'idle')
  */
 export const updateHistory = async (
     incoming: boolean,
-    { targetAddress, bundle }: { targetAddress: string; bundle: Transaction[] }
+    { address, bundle }: { address: string; bundle: Transaction[] }
 ): Promise<void> => {
     if (!address) {
         return
@@ -53,7 +53,7 @@ export const updateHistory = async (
     const $history = get(history) as Transaction[]
 
     const tx = incoming
-        ? bundle.find((item) => item.value > 0 && item.address === targetAddress)
+        ? bundle.find((item) => item.value > 0 && item.address === address)
         : bundle.find((item) => item.currentIndex === 0)
 
     if (!tx) {
@@ -126,9 +126,10 @@ export const account = derived<Account<CDAParams, CDA, readonly string[]>, Writa
 export const balance = derived<number, Writable<Transaction[]>>(history, ($history, set): void => {
     const total = $history.reduce((sum: number, { incoming, value, persistence }) => {
         if (!value || (incoming && !persistence)) {
-            return 0
+            return sum
         }
-        return incoming ? value : value * -1
+        const change = incoming ? value : value * -1
+        return sum + change
     }, 0)
 
     set(total)

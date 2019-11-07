@@ -14,9 +14,9 @@
     $: currentBalance = formatValue($balance)
 
     let cda = null
+    
     let amount = null
     let reference = null
-    let receiver = null
     let unit = 'Mi'
 
     let camera
@@ -29,14 +29,14 @@
             await $account.sendToCDA({
                 address: cda.address,
                 timeoutAt: cda.timeoutAt,
-                expectedAmount: cda.amount,
+                expectedAmount: cda.expectedAmount,
                 value: getIotas(amount, unit)
             })
 
             $account.start()
 
             history.update(($history) =>
-                $history.concat([{ address: cda.address.substr(0, 81), reference, receiver, incoming: false }])
+                $history.concat([{ address: cda.address.substr(0, 81), reference, receiver: cda.receiver, incoming: false }])
             )
         } catch (err) {
             console.error(err)
@@ -56,12 +56,11 @@
                     if (result) {
                         cda = result
 
-                        const value = formatValue(result.amount)
+                        const value = formatValue(result.expectedAmount)
                         amount = value.value || null
                         unit = value.unit
 
-                        reference = result.message || null
-                        receiver = result.receiver || null
+                        reference = result.reference || null
 
                         scanner.destroy()
                         scanner = null
@@ -213,7 +212,7 @@
                 <strong>{amount}</strong>
                 <small>{unit}</small>
             </h4>
-            <receiver>{`To ${receiver ? receiver : 'anonymous recipient'}`}</receiver>
+            <receiver>{`To ${cda && cda.receiver ? cda.receiver : 'anonymous recipient'}`}</receiver>
 
             <label>Transaction note</label>
             <input placeholder="Optional reference" type="text" bind:value={reference} />

@@ -19,7 +19,7 @@ let timeout: NodeJS.Timeout
 notification.subscribe((item) => {
     clearTimeout(timeout)
     if (item) {
-        timeout = setTimeout(() => {
+        timeout = global.setTimeout(() => {
             notification.set(null)
         }, 2400)
     }

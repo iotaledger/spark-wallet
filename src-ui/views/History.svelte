@@ -3,7 +3,7 @@
     import { marketPrice } from '~/lib/market'
     import { formatDate, formatValue } from '~/lib/helpers'
 
-    import { Header, Popup, Tabs } from '~/components'
+    import { Header, Transaction, Tabs } from '~/components'
 
     $: items = setItems($history, tab)
 
@@ -167,7 +167,7 @@
 <Tabs {tabs} bind:tab />
 
 <main>
-    <Popup bind:active={selectedHash} tx={selected} />
+    <Transaction bind:active={selectedHash} tx={selected} />
     {#each items as tx}
         {#if tx.day}
             <date>{formatDate(tx.day, 'long')}</date>
