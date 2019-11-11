@@ -6,6 +6,7 @@
 
     import { formatValue, goto, parseLink, getIotas } from '~/lib/helpers'
     import { account, balance, history, sendState } from '~/lib/account'
+    import { marketPrice } from '~/lib/market'
 
     import { Address, Amount, Button, Footer, Header, Spinner } from '~/components'
 
@@ -14,7 +15,7 @@
     $: currentBalance = formatValue($balance)
 
     let cda = null
-    
+
     let amount = null
     let reference = null
     let unit = 'Mi'
@@ -30,7 +31,7 @@
                 address: cda.address,
                 timeoutAt: cda.timeoutAt,
                 expectedAmount: cda.expectedAmount,
-                value: getIotas(amount, unit)
+                value: getIotas(amount, unit, marketPrice)
             })
 
             $account.start()

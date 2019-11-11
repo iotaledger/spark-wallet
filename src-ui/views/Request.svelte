@@ -2,6 +2,7 @@
     import { onDestroy } from 'svelte'
     import { Plugins } from '@capacitor/core'
     import { address, receiver, setAddress } from '~/lib/account'
+    import { marketPrice } from '~/lib/market'
     import { getIotas, createLink, getTimeUnits, setClipboard } from '~/lib/helpers'
 
     import { Amount, Footer, Header, Button } from '~/components'
@@ -21,7 +22,7 @@
 
     $: startTimer($address)
 
-    $: link = createLink($address, amount, unit, reference, $receiver)
+    $: link = createLink($address, amount, unit, reference, $receiver, $marketPrice)
 
     function startTimer(data) {
         if (!data) {
@@ -38,7 +39,7 @@
 
     function generate() {
         loading = true
-        setAddress(getIotas(amount, unit), reference)
+        setAddress(getIotas(amount, unit, $marketPrice), reference)
     }
 
     async function copyAddress() {
@@ -113,10 +114,10 @@
         <Amount bind:amount bind:unit />
 
         <label>From</label>
-        <input placeholder="John Doe" type="text" bind:value={$receiver} />
+        <input placeholder="e.g. John Doe" type="text" bind:value={$receiver} />
 
         <label>Transaction note</label>
-        <input placeholder="Optional reference" type="text" bind:value={reference} />
+        <input placeholder="e.g. Payment for 2 pizzas" type="text" bind:value={reference} />
     </main>
 
     <Footer tooltip>

@@ -5,6 +5,7 @@ import { writable, Writable } from 'svelte/store'
 import { NODELIST_ENDPOINTS } from '~/lib/config'
 
 type iotaUnit = 'i' | 'Ki' | 'Mi' | 'Gi' | 'Ti'
+type iotaUnitFiat = iotaUnit | '$'
 
 export type cda = {
     address: string
@@ -93,10 +94,19 @@ export const getRandomNode = async (): Promise<string> => {
  */
 export const formatValue = (
     iotas: number,
-    marketPrice: number
+    marketPrice: number,
+    units?: iotaUnitFiat
 ): { value: number; rounded: string; unit: iotaUnit; fiat: string } => {
-    let value = iotas
+    let value = getIotas(iotas, units, marketPrice)
     let unit: iotaUnit = 'i'
+
+    const fiat = !marketPrice
+        ? '-'
+        : (marketPrice * (value / 1000000)).toLocaleString('en-US', {
+              style: 'currency',
+              currency: 'USD',
+              maximumFractionDigits: 5
+          })
 
     switch (true) {
         case value < 1000:
@@ -120,13 +130,6 @@ export const formatValue = (
     }
 
     const rounded = Math.round(value * 10) / 10 + (iotas < 1000 || (iotas / value) % 10 === 0 ? '' : '+')
-    const fiat = !marketPrice
-        ? '-'
-        : (marketPrice * (value / 1000000)).toLocaleString('en-US', {
-              style: 'currency',
-              currency: 'USD',
-              maximumFractionDigits: 5
-          })
 
     return {
         value,
@@ -139,8 +142,10 @@ export const formatValue = (
 /**
  * Convert iota unit value to iota value
  */
-export const getIotas = (value: number, unit: iotaUnit): number => {
+export const getIotas = (value: number, unit: iotaUnitFiat, marketPrice: number): number => {
     switch (unit) {
+        case '$':
+            return Math.floor(value * marketPrice * 1000000)
         case 'Ki':
             return value * 1000
         case 'Mi':
@@ -157,7 +162,14 @@ export const getIotas = (value: number, unit: iotaUnit): number => {
 /**
  * Create an iota CDA link
  */
-export const createLink = (address: cda, amount: number, unit: iotaUnit, message: string, receiver: string): string => {
+export const createLink = (
+    address: cda,
+    amount: number,
+    unit: iotaUnit,
+    message: string,
+    receiver: string,
+    marketPrice: number
+): string => {
     if (!address) {
         return null
     }
@@ -167,7 +179,7 @@ export const createLink = (address: cda, amount: number, unit: iotaUnit, message
         link = `${link}&message=${encodeURI(message)}`
     }
     if (typeof amount === 'number' && amount > 0) {
-        link = `${link}&amount=${getIotas(amount, unit)}`
+        link = `${link}&amount=${getIotas(amount, unit, marketPrice)}`
     }
 
     if (typeof receiver === 'string' && message.length) {

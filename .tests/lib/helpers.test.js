@@ -1,4 +1,4 @@
-import { createLink } from '../../src-ui/lib/helpers'
+import { createLink, getIotas } from '../../src-ui/lib/helpers'
 
 test('createLink', () => {
     const sets = [
@@ -27,5 +27,39 @@ test('createLink', () => {
     sets.forEach(({ params, url }) => {
         const link = createLink(...params)
         expect(link).toBe(url)
+    })
+})
+
+test('geIotas', () => {
+    const sets = [
+        {
+            params: [2, '$', 99],
+            result: 198000000
+        },
+        {
+            params: [2, 'i', 99],
+            result: 2
+        },
+        {
+            params: [2, 'Ki', 99],
+            result: 2000
+        },
+        {
+            params: [2, 'Mi', 99],
+            result: 2000000
+        },
+        {
+            params: [2, 'Gi', 99],
+            result: 2000000000
+        },
+        {
+            params: [2, 'Ti', 99],
+            result: 2000000000000
+        }
+    ]
+
+    sets.forEach(({ params, result }) => {
+        const value = getIotas(...params)
+        expect(value).toBe(result)
     })
 })

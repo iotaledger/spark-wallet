@@ -76,6 +76,8 @@
         --pending: #c5c5c5;
         --pending-header: #dfdfdf;
         --pending-dark: #4f4f50;
+        --dropdown-active: #fff0d2;
+        --dropdown-hover: #f4f4f4;
     }
     main.dark {
         --bg: #485776;
