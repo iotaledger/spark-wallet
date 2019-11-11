@@ -1,6 +1,5 @@
 <script>
     import { onDestroy } from 'svelte'
-    import { Plugins } from '@capacitor/core'
     import { address, receiver, setAddress } from '~/lib/account'
     import { marketPrice } from '~/lib/market'
     import { getIotas, createLink, getTimeUnits, setClipboard } from '~/lib/helpers'
@@ -10,8 +9,6 @@
     import { QR } from '~/components'
 
     import Berny from '~/assets/Berny'
-
-    const { Clipboard } = Plugins
 
     let amount = null
     let unit = 'Mi'
@@ -42,10 +39,8 @@
         setAddress(getIotas(amount, unit, $marketPrice), reference)
     }
 
-    async function copyAddress() {
-        Clipboard.write({
-            string: link
-        })
+    function copyAddress() {
+        setClipboard(link)
         notification.set('Link copied to clipboard')
     }
 
