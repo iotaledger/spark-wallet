@@ -1,8 +1,8 @@
 <script>
-    export let size = 99
+    export let size = 0
 </script>
 
-<svg width={size} viewBox="0 0 99 108" xmlns="http://www.w3.org/2000/svg">
+<svg width={size ? size : 'auto'} viewBox="0 0 99 108" xmlns="http://www.w3.org/2000/svg">
     <path d="M67.256 8.137c-.03.117-.118.234-.147.322.147-.03.294-.088.47-.118-.117-.058-.235-.146-.323-.204z" fill="#F6EECA" />
     <path
         d="M98.027 43.698a60.639 60.639 0

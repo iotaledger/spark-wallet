@@ -10,6 +10,13 @@
 </script>
 
 <style>
+    main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
     header {
         text-align: right;
         padding: 18px 17px 16px;
@@ -47,10 +54,19 @@
         left: calc(100% + 3px);
     }
 
-    history {
-        display: block;
-        margin: 0 auto 66px;
+    balance h2 {
+        margin-bottom: 36px;
+    }
+
+    @media only screen and (max-height: 600px) {
+        balance h2 {
+            margin-bottom: 16px;
+        }
+    }
+
+    balance div {
         max-width: 186px;
+        margin: 0 auto;
     }
 
     h3 {
@@ -62,34 +78,38 @@
 </style>
 
 <main>
-    <header>
-        <button on:click={() => goto('settings')}>
-            <Icon icon="settings" hover/>
-        </button>
-    </header>
+    <div>
+        <header>
+            <button on:click={() => goto('settings')}>
+                <Icon icon="settings" hover />
+            </button>
+        </header>
 
-    <balance>
-        <h1>
-            {balanceDisplay.rounded}
-            <small>{balanceDisplay.unit}</small>
-        </h1>
-        <h2>{balanceDisplay.fiat}</h2>
-    </balance>
+        <balance>
+            <h1>
+                {balanceDisplay.rounded}
+                <small>{balanceDisplay.unit}</small>
+            </h1>
+            <h2>{balanceDisplay.fiat}</h2>
 
-    <history>
-        <Button
-            disabled={$history.filter((item) => item.hash).length < 1}
-            onClick={() => goto('history')}
-            label="Transaction history"
-            secondary
-            small />
-    </history>
+            <div>
+                <Button
+                    disabled={$history.filter((item) => item.hash).length < 1}
+                    onClick={() => goto('history')}
+                    label="Transaction history"
+                    secondary
+                    small />
+            </div>
+        </balance>
+    </div>
 
-    <h3>Trading price</h3>
-    <Chart />
+    <chart>
+        <h3>Trading price</h3>
+        <Chart />
+    </chart>
+
+    <Footer>
+        <Button disabled={!$account} onClick={() => goto('request')} label="Request" double />
+        <Button disabled={!$balance}  onClick={() => goto('send')} label="Send" double />
+    </Footer>
 </main>
-
-<Footer>
-    <Button disabled={!$account} onClick={() => goto('request')} label="Request" double />
-    <Button disabled={!$balance} onClick={() => goto('send')} label="Send" double />
-</Footer>

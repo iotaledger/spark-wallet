@@ -90,7 +90,7 @@
         const options = {
             chart: {
                 type: 'line',
-                height: 200,
+                height:  "100%",
                 toolbar: {
                     show: false
                 },
@@ -180,7 +180,7 @@
         const shadowOptions = Object.assign({}, options, {
             chart: {
                 type: 'area',
-                height: 200,
+                height: "100%",
                 toolbar: {
                     show: false
                 },
@@ -232,9 +232,17 @@
         width: 100%;
         height: 200px;
     }
+
+    @media only screen and (max-height: 600px) {
+        charts,
+        chart {
+            height: 160px;
+        }
+    }
+
     charts {
         overflow: hidden;
-        margin-bottom: 20px;
+        margin-bottom: 5px;
         transform: translate3d(0, 0, 0);
     }
     chart:nth-of-type(1) {

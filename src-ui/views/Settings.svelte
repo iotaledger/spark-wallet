@@ -44,8 +44,12 @@
         display: block;
         width: calc(100% + 40px);
         height: 1px;
-        margin: 0 0 18px -20px;
+        margin: 0 0 20px -20px;
         background: var(--hr);
+    }
+
+    p + hr {
+        margin-top: 20px;
     }
 
     label.inline {

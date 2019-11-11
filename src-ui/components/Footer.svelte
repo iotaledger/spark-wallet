@@ -9,6 +9,12 @@
         padding: 20px;
     }
 
+    @media only screen and (max-height: 600px) {
+        footer {
+            padding: 16px;
+        }
+    }
+
     footer.tooltip {
         flex-direction: column;
         background: var(--box-bg);

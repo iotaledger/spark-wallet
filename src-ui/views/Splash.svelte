@@ -25,17 +25,17 @@
 <style>
     main {
         display: flex;
+        justify-content: space-between;
         flex-direction: column;
         align-items: center;
         height: 100vh;
         background: var(--primary);
         color: var(--primary-fg);
-        padding-top: 66px;
+        padding: 66px 0 55px;
     }
     h1 {
-        margin: 50px 0 45px;
         text-align: center;
-        font-size: 13px;
+        font-size: 14px;
         line-height: 18px;
         font-weight: 600;
         text-transform: uppercase;
@@ -57,10 +57,9 @@
         An IOTA Labs
         <br />
         experiment
-        <h1>
-            <Rocketman />
-        </h1>
     </h1>
+
+    <Rocketman />
 
     <p>
         Launching

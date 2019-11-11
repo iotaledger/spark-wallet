@@ -17,13 +17,20 @@
     button {
         display: block;
         width: 100%;
+        height: 54px;
         background: var(--primary);
         color: var(--primary-fg);
         font-size: 14px;
         font-weight: 700;
-        padding: 17px 0;
         border-radius: 30px;
     }
+
+    @media only screen and (max-height: 600px) {
+        button {
+            height: 48px;
+        }
+    }
+
     button:hover {
         background: var(--primary-hover);
     }
@@ -49,7 +56,7 @@
     }
 
     button.small {
-        padding: 12px 0;
+        height: 45px;
         font-size: 13px;
     }
 
@@ -67,7 +74,7 @@
     }
     button.disabled {
         pointer-events: none;
-        opacity: 0.4;
+        opacity: 0.5;
     }
     button.blank {
         background: none;

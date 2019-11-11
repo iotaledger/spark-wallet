@@ -34,8 +34,8 @@
     @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap');
 
     main {
-        --max-width: 360px;
-        --max-height: 640px;
+        --max-width: 380px;
+        --max-height: 680px;
 
         --bg: #eef1f3;
         --fg: #485776;
@@ -43,9 +43,11 @@
         --primary: #3569d7;
         --primary-fg: #fff;
         --primary-hover: #1454da;
+        --primary-disabled: #4376e2;
         --secondary: #ffc555;
         --secondary-fg: #fff;
         --secondary-hover: #f3b336;
+        --secondary-disabled: #ffdc98;
         --secondary-dark: #615640;
         --trinary: #4cc3ff;
         --trinary-fg: #fff;
@@ -147,6 +149,14 @@
         width: 100%;
         resize: none;
     }
+
+    @media only screen and (max-height: 600px) {
+        :global(input, textarea) {
+            margin-bottom: 16px;
+            padding: 14px 14px 15px;
+        }
+    }
+
     :global(::placeholder) {
         color: var(--input-placeholder);
         font-weight: 600;

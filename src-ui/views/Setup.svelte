@@ -24,8 +24,15 @@
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
-        padding: 60px 0 75px;
+        padding: 60px 0 0;
     }
+
+    @media only screen and (max-height: 600px) {
+        main {
+            padding-top: 40px;
+        }
+    }
+
     article {
         display: flex;
         align-items: center;
@@ -43,16 +50,17 @@
 
 <main>
     <Icon icon="logo-spark" />
-    <Berny size={162} />
-</main>
 
-<Footer tooltip>
-    <article>
-        <Icon icon="warning" warning />
-        <div>
-            <h6>Warning</h6>
-            <p>Spark is a low-security wallet intended for short-term use and to send small amounts of IOTA only.</p>
-        </div>
-    </article>
-    <Button onClick={setSeed} label="Generate wallet" />
-</Footer>
+    <Berny size={162} />
+
+    <Footer tooltip>
+        <article>
+            <Icon icon="warning" warning />
+            <div>
+                <h6>Warning</h6>
+                <p>Spark is a low-security wallet intended for short-term use and to send small amounts of IOTA only.</p>
+            </div>
+        </article>
+        <Button onClick={setSeed} label="Generate wallet" />
+    </Footer>
+</main>

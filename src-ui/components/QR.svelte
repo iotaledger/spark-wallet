@@ -13,7 +13,7 @@
         display: block;
         background: var(--primary-fg);
         width: 100%;
-        padding: 30px 60px 48px;
+        padding: 30px 0 48px;
         border-radius: 10px;
     }
     qr {

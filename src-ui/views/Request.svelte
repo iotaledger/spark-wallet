@@ -66,6 +66,12 @@
         margin: -10px auto 5px;
     }
 
+    @media only screen and (max-height: 600px) {
+        icon {
+            width: 80px;
+        }
+    }
+
     p {
         text-align: center;
         margin-bottom: 20px;
