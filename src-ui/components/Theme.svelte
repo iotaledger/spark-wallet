@@ -62,6 +62,7 @@
         --input-border: #d1dae2;
         --input-placeholder: #a6adbc;
         --input-carret: #3569d7;
+        --input-active: #677ca9;
         --popup-bg: rgba(72, 87, 118, 0.8);
         --chart-bg: #d2e9f5;
         --chart-fg: #4cc3ff;
@@ -82,22 +83,27 @@
     main.dark {
         --bg: #485776;
         --fg: #fff;
+        --fg-hover: #e0e4ec;
         --primary: #5377c2;
         --primary-fg: #fff;
+        --primary-hover: #2a5abd;
         --secondary: #fec65a;
         --secondary-fg: #fff;
         --secondary-dark: #615640;
+        --secondary-hover: #f3b336;
         --trinary: #4cc3ff;
         --trinary-fg: #fff;
         --light: #c2c7d1;
         --dark: #556273;
-        --warning: #ef562d;
+        --warning: #f76c5e;
         --warning-fg: #fff;
+        --warning-hover: #f45444;
         --success: #67dab0;
         --input-bg: #627294;
         --input-border: #717e97;
         --input-placeholder: #b0b8ca;
         --input-carret: #424c62;
+        --input-active: #b8bfcd;
         --popup-bg: rgba(72, 87, 118, 0.8);
         --chart-bg: #5a6884;
         --chart-fg: #abb3c0;
@@ -139,7 +145,7 @@
     }
     :global(input, textarea) {
         margin-bottom: 18px;
-        padding: 16px 14px 17px;
+        padding: 0 14px;
         background: var(--input-bg);
         border-radius: 7px;
         border: 1px solid var(--input-border);
@@ -147,9 +153,14 @@
         -webkit-appearance: none;
         color: var(--fg);
         font-size: 13px;
-        line-height: 16px;
         width: 100%;
+        height: 52px;
         resize: none;
+        transition: border-color 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    :global(input:focus) {
+        border-color: var(--input-active);
     }
 
     @media only screen and (max-height: 600px) {

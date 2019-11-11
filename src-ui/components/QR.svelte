@@ -5,13 +5,13 @@
 
     let element
 
-    $: qrCode = element && new QRious({ element, value, backgroundAlpha: 0, size: 160 })
+    $: qrCode = element && new QRious({ element, value, backgroundAlpha: 0, size: 140 })
 </script>
 
 <style>
     container {
         display: block;
-        background: var(--primary-fg);
+        background: var(--box-bg);
         width: 100%;
         padding: 30px 0 48px;
         border-radius: 10px;
@@ -32,6 +32,8 @@
         position: absolute;
         top: 22px;
         left: 22px;
+        background: #fff;
+        border: 10px solid #fff;
     }
 
     svg {
