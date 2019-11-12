@@ -250,15 +250,13 @@
     }
 
     nav {
-        position: relative;
-        z-index: 2;
         display: flex;
         justify-content: space-between;
         width: 100%;
         max-width: 180px;
         margin: 0 auto;
-        transform: translate3d(0, 0, 0);
     }
+    
     button {
         font-size: 12px;
         font-weight: 600;
