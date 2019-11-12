@@ -83,7 +83,7 @@ export const updateHistory = async (
 /**
  * iota.js Account object
  */
-export const account = derived<Account<CDAParams, CDA, readonly string[]>, Writable<string>>(
+export const account = derived<Writable<string>, Account<CDAParams, CDA, readonly string[]>>(
     seed,
     ($seed, set): void => {
         if (!$seed || get(account) !== null) {
@@ -123,17 +123,21 @@ export const account = derived<Account<CDAParams, CDA, readonly string[]>, Writa
 /**
  * Current total available account balance
  */
-export const balance = derived<number, Writable<Transaction[]>>(history, ($history, set): void => {
-    const total = $history.reduce((sum: number, { incoming, value, persistence }) => {
-        if (!value || (incoming && !persistence)) {
-            return sum
-        }
-        const change = incoming ? value : value * -1
-        return sum + change
-    }, 0)
+export const balance = derived<Writable<Transaction[]>, number>(
+    history,
+    ($history, set) => {
+        const total = $history.reduce((sum: number, { incoming, value, persistence }) => {
+            if (!value || (incoming && !persistence)) {
+                return sum
+            }
+            const change = incoming ? value : value * -1
+            return sum + change
+        }, 0)
 
-    set(total)
-})
+        set(total)
+    },
+    0
+)
 
 /**
  * Set as active and add to history a new CDA address

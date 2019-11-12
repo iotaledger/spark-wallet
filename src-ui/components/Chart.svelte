@@ -11,8 +11,8 @@
     let shadowContainer
     let shadowChart
 
-    let mode = '1d'
-    let modes = ['1d', '1w', '1m', '3m']
+    let mode = '1h'
+    let modes = ['1h', '24h', '7d', '1m']
 
     $: updateData($marketData, chart, mode)
 
@@ -21,22 +21,9 @@
             return
         }
 
-        let set = []
+        const set = data['history-usd'].data[mode]
 
-        switch (mode) {
-            case '1d':
-                set = data.hourly.slice(-24)
-                break
-            case '1w':
-                set = data.hourly.filter((_item, index) => index % 6 === 0)
-                break
-            case '1m':
-                set = data.daily.slice(-30)
-                break
-            case '3m':
-                set = data.daily.filter((_item, index) => index % 3 === 0)
-                break
-        }
+        set.sort((a, b) => a[0] - b[0])
 
         let max = 0
         let min = 100
@@ -45,13 +32,13 @@
             {
                 data: [
                     {
-                        x: set[set.length - 1].time,
-                        y: set[set.length - 1].close
+                        x: set[set.length - 1][0],
+                        y: parseFloat(set[set.length - 1][1])
                     }
                 ]
             },
             {
-                data: set.map(({ time, close }) => {
+                data: set.map(([time, close]) => {
                     if (close > max) {
                         max = close
                     }
@@ -90,7 +77,7 @@
         const options = {
             chart: {
                 type: 'line',
-                height:  "100%",
+                height: '100%',
                 toolbar: {
                     show: false
                 },
@@ -180,7 +167,7 @@
         const shadowOptions = Object.assign({}, options, {
             chart: {
                 type: 'area',
-                height: "100%",
+                height: '100%',
                 toolbar: {
                     show: false
                 },
