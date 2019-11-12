@@ -11,6 +11,9 @@
 
 <style>
     popup {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         position: fixed;
         top: 50%;
         left: 50%;

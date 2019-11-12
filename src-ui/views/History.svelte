@@ -42,6 +42,12 @@
         overflow: scroll;
     }
 
+    main.empty {
+        text-align: center;
+        padding-top: 150px;
+        font-size: 14px;
+    }
+
     main:before {
         display: block;
         position: absolute;
@@ -51,6 +57,10 @@
         width: 2px;
         height: calc(100% - 165px);
         background: var(--list-bg);
+    }
+
+    main.empty:before {
+        display: none;
     }
 
     date {
@@ -95,7 +105,7 @@
 
     svg:last-of-type {
         display: none;
-        top: 7px;
+        top: 5px;
         left: 7px;
     }
 
@@ -166,8 +176,11 @@
 
 <Tabs {tabs} bind:tab />
 
-<main>
+<main class:empty={items.length === 0}>
     <Transaction bind:active={selectedHash} tx={selected} />
+    {#if items.length === 0}
+        <p>You haven’t done any transactions yet</p>
+    {/if}
     {#each items as tx}
         {#if tx.day}
             <date>{formatDate(tx.day, 'long')}</date>

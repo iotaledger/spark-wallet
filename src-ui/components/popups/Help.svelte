@@ -5,6 +5,10 @@
 </script>
 
 <style>
+    div {
+        height: 100%;
+    }
+
     header {
         display: flex;
         position: relative;
@@ -37,7 +41,7 @@
         padding-right: 23px;
         font-weight: 600;
     }
-    
+
     article {
         padding: 25px 24px;
     }
@@ -82,63 +86,65 @@
 </style>
 
 <Popup bind:active solid>
-    <header
-        on:click={() => {
-            active = false
-        }}>
-        <button>
-            <span>Help</span>
-        </button>
-        <button class="right">
-            <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M6.279 7.339L.53 1.59a.75.75 0 111.06-1.06L7.34 6.277 13.087.53a.75.75 0 011.06 1.06L8.4 7.34l5.75
-                    5.75a.75.75 0 11-1.06 1.06L7.34 8.4l-5.75 5.75a.75.75 0 01-1.061-1.06l5.75-5.75z"
-                    fill="#FFF"
-                    fill-rule="nonzero" />
-            </svg>
-        </button>
-    </header>
-    <article>
-        <h4>About CDAs</h4>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Aenean euismod bibendum
-            laoreet ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet
-        </p>
-        <h4>How they work</h4>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet .Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Aenean euismod bibendum laoreet
-        </p>
-        <h4>IOTA units</h4>
-        <p>IOTAs are typically acquired in multiples of one million, but can be transferred as a single IOTA</p>
+    <div>
+        <header
+            on:click={() => {
+                active = false
+            }}>
+            <button>
+                <span>Help</span>
+            </button>
+            <button class="right">
+                <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M6.279 7.339L.53 1.59a.75.75 0 111.06-1.06L7.34 6.277 13.087.53a.75.75 0 011.06 1.06L8.4 7.34l5.75
+                        5.75a.75.75 0 11-1.06 1.06L7.34 8.4l-5.75 5.75a.75.75 0 01-1.061-1.06l5.75-5.75z"
+                        fill="#FFF"
+                        fill-rule="nonzero" />
+                </svg>
+            </button>
+        </header>
+        <article>
+            <h4>About CDAs</h4>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Aenean euismod bibendum
+                laoreet ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet
+            </p>
+            <h4>How they work</h4>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet .Lorem ipsum dolor sit
+                amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet
+            </p>
+            <h4>IOTA units</h4>
+            <p>IOTAs are typically acquired in multiples of one million, but can be transferred as a single IOTA</p>
 
-        <ul>
-            <li>
-                <strong>Ti</strong>
-                <span>Trillion</span>
-                <span>1 000 000 000 000</span>
-            </li>
-            <li>
-                <strong>Gi</strong>
-                <span>Billion</span>
-                <span>1 000 000 000</span>
-            </li>
-            <li>
-                <strong>Mi</strong>
-                <span>Million</span>
-                <span>1 000 000</span>
-            </li>
-            <li>
-                <strong>Ki</strong>
-                <span>Thousand</span>
-                <span>1000</span>
-            </li>
-            <li>
-                <strong>i</strong>
-                <span>One</span>
-                <span>1</span>
-            </li>
-        </ul>
-    </article>
+            <ul>
+                <li>
+                    <strong>Ti</strong>
+                    <span>Trillion</span>
+                    <span>1 000 000 000 000</span>
+                </li>
+                <li>
+                    <strong>Gi</strong>
+                    <span>Billion</span>
+                    <span>1 000 000 000</span>
+                </li>
+                <li>
+                    <strong>Mi</strong>
+                    <span>Million</span>
+                    <span>1 000 000</span>
+                </li>
+                <li>
+                    <strong>Ki</strong>
+                    <span>Thousand</span>
+                    <span>1000</span>
+                </li>
+                <li>
+                    <strong>i</strong>
+                    <span>One</span>
+                    <span>1</span>
+                </li>
+            </ul>
+        </article>
+    </div>
 </Popup>

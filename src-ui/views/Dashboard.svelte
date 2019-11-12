@@ -94,7 +94,6 @@
 
             <div>
                 <Button
-                    disabled={$history.filter((item) => item.hash).length < 1}
                     onClick={() => goto('history')}
                     label="Transaction history"
                     secondary

@@ -25,14 +25,8 @@
     }
 
     section {
-        position: absolute;
-        top: 50%;
-        left: 50%;
         width: 100%;
         max-width: calc(var(--max-width) - 48px);
-        transform: translate(-50%, -50%);
-        background: var(--list-bg);
-        border-radius: 10px;
         animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
@@ -81,6 +75,8 @@
     article {
         padding: 24px;
         user-select: text;
+        background: var(--list-bg);
+        border-radius: 0 0 10px 10px;
     }
 
     article date {
