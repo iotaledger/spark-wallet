@@ -68,6 +68,7 @@
 
     nav button {
         display: block;
+        background: var(--input-bg);
         height: 36px;
         width: 68px;
         text-align: center;

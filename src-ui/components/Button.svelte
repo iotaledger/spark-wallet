@@ -51,10 +51,6 @@
         background: var(--warning-hover);
     }
 
-    button.list {
-        background: var(--list-button);
-    }
-
     button.small {
         height: 45px;
         font-size: 13px;

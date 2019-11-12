@@ -40,10 +40,10 @@
         --bg: #eef1f3;
         --fg: #485776;
         --fg-hover: #2f5a94;
+        --fg-link: #4376e2;
         --primary: #3569d7;
         --primary-fg: #fff;
         --primary-hover: #1454da;
-        --primary-disabled: #4376e2;
         --secondary: #ffc555;
         --secondary-fg: #fff;
         --secondary-hover: #f3b336;
@@ -71,7 +71,6 @@
         --chart-button-bg: #ffc555;
         --box-bg: #fff;
         --list-bg: #fff;
-        --list-button: #3569d7;
         --hr: #e3e5ec;
         --spinner: #b0b7c4;
         --pending: #c5c5c5;
@@ -84,6 +83,7 @@
         --bg: #485776;
         --fg: #fff;
         --fg-hover: #e0e4ec;
+        --fg-link: #a9c5ff;
         --primary: #5377c2;
         --primary-fg: #fff;
         --primary-hover: #2a5abd;
@@ -112,12 +112,13 @@
         --chart-button-bg: #627294;
         --box-bg: #424c62;
         --list-bg: #627294;
-        --list-button: #638ee9;
         --hr: rgba(227, 229, 236, 0.2);
         --spinner: #b0b7c4;
         --pending: #b0b6c4;
         --pending-header: #959eb2;
         --pending-dark: #eef0f4;
+        --dropdown-active: #51689a;
+        --dropdown-hover: #5c6f98;
     }
     :global(*, *:after, *:before) {
         margin: 0;
