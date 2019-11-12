@@ -3,6 +3,7 @@
     import ApexCharts from 'apexcharts'
 
     import { marketData } from '~/lib/market'
+    import { fiatCurrency } from '~/lib/app'
     import { formatDate } from '~/lib/helpers'
 
     let container
@@ -33,21 +34,22 @@
                 data: [
                     {
                         x: set[set.length - 1][0],
-                        y: parseFloat(set[set.length - 1][1])
+                        y: parseFloat(set[set.length - 1][1] * $marketData.rates[$fiatCurrency]).toFixed(3)
                     }
                 ]
             },
             {
                 data: set.map(([time, close]) => {
-                    if (close > max) {
-                        max = close
+                    const value = parseFloat(close * $marketData.rates[$fiatCurrency]).toFixed(3)
+                    if (value > max) {
+                        max = value
                     }
-                    if (close < min) {
-                        min = close
+                    if (value < min) {
+                        min = value
                     }
                     return {
                         x: time,
-                        y: close
+                        y: value
                     }
                 })
             }

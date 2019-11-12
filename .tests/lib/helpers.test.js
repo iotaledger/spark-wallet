@@ -33,27 +33,27 @@ test('createLink', () => {
 test('geIotas', () => {
     const sets = [
         {
-            params: [2, '$', 99],
+            params: [2, '$', { value: 99, currency: 'USD' }],
             result: 198000000
         },
         {
-            params: [2, 'i', 99],
+            params: [2, 'i', { value: 99, currency: 'USD' }],
             result: 2
         },
         {
-            params: [2, 'Ki', 99],
+            params: [2, 'Ki', { value: 99, currency: 'USD' }],
             result: 2000
         },
         {
-            params: [2, 'Mi', 99],
+            params: [2, 'Mi', { value: 99, currency: 'USD' }],
             result: 2000000
         },
         {
-            params: [2, 'Gi', 99],
+            params: [2, 'Gi', { value: 99, currency: 'USD' }],
             result: 2000000000
         },
         {
-            params: [2, 'Ti', 99],
+            params: [2, 'Ti', { value: 99, currency: 'USD' }],
             result: 2000000000000
         }
     ]
