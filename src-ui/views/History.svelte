@@ -179,7 +179,7 @@
 <main class:empty={items.length === 0}>
     <Transaction bind:active={selectedHash} tx={selected} />
     {#if items.length === 0}
-        <p>You haven’t {tab === 'Received' ? 'made' : 'sent'} any transactions yet</p>
+        <p>You haven’t {tab === 'Sent' ? 'sent' : 'made'} any transactions yet</p>
     {/if}
     {#each items as tx}
         {#if tx.day}
