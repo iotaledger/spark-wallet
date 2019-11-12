@@ -34,13 +34,13 @@
                 data: [
                     {
                         x: set[set.length - 1][0],
-                        y: parseFloat(set[set.length - 1][1] * $marketData.rates[$fiatCurrency]).toFixed(3)
+                        y: parseFloat(set[set.length - 1][1]) * $marketData.rates[$fiatCurrency]
                     }
                 ]
             },
             {
                 data: set.map(([time, close]) => {
-                    const value = parseFloat(close * $marketData.rates[$fiatCurrency]).toFixed(3)
+                    const value = parseFloat(close) * $marketData.rates[$fiatCurrency]
                     if (value > max) {
                         max = value
                     }
@@ -58,10 +58,11 @@
 
         const shadowSeries = [
             {
-                data: set.map(({ time, close }) => {
+                data: set.map(([time, close]) => {
+                    const value = parseFloat(close) * $marketData.rates[$fiatCurrency]
                     return {
                         x: time,
-                        y: close + (max - close) * 0.4
+                        y: value + (max - value) * 0.4
                     }
                 })
             }
@@ -134,7 +135,7 @@
                 },
                 y: {
                     show: true,
-                    formatter: (val) => `${val}`,
+                    formatter: (val) => Math.round(val * 1000) / 1000,
                     title: {
                         formatter: (seriesName) => ''
                     }
@@ -143,8 +144,8 @@
             dataLabels: {
                 enabled: true,
                 enabledOnSeries: [0],
-                formatter: function(value) {
-                    return value
+                formatter: (value) => {
+                    return Math.round(value * 1000) / 1000
                 },
                 style: {
                     fontSize: '12px'
@@ -258,7 +259,7 @@
         max-width: 180px;
         margin: 0 auto;
     }
-    
+
     button {
         font-size: 12px;
         font-weight: 600;
