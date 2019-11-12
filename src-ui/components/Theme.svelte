@@ -11,22 +11,25 @@
     $: dark = $darkMode === true
 
     onMount(() => {
-        const hammer = new Hammer(document.body)
-        hammer.on('swiperight', (ev) => {
-            if ($account && $path === '') {
-                goto('request')
-            } else if ($path === 'send') {
-                goto('')
-            }
-        })
+        // Enable swipe gestures on touch devices only
+        if (window.matchMedia('(pointer: coarse)').matches) {
+            const hammer = new Hammer(document.body)
+            hammer.on('swiperight', () => {
+                if ($account && $path === '') {
+                    goto('request')
+                } else if ($path === 'send') {
+                    goto('')
+                }
+            })
 
-        hammer.on('swipeleft', (ev) => {
-            if ($balance && $path === '') {
-                goto('send')
-            } else if ($path === 'request') {
-                goto('')
-            }
-        })
+            hammer.on('swipeleft', () => {
+                if ($balance && $path === '') {
+                    goto('send')
+                } else if ($path === 'request') {
+                    goto('')
+                }
+            })
+        }
     })
 </script>
 
