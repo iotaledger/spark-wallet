@@ -3,9 +3,9 @@ import URL from 'url-parse'
 import { writable, Writable } from 'svelte/store'
 
 import { NODELIST_ENDPOINTS } from '~/lib/config'
+import { MarketPrice } from '~/lib/market'
 
 type iotaUnit = 'i' | 'Ki' | 'Mi' | 'Gi' | 'Ti'
-type iotaUnitFiat = iotaUnit | '$'
 
 export type cda = {
     address: string
@@ -94,17 +94,17 @@ export const getRandomNode = async (): Promise<string> => {
  */
 export const formatValue = (
     iotas: number,
-    marketPrice: number,
-    units?: iotaUnitFiat
-): { value: number; rounded: string; unit: iotaUnit; fiat: string } => {
+    marketPrice: MarketPrice,
+    units?: string
+): { value: number; rounded: string; unit: string; fiat: string } => {
     let value = getIotas(iotas, units, marketPrice)
     let unit: iotaUnit = 'i'
 
     const fiat = !marketPrice
         ? '-'
-        : (marketPrice * (value / 1000000)).toLocaleString('en-US', {
+        : (marketPrice.value * (value / 1000000)).toLocaleString('en-US', {
               style: 'currency',
-              currency: 'USD',
+              currency: marketPrice.currency,
               maximumFractionDigits: 5
           })
 
@@ -142,10 +142,14 @@ export const formatValue = (
 /**
  * Convert iota unit value to iota value
  */
-export const getIotas = (value: number, unit: iotaUnitFiat, marketPrice: number): number => {
+export const getIotas = (value: number, unit: string, marketPrice: MarketPrice): number => {
+    if (!unit) {
+        return value
+    }
+
     switch (unit) {
-        case '$':
-            return Math.floor(value * marketPrice * 1000000)
+        case 'i':
+            return value
         case 'Ki':
             return value * 1000
         case 'Mi':
@@ -155,7 +159,7 @@ export const getIotas = (value: number, unit: iotaUnitFiat, marketPrice: number)
         case 'Ti':
             return value * 1000000000000
         default:
-            return value
+            return Math.floor(value * marketPrice.value * 1000000)
     }
 }
 
@@ -168,7 +172,7 @@ export const createLink = (
     unit: iotaUnit,
     message: string,
     receiver: string,
-    marketPrice: number
+    marketPrice: MarketPrice
 ): string => {
     if (!address) {
         return null

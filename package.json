@@ -38,6 +38,7 @@
         "@iota/converter": "^1.0.0-beta.21",
         "@iota/persistence": "^1.0.0-beta.21",
         "apexcharts": "^3.10.1",
+        "currency-codes": "^1.5.1",
         "hammerjs": "^2.0.8",
         "qr-scanner": "^1.1.1",
         "qrious": "^4.0.2",

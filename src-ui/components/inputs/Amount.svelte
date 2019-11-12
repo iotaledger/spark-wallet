@@ -8,8 +8,7 @@
     let dropdown = false
 
     $: marketValue = formatValue(amount, $marketPrice, unit)
-
-    const units = ['i', 'Ki', 'Mi', 'Gi', 'Ti', '$']
+    $: units = ['i', 'Ki', 'Mi', 'Gi', 'Ti', $marketPrice.currency]
 
     const clickOutside = () => {
         dropdown = false
@@ -96,7 +95,7 @@
 <div>
     <input type="number" placeholder="Enter your amount" bind:value={amount} />
     {#if amount}
-        <span>={unit !== '$' ? marketValue.fiat : `${marketValue.rounded} ${marketValue.unit}`}</span>
+        <span>={unit !== $marketPrice.currency ? marketValue.fiat : `${marketValue.rounded} ${marketValue.unit}`}</span>
     {/if}
     <button
         on:click={(e) => {

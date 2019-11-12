@@ -1,7 +1,8 @@
-import { writable, derived, Writable } from 'svelte/store'
+import { get, writable, derived, Writable } from 'svelte/store'
+import { fiatCurrency } from '~/lib/app'
 
-type MarketData = {
-    currencies: {
+export type MarketData = {
+    rates: {
         [currency: string]: number
     }
     'history-usd': {
@@ -17,6 +18,11 @@ type MarketData = {
     }
 }
 
+export type MarketPrice = {
+    value: number
+    currency: string
+}
+
 /**
  * Historical IOTA market data
  */
@@ -25,8 +31,19 @@ export const marketData = writable<MarketData>(null)
 /**
  * Current IOTA market price
  */
-export const marketPrice = derived<Writable<MarketData>, number>(marketData, ($marketData) =>
-    $marketData ? $marketData.market.usd : 0
+export const marketPrice = derived<[Writable<MarketData>, Writable<string>], MarketPrice>(
+    [marketData, fiatCurrency],
+    ([$marketData, $fiatCurrency], set) => {
+        if ($marketData) {
+            const currency = $marketData.rates[$fiatCurrency] ? $fiatCurrency : 'USD'
+
+            set({
+                value: $marketData.market.usd * $marketData.rates[currency],
+                currency
+            })
+        }
+    },
+    null
 )
 
 /**

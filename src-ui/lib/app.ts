@@ -17,6 +17,11 @@ export const error = writable<string>(null)
 export const darkMode = persistent<boolean>('darkMode', false)
 
 /**
+ * Wallet value currency
+ */
+export const fiatCurrency = persistent<string>('fiatCurrency', 'USD')
+
+/**
  * Unset notification timeout
  */
 let notificationTimeout: NodeJS.Timeout

@@ -1,12 +1,34 @@
 <script>
     import { generatePersistenceID } from '@iota/persistence'
     import { trytesToTrits } from '@iota/converter'
+    import cc from 'currency-codes'
 
     import { Button, Dropdown, Footer, Header, Icon, Tabs, Toggle, Warning } from '~/components'
     import { account, seed } from '~/lib/account'
-    import { darkMode } from '~/lib/app'
+    import { marketData } from '~/lib/market'
+    import { darkMode, fiatCurrency } from '~/lib/app'
 
     let showWarning = false
+
+    $: currencies = getCurrencies($marketData.rates)
+
+    const getCurrencies = ($rates) => {
+        if (!$rates) {
+            return []
+        }
+        const result = Object.keys($rates).map((item) => {
+            return {
+                label: cc.code(item).currency,
+                value: item
+            }
+        })
+        result.sort((a, b) => (a.label > b.label ? 1 : -1))
+        return result
+    }
+
+    const changeCurrency = (currency) => {
+        fiatCurrency.set(currency)
+    }
 
     const destroyWallet = () => {
         try {
@@ -112,7 +134,7 @@
         <Dropdown value="English" flag="uk" />
 
         <label>Currency</label>
-        <Dropdown value="US Dollars" flag="us" />
+        <Dropdown onSelect={changeCurrency} value={cc.code($fiatCurrency).currency} items={currencies} flag="us" />
         <hr />
 
         <label class="inline">
