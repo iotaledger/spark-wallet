@@ -7,6 +7,7 @@
     import { formatValue, goto, parseLink, getIotas } from '~/lib/helpers'
     import { account, balance, history, sendState } from '~/lib/account'
     import { marketPrice } from '~/lib/market'
+    import { notification, error } from '~/lib/app'
 
     import { Address, Amount, Button, Footer, Header, Spinner } from '~/components'
 
@@ -17,7 +18,7 @@
     let cda = null
 
     let amount = null
-    let reference = null
+    let reference = ''
     let unit = 'Mi'
 
     let camera
@@ -25,13 +26,19 @@
 
     const onSend = async () => {
         try {
+            const value = getIotas(amount, unit, $marketPrice)
+
+            if (value > $balance) {
+                return error.set('Insufficient funds')
+            }
+
             sendState.set('sending')
 
             await $account.sendToCDA({
                 address: cda.address,
                 timeoutAt: cda.timeoutAt,
                 expectedAmount: cda.expectedAmount,
-                value: getIotas(amount, unit, marketPrice)
+                value
             })
 
             $account.start()
@@ -50,6 +57,8 @@
     }
 
     onMount(() => {
+        sendState.set('idle')
+
         try {
             if (!cda && camera) {
                 scanner = new QrScanner(camera, (data) => {
@@ -58,10 +67,10 @@
                         cda = result
 
                         const value = formatValue(result.expectedAmount)
-                        amount = value.value || null
+                        amount = value.value || 0
                         unit = value.unit
 
-                        reference = result.reference || null
+                        reference = result.reference || ''
 
                         scanner.destroy()
                         scanner = null
@@ -95,7 +104,7 @@
     }
 
     balance {
-        line-height: 48px;
+        line-height: 55px;
         background: var(--trinary);
         color: var(--trinary-fg);
         text-align: center;
@@ -206,14 +215,19 @@
     {:else}
         <main>
             <logo>
-                <Berny />
+                <Berny size={120} />
             </logo>
-
-            <h4>
-                <strong>{amount}</strong>
-                <small>{unit}</small>
-            </h4>
+            {#if cda && cda.expectedAmount}
+                <h4>
+                    <strong>{amount}</strong>
+                    <small>{unit}</small>
+                </h4>
+            {/if}
             <receiver>{`To ${cda && cda.receiver ? cda.receiver : 'anonymous recipient'}`}</receiver>
+            {#if !cda || !cda.expectedAmount}
+                <label>Amount</label>
+                <Amount bind:amount bind:unit />
+            {/if}
 
             <label>Transaction note</label>
             <input placeholder="Optional reference" type="text" bind:value={reference} />

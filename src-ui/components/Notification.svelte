@@ -1,7 +1,7 @@
 <script>
     import { fly } from 'svelte/transition'
     import { quintOut } from 'svelte/easing'
-    import { notification } from '~/lib/app'
+    import { error, notification } from '~/lib/app'
 </script>
 
 <style>
@@ -19,10 +19,24 @@
         background: var(--success);
         z-index: 10;
     }
+
+    p.error {
+        color: var(--warning-fg);
+        background: var(--warning);
+    }
 </style>
 
 {#if $notification}
     <p transition:fly={{ x: 20, duration: 200, opacity: 0, easing: quintOut }} on:click={() => notification.set(null)}>
         {$notification}
+    </p>
+{/if}
+
+{#if $error}
+    <p
+        class="error"
+        transition:fly={{ x: 20, duration: 200, opacity: 0, easing: quintOut }}
+        on:click={() => notification.set(null)}>
+        {$error}
     </p>
 {/if}
