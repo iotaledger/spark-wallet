@@ -1,5 +1,6 @@
 const path = require('path')
 const CopyPlugin = require('copy-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const mode = process.env.NODE_ENV || 'development'
 const devMode = mode !== 'production'
@@ -19,9 +20,19 @@ module.exports = {
     output: {
         path: __dirname + '/.build',
         publicPath: '/',
-        filename: '[name].js'
+        filename: '[name].[contenthash].js'
+    },
+    node: {
+        __dirname: false,
+        fs: 'empty'
+    },
+    optimization: {
+        splitChunks: {
+            chunks: 'all'
+        }
     },
     module: {
+        noParse: /\.wasm$/,
         rules: [
             {
                 test: /\.tsx?$/,
@@ -36,16 +47,25 @@ module.exports = {
                         hotReload: devMode
                     }
                 }
+            },
+            {
+                test: /\.wasm$/,
+                loaders: ['base64-loader'],
+                type: 'javascript/auto'
             }
         ]
     },
     plugins: [
         new CopyPlugin([
             { from: './node_modules/qr-scanner/qr-scanner-worker.min.js', to: './scanner.worker.min.js' },
-            { from: './src-ui/index.html', to: './index.html' },
             { from: './src-ui/assets/manifest.json', to: './manifest.json' },
-            { from: './src-ui/assets/worker.js', to: './worker.js' }
-        ])
+            { from: './src-ui/assets/worker.js', to: './worker.js' },
+            { from: './src-ui/assets/favicon.ico', to: './favicon.ico' }
+        ]),
+        new HtmlWebpackPlugin({
+            template: './src-ui/index.html',
+            filename: './index.html' //relative to root of the application
+        })
     ],
     mode,
     devtool: devMode ? 'source-map' : false

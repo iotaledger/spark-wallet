@@ -18,13 +18,15 @@ import Toggle from '~/components/inputs/Toggle'
 import Help from '~/components/popups/Help'
 import Transaction from '~/components/popups/Transaction'
 import Warning from '~/components/popups/Warning'
+import Export from '~/components/popups/Export'
 
 export {
     Address,
     Amount,
     Button,
-    Dropdown,
     Chart,
+    Dropdown,
+    Export,
     Footer,
     Header,
     Help,

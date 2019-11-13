@@ -3,12 +3,13 @@
     import { trytesToTrits } from '@iota/converter'
     import cc from 'currency-codes'
 
-    import { Button, Dropdown, Footer, Header, Icon, Tabs, Toggle, Warning } from '~/components'
+    import { Export, Button, Dropdown, Footer, Header, Icon, Tabs, Toggle, Warning } from '~/components'
     import { account, seed } from '~/lib/account'
     import { marketData } from '~/lib/market'
     import { darkMode, fiatCurrency } from '~/lib/app'
 
     let showWarning = false
+    let showExport = false
 
     $: currencies = getCurrencies($marketData.rates)
 
@@ -91,7 +92,8 @@
     }
 
     article icon {
-        margin-top: 10px;
+        width: 110px;
+        text-align: center;
     }
 
     article div {
@@ -110,6 +112,10 @@
     p {
         line-height: 18px;
     }
+
+    h6.dark {
+        color: var(--fg);
+    }
 </style>
 
 <Warning bind:active={showWarning} onConfirm={destroyWallet}>
@@ -123,6 +129,8 @@
         <br />
     </p>
 </Warning>
+
+<Export bind:active={showExport} />
 
 <Header label="Settings" secondary />
 
@@ -154,7 +162,26 @@
     </main>
 {/if}
 {#if tab === 'Wallet'}
-    <main />
+    <main>
+        <article>
+            <icon>
+                <Icon icon="seedvault" />
+            </icon>
+            <div>
+                <h6 class="dark">BACK UP WITH SEEDVAULT</h6>
+                <p>
+                    You can backup this wallet by exporting a seedvault. The exported SeedVault can then be imported into Trinity
+                    wallet.
+                </p>
+
+            </div>
+        </article>
+        <Button
+            onClick={() => {
+                showExport = true
+            }}
+            label="Create SeedVault" />
+    </main>
     <Footer tooltip>
         <article>
             <icon>
@@ -169,6 +196,11 @@
                 </p>
             </div>
         </article>
-        <Button onClick={() => (showWarning = true)} warning label="Destroy this wallet" />
+        <Button
+            onClick={() => {
+                showWarning = true
+            }}
+            warning
+            label="Destroy this wallet" />
     </Footer>
 {/if}
