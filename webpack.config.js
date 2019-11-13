@@ -65,7 +65,7 @@ module.exports = {
         ]),
         new HtmlWebpackPlugin({
             template: './src-ui/index.html',
-            filename: './index.html' //relative to root of the application
+            filename: './index.html'
         }),
         new WorkboxPlugin.GenerateSW({
             clientsClaim: true,
