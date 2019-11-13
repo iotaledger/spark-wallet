@@ -5,7 +5,7 @@
 
     let element
 
-    $: qrCode = element && new QRious({ element, value, backgroundAlpha: 0, size: 140 })
+    $: qrCode = element && new QRious({ element, value, backgroundAlpha: 0, size: 200 })
 </script>
 
 <style>
@@ -30,10 +30,12 @@
     }
     canvas {
         position: absolute;
-        top: 22px;
-        left: 22px;
+        top: 2px;
+        left: 2px;
         background: #fff;
         border: 10px solid #fff;
+        width: 200px;
+        height: 200px;
     }
 
     svg {

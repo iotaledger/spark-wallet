@@ -26,6 +26,7 @@ export type Transaction = {
     address: string
     incoming: boolean
     hash?: string
+    bundle?: string
     reference?: string
     value?: number
     persistence?: boolean
@@ -60,23 +61,23 @@ export const updateHistory = async (
         return
     }
 
-    const addressExists = $history.findIndex((item) => item.address === tx.address)
+    const txAddress = $history.find((item) => item.address === tx.address)
 
-    if (addressExists < 0) {
+    if (!txAddress) {
         return
     }
 
-    const existingTx = $history[addressExists]
+    const txIndex = $history.findIndex((item) => item.address === tx.address && (!item.bundle || item.bundle === tx.bundle))
 
-    if (!existingTx.hash || existingTx.hash === tx.hash) {
-        if (!existingTx.hash && !incoming) {
+    if (txIndex > -1) {
+        if (!$history[txIndex].bundle && !incoming) {
             sendState.set('done')
-            get(account).stop()
         }
-        $history[addressExists] = { ...existingTx, ...tx }
+
+        $history[txIndex] = { ...$history[txIndex], ...tx }
         history.set($history)
     } else {
-        history.update((item) => item.concat([{ ...tx, incoming }]))
+        history.update((item) => item.concat([{ ...txAddress, ...tx }]))
     }
 }
 

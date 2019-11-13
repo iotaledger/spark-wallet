@@ -105,7 +105,7 @@
 
     svg:last-of-type {
         display: none;
-        top: 5px;
+        top: 7px;
         left: 7px;
     }
 
@@ -124,6 +124,10 @@
 
     item.pending svg:last-of-type {
         display: block;
+    }
+
+    item.pending svg path {
+        transform: none;
     }
 
     h5 {

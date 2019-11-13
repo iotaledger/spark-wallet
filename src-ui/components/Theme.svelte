@@ -170,7 +170,7 @@
     @media only screen and (max-height: 600px) {
         :global(input, textarea) {
             margin-bottom: 16px;
-            padding: 14px 14px 15px;
+            height: 44px;
         }
     }
 
@@ -202,6 +202,7 @@
         height: 100%;
         max-width: var(--max-width);
         max-height: var(--max-height);
+        min-height: 560px;
         background: var(--bg);
         color: var(--fg);
         user-select: none;
@@ -209,6 +210,18 @@
         line-height: 16px;
         overflow: hidden;
         position: relative;
+    }
+
+    @media only screen and (max-height: 560px) {
+        :global(html, body) {
+            display: block;
+            overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
+        }
+        main {
+            display: block;
+            margin: 0 auto;
+        }
     }
 </style>
 

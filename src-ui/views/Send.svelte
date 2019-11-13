@@ -28,26 +28,34 @@
         try {
             const value = getIotas(amount, unit, $marketPrice)
 
+            if (!value) {
+                return error.set('Cannot send payment without value')
+            }
+
             if (value > $balance) {
                 return error.set('Insufficient funds')
             }
 
             sendState.set('sending')
 
-            await $account.sendToCDA({
+            const data = {
                 address: cda.address,
                 timeoutAt: cda.timeoutAt,
-                expectedAmount: cda.expectedAmount,
                 value
-            })
+            }
 
-            $account.start()
+            if (cda.expectedAmount) {
+                data['expectedAmount'] = cda.expectedAmount
+            }
+
+            await $account.sendToCDA(data)
 
             history.update(($history) =>
                 $history.concat([{ address: cda.address.substr(0, 81), reference, receiver: cda.receiver, incoming: false }])
             )
         } catch (err) {
-            console.error(err)
+            error.set(err.message || err)
+            sendState.set('idle')
         }
     }
 
@@ -66,9 +74,11 @@
                     if (result) {
                         cda = result
 
-                        const value = formatValue(result.expectedAmount)
-                        amount = value.value || 0
-                        unit = value.unit
+                        if (result.expectedAmount) {
+                            const value = formatValue(result.expectedAmount)
+                            amount = value.value
+                            unit = value.unit
+                        }
 
                         reference = result.reference || ''
 

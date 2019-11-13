@@ -43,7 +43,9 @@
     }
 
     article {
+        height: calc(100% - 65px);
         padding: 25px 24px;
+        overflow: scroll;
     }
 
     h4 {
