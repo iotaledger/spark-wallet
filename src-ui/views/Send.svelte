@@ -23,6 +23,8 @@
 
     let camera
     let scanner
+    let cameraError = false
+    let cameraEnabled = false
 
     const onSend = async () => {
         try {
@@ -64,32 +66,41 @@
         goto('')
     }
 
+    const launchScanner = (stream) => {
+        scanner = new QrScanner(camera, (data) => {
+            const result = parseLink(data)
+            if (result) {
+                cda = result
+
+                if (result.expectedAmount) {
+                    const value = formatValue(result.expectedAmount)
+                    amount = value.value
+                    unit = value.unit
+                }
+
+                reference = result.reference || ''
+
+                scanner.destroy()
+                scanner = null
+            }
+        })
+        scanner.start()
+        cameraEnabled = true
+    }
+
     onMount(() => {
         sendState.set('idle')
 
         try {
-            if (!cda && camera) {
-                scanner = new QrScanner(camera, (data) => {
-                    const result = parseLink(data)
-                    if (result) {
-                        cda = result
-
-                        if (result.expectedAmount) {
-                            const value = formatValue(result.expectedAmount)
-                            amount = value.value
-                            unit = value.unit
-                        }
-
-                        reference = result.reference || ''
-
-                        scanner.destroy()
-                        scanner = null
-                    }
+            if (!navigator.getUserMedia) {
+                cameraError = true
+            } else {
+                navigator.getUserMedia({ video: true, audio: false }, launchScanner, () => {
+                    cameraError = true
                 })
-                scanner.start()
             }
         } catch (err) {
-            alert(err.message || err)
+            cameraError = true
         }
 
         return () => {
@@ -127,6 +138,11 @@
         position: relative;
         background: #000;
         overflow: hidden;
+        opacity: 0;
+    }
+
+    scanner.enabled {
+        opacity: 1;
     }
 
     logo {
@@ -151,6 +167,11 @@
     }
     svg path {
         fill: var(--secondary);
+    }
+
+    form {
+        flex: 1;
+        padding: 20px;
     }
 
     h4 {
@@ -213,15 +234,19 @@
     <Header label="Send a payment" />
     <balance>Current balance: {currentBalance.rounded} {currentBalance.unit}</balance>
     {#if !cda}
-        <scanner>
-            <video bind:this={camera} />
-            <svg width="204" height="204" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M167 10V0h26.976c5.523 0 10 4.477 10 10v27h-10V10H167zM36.976 10H10v27H0V10C0 4.477 4.477 0 10
-                    0h26.976v10zM167 194h26.976v-27h10v27c0 5.523-4.477 10-10 10H167v-10zm-130.024 0v10H10c-5.523
-                    0-10-4.477-10-10v-27h10v27h26.976z" />
-            </svg>
-        </scanner>
+        {#if cameraError}
+            <form>TOOD: No camera available view</form>
+        {:else}
+            <scanner class:enabled={cameraEnabled}>
+                <video bind:this={camera} autoplay playsinline />
+                <svg width="204" height="204" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M167 10V0h26.976c5.523 0 10 4.477 10 10v27h-10V10H167zM36.976 10H10v27H0V10C0 4.477 4.477 0 10
+                        0h26.976v10zM167 194h26.976v-27h10v27c0 5.523-4.477 10-10 10H167v-10zm-130.024 0v10H10c-5.523
+                        0-10-4.477-10-10v-27h10v27h26.976z" />
+                </svg>
+            </scanner>
+        {/if}
     {:else}
         <main>
             <logo>

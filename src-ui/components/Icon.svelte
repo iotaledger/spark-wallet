@@ -68,6 +68,7 @@
         class:hover
         class:warning
         width={auto ? '100%' : selected.width}
+        height={auto ? '100%' : selected.height}
         viewBox="0 0 {selected.width}
         {selected.height}"
         xmlns="http://www.w3.org/2000/svg">
