@@ -41,7 +41,7 @@
         "currency-codes": "^1.5.1",
         "hammerjs": "^2.0.8",
         "qr-scanner": "^1.1.1",
-        "qrious": "^4.0.2",
+        "qrcode": "^1.4.4",
         "svelte": "^3.14.0",
         "url-parse": "^1.4.7"
     }

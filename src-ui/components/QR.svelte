@@ -1,11 +1,23 @@
 <script>
-    import QRious from 'qrious'
+    import { onMount } from 'svelte'
+    import QRCode from 'qrcode'
 
     export let value
 
-    let element
+    let qr = null
 
-    $: qrCode = element && new QRious({ element, value, backgroundAlpha: 0, size: 200 })
+    onMount(async () => {
+        console.log(value)
+        qr = await QRCode.toString(value, {
+            type: 'svg',
+            width: 190,
+            height: 190,
+            color: {
+                dark: '#000',
+                light: '#fff'
+            }
+        })
+    })
 </script>
 
 <style>
@@ -28,21 +40,19 @@
         text-align: center;
         margin-bottom: 32px;
     }
-    canvas {
-        position: absolute;
-        top: 2px;
-        left: 2px;
-        background: #fff;
-        border: 10px solid #fff;
-        width: 200px;
-        height: 200px;
-    }
 
-    svg {
+    svg,
+    div {
         position: absolute;
         top: 0px;
         left: 0px;
     }
+
+    div {
+        top: 7px;
+        left: 7px;
+    }
+
     svg path {
         fill: var(--bg);
     }
@@ -51,7 +61,9 @@
 <container>
     <h4>Share QR</h4>
     <qr>
-        <canvas bind:this={element} />
+        <div>
+            {@html qr}
+        </div>
         <svg width="204" height="204" xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M167 10V0h26.976c5.523 0 10 4.477 10 10v27h-10V10H167zM36.976 10H10v27H0V10C0 4.477 4.477 0 10 0h26.976v10zM167

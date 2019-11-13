@@ -112,7 +112,7 @@
         <input placeholder="e.g. John Doe" type="text" bind:value={$receiver} />
 
         <label>Transaction note</label>
-        <input placeholder="e.g. Payment for 2 pizzas" type="text" bind:value={reference} />
+        <input maxlength="100" placeholder="e.g. Payment for 2 pizzas" type="text" bind:value={reference} />
     </main>
 
     <Footer tooltip>
