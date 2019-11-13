@@ -2,7 +2,9 @@ import Index from './Index.svelte'
 
 try {
     if (window.location.hostname !== 'localhost' && 'serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./worker.js')
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js')
+        })
     }
 } catch (err) {
     console.log(err)
