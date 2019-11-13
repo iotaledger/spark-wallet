@@ -15,6 +15,7 @@ jobs:
         node-version: 12.x
     - name: npm test
       run: |
+        npm ci
         cd .tests
         npm ci
         npm test
