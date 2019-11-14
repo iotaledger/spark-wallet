@@ -61,6 +61,7 @@ module.exports = {
             { from: './node_modules/qr-scanner/qr-scanner-worker.min.js', to: './scanner.worker.min.js' },
             { from: './src-ui/assets/manifest.json', to: './manifest.json' },
             { from: './src-ui/assets/worker.js', to: './worker.js' },
+            { from: './src-ui/assets/bg.jpg', to: './bg.jpg' },
             { from: './src-ui/assets/favicon.ico', to: './favicon.ico' }
         ]),
         new HtmlWebpackPlugin({

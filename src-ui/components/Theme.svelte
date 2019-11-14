@@ -37,7 +37,7 @@
     @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap');
 
     main {
-        --max-width: 380px;
+        --max-width: 460px;
         --max-height: 680px;
 
         --bg: #eef1f3;
@@ -141,6 +141,8 @@
         justify-content: center;
         font-family: 'Poppins', sans-serif;
         font-weight: 400;
+        background: url('/bg.jpg') no-repeat;
+        background-size: cover;
     }
     :global(button) {
         font-family: 'Poppins', sans-serif;
@@ -210,6 +212,7 @@
         line-height: 16px;
         overflow: hidden;
         position: relative;
+        box-shadow: 0px 20px 30px 5px rgba(0, 0, 0, 0.25);
     }
 
     @media only screen and (max-height: 560px) {
