@@ -62,6 +62,7 @@ module.exports = {
             { from: './src-ui/assets/manifest.json', to: './manifest.json' },
             { from: './src-ui/assets/worker.js', to: './worker.js' },
             { from: './src-ui/assets/bg.jpg', to: './bg.jpg' },
+            { from: './src-ui/assets/bg-dark.jpg', to: './bg-dark.jpg' },
             { from: './src-ui/assets/favicon.ico', to: './favicon.ico' }
         ]),
         new HtmlWebpackPlugin({

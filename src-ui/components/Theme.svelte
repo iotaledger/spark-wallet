@@ -10,6 +10,8 @@
     let container
     $: dark = $darkMode === true
 
+    $: $darkMode ? document.body.classList.add('dark') : document.body.classList.remove('dark')
+
     onMount(() => {
         // Enable swipe gestures on touch devices only
         if (window.matchMedia('(pointer: coarse)').matches) {
@@ -142,6 +144,12 @@
         font-family: 'Poppins', sans-serif;
         font-weight: 400;
         background: url('/bg.jpg') no-repeat;
+        background-size: cover;
+        transition: background 0.25s;
+    }
+
+    :global(body.dark) {
+        background: url('/bg-dark.jpg') no-repeat;
         background-size: cover;
     }
     :global(button) {

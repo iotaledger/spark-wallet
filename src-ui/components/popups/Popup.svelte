@@ -30,6 +30,13 @@
         opacity: 0;
     }
 
+    @media (max-width: 520px) {
+        popup {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    }
+
     popup.solid {
         background: var(--bg);
     }

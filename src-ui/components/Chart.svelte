@@ -39,32 +39,36 @@
                 ]
             },
             {
-                data: set.map(([time, close]) => {
-                    const value = parseFloat(close) * $marketData.rates[$fiatCurrency]
-                    if (value > max) {
-                        max = value
-                    }
-                    if (value < min) {
-                        min = value
-                    }
-                    return {
-                        x: time,
-                        y: value
-                    }
-                })
+                data: set
+                    .filter((_item, index) => index % 2 !== 0)
+                    .map(([time, close]) => {
+                        const value = parseFloat(close) * $marketData.rates[$fiatCurrency]
+                        if (value > max) {
+                            max = value
+                        }
+                        if (value < min) {
+                            min = value
+                        }
+                        return {
+                            x: time,
+                            y: value
+                        }
+                    })
             }
         ]
         chart.updateSeries(series)
 
         const shadowSeries = [
             {
-                data: set.map(([time, close]) => {
-                    const value = parseFloat(close) * $marketData.rates[$fiatCurrency]
-                    return {
-                        x: time,
-                        y: value + (max - value) * 0.4
-                    }
-                })
+                data: set
+                    .filter((_item, index) => index % 2 !== 0)
+                    .map(([time, close]) => {
+                        const value = parseFloat(close) * $marketData.rates[$fiatCurrency]
+                        return {
+                            x: time,
+                            y: value + (max - value) * 0.4
+                        }
+                    })
             }
         ]
         shadowChart.updateSeries(shadowSeries)
