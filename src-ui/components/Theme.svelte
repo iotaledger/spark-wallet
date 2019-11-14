@@ -215,6 +215,16 @@
         box-shadow: 0px 20px 30px 5px rgba(0, 0, 0, 0.25);
     }
 
+    @media (max-width: 520px) {
+        :global(html, body) {
+            background: none;
+        }
+        main {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    }
+
     @media only screen and (max-height: 560px) {
         :global(html, body) {
             display: block;
