@@ -8,7 +8,6 @@ extern crate serde_derive;
 
 use unwrap::unwrap;
 use system_uri::{install, App, SystemUriError};
-use std::env;
 
 mod cmd;
 
@@ -45,9 +44,11 @@ fn main() {
               let username = "wallet";
 
               let keyring = keyring::Keyring::new(&service, &username);
-              keyring.set_password(&secret);
 
-              let _response = _webview.eval(&format!("window[\"{}\"]({:?})", callback, "OK"));
+              match keyring.set_password(&secret) {
+                Ok(_s) => _webview.eval(&format!("window[\"{}\"]()", callback)).unwrap(),
+                Err(_e) => _webview.eval(&format!("window[\"{}\"]()", callback)).unwrap(),
+              };
             },
             GetSecret { callback } => {
               let service = "spark_wallet";
@@ -56,8 +57,8 @@ fn main() {
               let keyring = keyring::Keyring::new(&service, &username);
               
               match keyring.get_password() {
-                Ok(secret) => _webview.eval(&format!("window[\"{}\"]({:?})", callback, secret)),
-                Err(_s) => _webview.eval(&format!("window[\"{}\"]({:?})", callback, "")),
+                Ok(s) => _webview.eval(&format!("window[\"{}\"]({:?})", callback, s)).unwrap(),
+                Err(_e) => _webview.eval(&format!("window[\"{}\"]()", callback)).unwrap(),
               };
             }
           }
