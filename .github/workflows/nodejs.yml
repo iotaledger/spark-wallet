@@ -13,11 +13,11 @@ jobs:
       uses: actions/setup-node@master
       with:
         node-version: 12.x
-    - name: npm test
+    - name: Run tests
       run: |
-        npm ci
+        yarn install --frozen-lockfile
         cd .tests
-        npm ci
-        npm test
+        yarn install --frozen-lockfile
+        yarn test
       env:
         CI: true
