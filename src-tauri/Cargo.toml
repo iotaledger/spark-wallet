@@ -2,7 +2,6 @@
 name = "spark-wallet"
 version = "0.1.0"
 description = "Spark wallet"
-author = [ "IOTA Foundation <contact@iota.org>" ]
 license = "mit"
 repository = "https://github.com/iotaledger/spark-wallet"
 default-run = "spark-wallet"

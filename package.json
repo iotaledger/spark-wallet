@@ -6,7 +6,7 @@
         "dev": "webpack-dev-server --content-base .build/ --port 3000 --host 0.0.0.0",
         "dev:ios": "concurrently \"npm run dev:browser\" \"cap open ios\"",
         "build": "cross-env NODE_ENV=production webpack",
-        "build:desktop": "npm run build:ui && tauri build",
+        "build:desktop": "npm run build && tauri build",
         "test": "jest .tests"
     },
     "keywords": [],
