@@ -2,6 +2,7 @@ const path = require('path')
 const CopyPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const WorkboxPlugin = require('workbox-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const mode = process.env.NODE_ENV || 'development'
 const devMode = mode !== 'production'
@@ -27,11 +28,6 @@ module.exports = {
         __dirname: false,
         fs: 'empty'
     },
-    optimization: {
-        splitChunks: {
-            chunks: 'all'
-        }
-    },
     module: {
         noParse: /\.wasm$/,
         rules: [
@@ -45,7 +41,8 @@ module.exports = {
                 use: {
                     loader: 'svelte-loader',
                     options: {
-                        hotReload: devMode
+                        hotReload: devMode,
+                        emitCss: true
                     }
                 }
             },
@@ -53,6 +50,19 @@ module.exports = {
                 test: /\.wasm$/,
                 loaders: ['base64-loader'],
                 type: 'javascript/auto'
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            publicPath: '../',
+                            hmr: devMode
+                        }
+                    },
+                    'css-loader'
+                ]
             }
         ]
     },
@@ -67,12 +77,14 @@ module.exports = {
         ]),
         new HtmlWebpackPlugin({
             template: './src-ui/index.html',
-            filename: './index.html'
+            filename: './index.html',
+            minify: true
         }),
         new WorkboxPlugin.GenerateSW({
             clientsClaim: true,
             skipWaiting: true
-        })
+        }),
+        new MiniCssExtractPlugin()
     ],
     mode,
     devtool: devMode ? 'source-map' : false

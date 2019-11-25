@@ -1,6 +1,6 @@
 <script>
     import { onMount } from 'svelte'
-    import ApexCharts from 'apexcharts'
+    import Chartist from 'chartist'
 
     import { marketData } from '~/lib/market'
     import { fiatCurrency } from '~/lib/app'
@@ -29,202 +29,105 @@
         let max = 0
         let min = 100
 
-        const series = [
-            {
-                data: [
-                    {
-                        x: set[set.length - 1][0],
-                        y: parseFloat(set[set.length - 1][1]) * $marketData.rates[$fiatCurrency]
-                    }
-                ]
-            },
-            {
-                data: set
-                    .filter((_item, index) => index % 2 !== 0)
-                    .map(([time, close]) => {
-                        const value = parseFloat(close) * $marketData.rates[$fiatCurrency]
-                        if (value > max) {
-                            max = value
-                        }
-                        if (value < min) {
-                            min = value
-                        }
-                        return {
-                            x: time,
-                            y: value
-                        }
-                    })
-            }
-        ]
-        chart.updateSeries(series)
+        const dataSet = set
+            .filter((_item, index) => index % 3 !== 0)
+            .map(([time, close]) => {
+                const value = parseFloat(close) * $marketData.rates[$fiatCurrency]
+                if (value > max) {
+                    max = value
+                }
+                if (value < min) {
+                    min = value
+                }
+                return {
+                    x: time,
+                    y: value
+                }
+            })
 
-        const shadowSeries = [
-            {
-                data: set
-                    .filter((_item, index) => index % 2 !== 0)
-                    .map(([time, close]) => {
-                        const value = parseFloat(close) * $marketData.rates[$fiatCurrency]
-                        return {
-                            x: time,
-                            y: value + (max - value) * 0.4
-                        }
-                    })
-            }
-        ]
-        shadowChart.updateSeries(shadowSeries)
+        const series = {
+            labels: dataSet.map((item) => item.x),
+            series: [dataSet.map((item) => item.y)]
+        }
 
-        shadowChart.updateOptions({
-            yaxis: {
-                min
-            }
-        })
+        const shadowSeries = {
+            labels: dataSet.map((item) => item.x),
+            series: [dataSet.map((item) => item.y + (max - item.y) * 0.4)]
+        }
+
+        setTimeout(() => {
+            chart.update(series)
+            shadowChart.update(shadowSeries)
+        }, 100)
     }
 
     onMount(() => {
         const options = {
-            chart: {
-                type: 'line',
-                height: '100%',
-                toolbar: {
-                    show: false
-                },
-                animations: {
-                    enabled: false
-                }
+            fullWidth: true,
+            height: 140,
+            width: Math.min(460, window.innerWidth),
+            chartPadding: {
+                left: 0,
+                right: 40,
+                top: 0,
+                bottom: 0
             },
-            stroke: {
-                curve: 'smooth'
+            showPoint: true,
+            axisY: {
+                showLabel: false,
+                showGrid: false,
+                offset: 0
             },
-            series: [
-                {
-                    name: '$',
-                    data: [0, 1, 2]
-                }
-            ],
-            legend: {
-                show: false
-            },
-            xaxis: {
-                show: false,
-                labels: {
-                    show: false
-                },
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: false
-                },
-                tooltip: {
-                    enabled: false
-                }
-            },
-            yaxis: {
-                show: false
-            },
-            grid: {
-                show: false,
-                padding: {
-                    left: 0,
-                    right: 0
-                }
-            },
-            tooltip: {
-                marker: {
-                    show: false
-                },
-                x: {
-                    show: true,
-                    formatter: (val) => formatDate(val)
-                },
-                y: {
-                    show: true,
-                    formatter: (val) => Math.round(val * 1000) / 1000,
-                    title: {
-                        formatter: (seriesName) => ''
-                    }
-                }
-            },
-            dataLabels: {
-                enabled: true,
-                enabledOnSeries: [0],
-                formatter: (value) => {
-                    return Math.round(value * 1000) / 1000
-                },
-                style: {
-                    fontSize: '12px'
-                }
-            },
-            markers: {
-                size: [5, 0],
-                colors: ['#3569D7'],
-                strokeColors: '#fff',
-                strokeWidth: 2,
-                fillOpacity: 1,
-                strokeOpacity: 1,
-                hover: {
-                    size: 5
-                }
+            axisX: {
+                showLabel: false,
+                showGrid: false,
+                offset: 0
             }
         }
 
-        chart = new ApexCharts(container, options)
-        chart.render()
+        chart = new Chartist.Line(container, null, options)
 
-        const shadowOptions = Object.assign({}, options, {
-            chart: {
-                type: 'area',
-                height: '100%',
-                toolbar: {
-                    show: false
-                },
-                animations: {
-                    enabled: false
-                }
-            },
-            stroke: {
-                curve: 'smooth',
-                width: 0
-            },
-            fill: {
-                type: 'gradient',
-                gradient: {
-                    type: 'vertical',
-                    shadeIntensity: 1,
-                    colorStops: [
-                        {
-                            offset: 30,
-                            color: 'var(--chart-bg)',
-                            opacity: 1
-                        },
-                        {
-                            offset: 100,
-                            color: 'var(--bg)',
-                            opacity: 1
-                        }
-                    ]
-                }
-            },
-            dataLabels: {
-                enabled: false
-            },
-            markers: {
-                size: 0
+        shadowChart = new Chartist.Line(
+            shadowContainer,
+            null,
+            Object.assign(options, { height: 160, showArea: true, showLine: false, chartPadding: 0 })
+        )
+
+        chart.on('draw', function(data) {
+            if (data.type === 'point') {
+                const circle = new Chartist.Svg('circle', {
+                    cx: data.x,
+                    cy: data.y,
+                    r: 6
+                })
+                data.group
+                    .elem('text', {
+                        x: data.x - 12,
+                        y: data.y - 16,
+                        textAnchor: 'middle',
+                        align: 'center'
+                    })
+                    .text('$' + Math.round(data.value.y * 1000) / 1000)
+                data.element.replace(circle)
             }
         })
-
-        shadowChart = new ApexCharts(shadowContainer, shadowOptions)
-        shadowChart.render()
     })
 </script>
 
 <style>
-    charts,
-    chart {
+    charts {
         display: block;
         position: relative;
         width: 100%;
         height: 200px;
+    }
+
+    chart,
+    charts svg {
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 160px;
     }
 
     @media only screen and (max-height: 600px) {
@@ -234,26 +137,64 @@
         }
     }
 
+    #chartGradient .gradient-top {
+        stop-color: var(--chart-bg);
+    }
+
+    #chartGradient .gradient-bottom {
+        stop-color: var(--bg);
+    }
+
     charts {
         overflow: hidden;
         margin-bottom: 5px;
         transform: translate3d(0, 0, 0);
     }
-    chart:nth-of-type(1) {
+
+    charts > svg {
         position: absolute;
-        left: -10px;
-        top: 20px;
-        width: calc(100% - 30px);
+    }
+
+    chart:nth-of-type(1) {
+        top: 30px;
         z-index: 2;
     }
 
     chart:nth-of-type(2) {
-        position: absolute;
         width: calc(100% + 100px);
         left: 50%;
         top: 0px;
         transform: translate(-50%, 0);
         pointer-events: none;
+    }
+
+    :global(chart:nth-of-type(1) path) {
+        fill: none;
+        stroke: var(--chart-fg);
+        stroke-width: 3;
+    }
+
+    :global(chart:nth-of-type(1) circle, chart:nth-of-type(1) text) {
+        display: none;
+    }
+
+    :global(chart:nth-of-type(1) circle:last-of-type) {
+        display: block;
+        stroke: #fff;
+        fill: #3569d7;
+        stroke-width: 3;
+    }
+
+    :global(chart:nth-of-type(1) text:last-of-type) {
+        display: block;
+        fill: var(--fg);
+        font-weight: 600;
+        font-size: 12px;
+    }
+
+    :global(chart:nth-of-type(2) path) {
+        fill: url(#chartGradient);
+        stroke: none;
     }
 
     nav {
@@ -277,18 +218,15 @@
         background: var(--chart-button-bg);
         color: var(--chart-button-fg);
     }
-    :global(.apexcharts-datalabels text) {
-        font-weight: 600;
-        fill: var(--fg);
-        transform: translate(0, -8px);
-    }
-    :global(.apexcharts-line) {
-        stroke: var(--chart-fg);
-        stroke-width: 3;
-    }
 </style>
 
 <charts>
+    <svg width="100%" height="160" xmlns="http://www.w3.org/2000/svg">
+        <linearGradient id="chartGradient" gradientTransform="rotate(90)">
+            <stop class="gradient-top" offset="0%" />
+            <stop class="gradient-bottom" offset="100%" />
+        </linearGradient>
+    </svg>
     <chart bind:this={container} />
     <chart bind:this={shadowContainer} />
 </charts>

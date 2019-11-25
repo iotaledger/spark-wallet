@@ -1,20 +1,21 @@
-import kdbxweb from 'kdbxweb'
 import argon2 from 'argon2-browser'
 
-kdbxweb.CryptoEngine.argon2 = async (password, salt, memory, iterations, length, parallelism, type, version) => {
-    const hash = await argon2.hash({
-        pass: new Uint8Array(password),
-        salt: new Uint8Array(salt),
-        mem: memory,
-        time: iterations,
-        hashLen: length,
-        parallelism
-    })
-
-    return hash.hash
-}
-
 const createVault = async (password: string, seed: string) => {
+    const kdbxweb = await import('kdbxweb')
+
+    kdbxweb.CryptoEngine.argon2 = async (password, salt, memory, iterations, length, parallelism, type, version) => {
+        const hash = await argon2.hash({
+            pass: new Uint8Array(password),
+            salt: new Uint8Array(salt),
+            mem: memory,
+            time: iterations,
+            hashLen: length,
+            parallelism
+        })
+
+        return hash.hash
+    }
+
     const credentials = new kdbxweb.Credentials(kdbxweb.ProtectedValue.fromString(password), null)
     const db = kdbxweb.Kdbx.create(credentials, 'Trinity')
 
