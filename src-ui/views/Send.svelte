@@ -1,10 +1,12 @@
 <script>
+    import { Plugins } from '@capacitor/core'
+
     import QrScanner from 'qr-scanner'
     QrScanner.WORKER_PATH = '/scanner.worker.min.js'
 
     import { onMount } from 'svelte'
 
-    import { formatValue, goto, parseLink, getIotas } from '~/lib/helpers'
+    import { formatValue, goto, parseLink, getIotas, getPlatform } from '~/lib/helpers'
     import { account, balance, history, sendState } from '~/lib/account'
     import { marketPrice } from '~/lib/market'
     import { notification, error } from '~/lib/app'
@@ -21,10 +23,10 @@
     let reference = ''
     let unit = 'Mi'
 
-    let camera
+    let video
     let scanner
+    let camera
     let cameraError = false
-    let cameraEnabled = false
 
     const onSend = async () => {
         try {
@@ -66,46 +68,98 @@
         goto('')
     }
 
-    const launchScanner = (stream) => {
-        scanner = new QrScanner(camera, (data) => {
-            const result = parseLink(data)
-            if (result) {
-                cda = result
+    const setCDA = (result) => {
+        cda = result
 
-                if (result.expectedAmount) {
-                    const value = formatValue(result.expectedAmount)
-                    amount = value.value
-                    unit = value.unit
-                }
+        if (result.expectedAmount) {
+            const value = formatValue(result.expectedAmount)
+            amount = value.value
+            unit = value.unit
+        }
 
-                reference = result.reference || ''
-
-                scanner.destroy()
-                scanner = null
-            }
-        })
-        scanner.start()
-        cameraEnabled = true
+        reference = result.reference || ''
     }
 
-    onMount(() => {
-        sendState.set('idle')
-
+    const scannerDesktop = (stream) => {
         try {
             if (!navigator.getUserMedia) {
                 cameraError = true
             } else {
-                navigator.getUserMedia({ video: true, audio: false }, launchScanner, () => {
-                    cameraError = true
-                })
+                navigator.getUserMedia(
+                    { video: true, audio: false },
+                    () => {
+                        scanner = new QrScanner(video, (data) => {
+                            const result = parseLink(data)
+                            if (result) {
+                                setCDA(result)
+                                scanner.destroy()
+                                scanner = null
+                            }
+                        })
+                        scanner.start()
+                    },
+                    () => {
+                        cameraError = true
+                    }
+                )
             }
         } catch (err) {
             cameraError = true
         }
+    }
 
-        return () => {
-            if (scanner) {
-                scanner.destroy()
+    const scannerMobile = async (init) => {
+        if (typeof init === 'boolean') {
+            try {
+                const { CameraPreview } = Plugins
+                camera = CameraPreview
+
+                await camera.start({ position: 'rear' })
+            } catch (err) {
+                cameraError = true
+            }
+        }
+
+        try {
+            if (camera) {
+                const capture = await camera.capture()
+                const img = new Image()
+                img.src = `data:image/jpeg;base64,${capture.value}`
+
+                const data = await QrScanner.scanImage(img)
+                const result = parseLink(data)
+
+                if (result) {
+                    setCDA(result)
+                    camera.stop()
+                    camera = null
+                } else {
+                    requestAnimationFrame(scannerMobile)
+                }
+            }
+        } catch (err) {
+            requestAnimationFrame(scannerMobile)
+        }
+    }
+
+    onMount(async () => {
+        sendState.set('idle')
+
+        if (getPlatform() === 'mobile') {
+            scannerMobile(true)
+            return () => {
+                if (camera) {
+                    camera.stop()
+                    camera = null
+                }
+            }
+        } else {
+            scannerDesktop()
+            return () => {
+                if (scanner) {
+                    scanner.destroy()
+                    scanner = null
+                }
             }
         }
     })
@@ -237,8 +291,8 @@
         {#if cameraError}
             <form>TOOD: No camera available view</form>
         {:else}
-            <scanner class:enabled={cameraEnabled}>
-                <video bind:this={camera} autoplay playsinline />
+            <scanner class:enabled={scanner}>
+                <video bind:this={video} autoplay playsinline />
                 <svg width="204" height="204" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M167 10V0h26.976c5.523 0 10 4.477 10 10v27h-10V10H167zM36.976 10H10v27H0V10C0 4.477 4.477 0 10

@@ -327,3 +327,13 @@ export const setClipboard = (input: string): boolean => {
         return false
     }
 }
+
+/**
+ * Get current runtime platform
+ */
+export const getPlatform = (): 'mobile' | 'desktop' => {
+    if (navigator.userAgent.indexOf('Android') >= 0 || /iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+        return 'mobile'
+    }
+    return 'desktop'
+}

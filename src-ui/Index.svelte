@@ -50,7 +50,7 @@
                 <Setup />
             {/if}
         </Route>
-        <Route route="send" left>
+        <Route route="send" left transparent>
             <Send />
         </Route>
         <Route route="request">
