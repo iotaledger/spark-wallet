@@ -225,11 +225,12 @@
 
     @media (max-width: 520px) {
         :global(html, body) {
-            background: none;
+            background: transparent;
         }
         main {
             max-width: 100%;
             max-height: 100%;
+            background: none;
         }
     }
 

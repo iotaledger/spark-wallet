@@ -154,7 +154,7 @@
     which "^1.3.0"
     xml2js "^0.4.19"
 
-"@capacitor/core@^1.3.0":
+"@capacitor/core@^1.3.0", "@capacitor/core@latest":
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@capacitor/core/-/core-1.3.0.tgz#d1a319f14888f29c87dadaeea36b2949365344a6"
   integrity sha512-cVllg+OaYAPCsWOOOuMDqIk0tqjTH1QEBNgTKhAwLJraYy0w5CziUW5gtcmKXTRqD3dzUlHjx1emCKXrg0DACg==
@@ -1206,6 +1206,13 @@ camelcase@^5.0.0:
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-5.3.1.tgz#e3c9b31569e106811df242f715725a1f4c494320"
   integrity sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==
+
+capacitor-camera-preview@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/capacitor-camera-preview/-/capacitor-camera-preview-0.2.0.tgz#8ae2252943ceb57cf56f66084ebdbf57ff28c586"
+  integrity sha512-Fpy54zbfcu/O4NuaYQBk1L2LVgXJXPa/3kLxTqXOCekyIOIU3teOu/d4zW/neBzkwmmVGbFBSRujjutctHA55A==
+  dependencies:
+    "@capacitor/core" latest
 
 chai@^4.1.2:
   version "4.2.0"
