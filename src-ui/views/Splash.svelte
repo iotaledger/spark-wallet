@@ -23,7 +23,7 @@
 </script>
 
 <style>
-    main {
+    :global(main.splash) {
         display: flex;
         justify-content: space-between;
         flex-direction: column;
@@ -33,7 +33,8 @@
         color: var(--primary-fg);
         padding: 66px 0 55px;
     }
-    h1 {
+
+    :global(main.splash h1) {
         text-align: center;
         font-size: 14px;
         line-height: 18px;
@@ -41,17 +42,18 @@
         text-transform: uppercase;
         letter-spacing: 0.4em;
     }
-    p {
+
+    :global(main.splash p) {
         text-align: left;
         width: 85px;
     }
 
-    p span {
+    :global(main.splash p span) {
         letter-spacing: 0.1em;
     }
 </style>
 
-<main>
+<main class="splash">
     <Icon icon="logo" primary />
     <h1>
         An IOTA Labs

@@ -38,7 +38,7 @@
 <style>
     @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap');
 
-    main {
+    :global(body > main) {
         --max-width: 460px;
         --max-height: 680px;
 
@@ -84,7 +84,8 @@
         --dropdown-active: #fff0d2;
         --dropdown-hover: #f4f4f4;
     }
-    main.dark {
+
+    :global(body > main.dark) {
         --bg: #485776;
         --fg: #fff;
         --fg-hover: #e0e4ec;
@@ -196,18 +197,22 @@
         font-weight: 600;
         margin-bottom: 9px;
     }
+    
     :global(label) {
         display: block;
         font-weight: 600;
         margin-bottom: 7px;
     }
+
     :global(label span) {
         font-weight: 600;
     }
+
     :global(svg) {
         overflow: visible;
     }
-    main {
+
+    :global(body > main) {
         width: 100%;
         height: 100%;
         max-width: var(--max-width);
