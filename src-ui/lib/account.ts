@@ -1,5 +1,5 @@
 import { derived, get, writable, Writable } from 'svelte/store'
-import { createAccount, Account } from '@iota/account'
+import { Account } from '@iota/account'
 import { CDAParams, CDA } from '@iota/cda'
 
 import { cda, persistent, getRandomNode } from '~/lib/helpers'
@@ -94,6 +94,8 @@ export const account = derived<Writable<string>, Account<CDAParams, CDA, readonl
         const setAccount = async (): Promise<void> => {
             try {
                 await new Promise((resolve) => setTimeout(resolve, 400))
+
+                const { createAccount } = await import('@iota/account')
 
                 const provider = await getRandomNode()
 

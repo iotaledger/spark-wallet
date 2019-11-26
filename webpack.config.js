@@ -1,6 +1,7 @@
 const path = require('path')
 const CopyPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 const WorkboxPlugin = require('workbox-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
@@ -69,16 +70,15 @@ module.exports = {
     plugins: [
         new CopyPlugin([
             { from: './node_modules/qr-scanner/qr-scanner-worker.min.js', to: './scanner.worker.min.js' },
-            { from: './src-ui/assets/manifest.json', to: './manifest.json' },
-            { from: './src-ui/assets/worker.js', to: './worker.js' },
-            { from: './src-ui/assets/bg.jpg', to: './bg.jpg' },
-            { from: './src-ui/assets/bg-dark.jpg', to: './bg-dark.jpg' },
-            { from: './src-ui/assets/favicon.ico', to: './favicon.ico' }
+            { from: './src-ui/assets/*', to: './', flatten: true }
         ]),
         new HtmlWebpackPlugin({
             template: './src-ui/index.html',
             filename: './index.html',
             minify: true
+        }),
+        new ScriptExtHtmlWebpackPlugin({
+            defaultAttribute: 'defer'
         }),
         new WorkboxPlugin.GenerateSW({
             clientsClaim: true,

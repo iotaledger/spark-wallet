@@ -4,11 +4,9 @@
     import { marketPrice } from '~/lib/market'
     import { getIotas, createLink, getTimeUnits, setClipboard } from '~/lib/helpers'
 
-    import { Amount, Footer, Header, Button } from '~/components'
+    import { Amount, Berny, Footer, Header, Button } from '~/components'
     import { notification } from '~/lib/app'
     import { QR } from '~/components'
-
-    import Berny from '~/assets/Berny'
 
     let amount = null
     let unit = 'Mi'

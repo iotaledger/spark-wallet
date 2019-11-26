@@ -1,8 +1,7 @@
 <script>
     import { onMount } from 'svelte'
 
-    import { Icon } from '~/components'
-    import Rocketman from '~/assets/Rocketman'
+    import { Rocketman, Icon } from '~/components'
 
     let index = 0
     let frame

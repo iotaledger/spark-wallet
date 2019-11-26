@@ -3,8 +3,7 @@
     import { generateSeed } from '~/lib/helpers'
     import { seed } from '~/lib/account'
 
-    import Berny from '~/assets/Berny'
-    import { Button, Footer, Icon } from '~/components'
+    import { Berny, Button, Footer, Icon } from '~/components'
 
     async function setSeed() {
         try {
