@@ -11,9 +11,7 @@
     import { marketPrice } from '~/lib/market'
     import { notification, error } from '~/lib/app'
 
-    import { Address, Amount, Button, Footer, Header, Spinner } from '~/components'
-
-    import Berny from '~/assets/Berny'
+    import { Address, Amount, Berny, Button, Footer, Header, Spinner } from '~/components'
 
     $: currentBalance = formatValue($balance)
 

@@ -1,6 +1,4 @@
 <script>
-    import { generatePersistenceID } from '@iota/persistence'
-    import { trytesToTrits } from '@iota/converter'
     import cc from 'currency-codes'
 
     import { Export, Button, Dropdown, Footer, Header, Icon, Tabs, Toggle, Warning } from '~/components'
@@ -31,8 +29,11 @@
         fiatCurrency.set(currency)
     }
 
-    const destroyWallet = () => {
+    const destroyWallet = async () => {
         try {
+            const { generatePersistenceID } = await import('@iota/persistence')
+            const { trytesToTrits } = await import('@iota/converter')
+
             const dbID = generatePersistenceID(trytesToTrits($seed))
 
             if ($account) {

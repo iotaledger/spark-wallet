@@ -36,7 +36,29 @@
 </script>
 
 <style>
-    @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap');
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: local('Poppins Regular'), local('Poppins-Regular'), url('/poppins-regular.woff2') format('woff2');
+    }
+
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: local('Poppins Medium'), local('Poppins-Medium'), url('/poppins-medium.woff2') format('woff2');
+    }
+
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: local('Poppins SemiBold'), local('Poppins-SemiBold'), url('/poppins-semibold.woff2') format('woff2');
+    }
 
     :global(body > main) {
         --max-width: 460px;

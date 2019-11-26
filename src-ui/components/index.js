@@ -3,8 +3,10 @@ import Chart from '~/components/Chart'
 import Footer from '~/components/Footer'
 import Header from '~/components/Header'
 import Icon from '~/components/Icon'
+import Berny from '~/components/Berny'
 import Notification from '~/components/Notification'
 import QR from '~/components/QR'
+import Rocketman from '~/components/Rocketman'
 import Route from '~/components/Route'
 import Tabs from '~/components/Tabs'
 import Theme from '~/components/Theme'
@@ -23,6 +25,7 @@ import Export from '~/components/popups/Export'
 export {
     Address,
     Amount,
+    Berny,
     Button,
     Chart,
     Dropdown,
@@ -34,6 +37,7 @@ export {
     Notification,
     Toggle,
     QR,
+    Rocketman,
     Route,
     Tabs,
     Transaction,
