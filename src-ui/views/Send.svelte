@@ -26,6 +26,8 @@
     let camera
     let cameraError = false
 
+    let paymentLink = ''
+
     const onSend = async () => {
         try {
             const value = getIotas(amount, unit, $marketPrice)
@@ -61,6 +63,23 @@
         }
     }
 
+    const onPaste = (e) => {
+        const data = (event.clipboardData || window.clipboardData).getData('text')
+        const result = parseLink(data)
+        if (result) {
+            setCDA(result)
+        }
+    }
+
+    const onPaymentLink = () => {
+        const result = parseLink(paymentLink)
+        if (result) {
+            setCDA(result)
+        } else {
+            error.set('Invalid payment link')
+        }
+    }
+
     const resetSend = () => {
         sendState.set('idle')
         goto('')
@@ -85,7 +104,8 @@
             } else {
                 navigator.getUserMedia(
                     { video: true, audio: false },
-                    () => {
+                    (stream) => {
+                        stream.getTracks().forEach((track) => track.stop())
                         scanner = new QrScanner(video, (data) => {
                             const result = parseLink(data)
                             if (result) {
@@ -96,7 +116,8 @@
                         })
                         scanner.start()
                     },
-                    () => {
+                    (err) => {
+                        error.set(`Camera: ${err.message || err}`)
                         cameraError = true
                     }
                 )
@@ -114,6 +135,7 @@
 
                 await camera.start({ position: 'rear' })
             } catch (err) {
+                error.set(`Camera: ${err.message || err}`)
                 cameraError = true
             }
         }
@@ -140,24 +162,23 @@
         }
     }
 
-    onMount(async () => {
+    onMount(() => {
         sendState.set('idle')
 
         if (getPlatform() === 'mobile') {
             scannerMobile(true)
-            return () => {
-                if (camera) {
-                    camera.stop()
-                    camera = null
-                }
-            }
         } else {
             scannerDesktop()
-            return () => {
-                if (scanner) {
-                    scanner.destroy()
-                    scanner = null
-                }
+        }
+
+        return () => {
+            if (camera) {
+                camera.stop()
+                camera = null
+            }
+            if (scanner) {
+                scanner.destroy()
+                scanner = null
             }
         }
     })
@@ -174,6 +195,11 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+    }
+
+    main.vertical {
+        display: flex;
+        align-items: center;
     }
 
     balance {
@@ -263,6 +289,8 @@
     }
 </style>
 
+<svelte:window on:paste={onPaste} />
+
 {#if $sendState === 'sending'}
     <main class="center">
         <Spinner />
@@ -287,7 +315,15 @@
     <balance>Current balance: {currentBalance.rounded} {currentBalance.unit}</balance>
     {#if !cda}
         {#if cameraError}
-            <form>TOOD: No camera available view</form>
+            <main class="vertical">
+                <form>
+                    <label>Payment link</label>
+                    <input placeholder="iota://ABCDEFGH" type="text" bind:value={paymentLink} />
+                </form>
+            </main>
+            <Footer>
+                <Button disabled={paymentLink.length === 0} onClick={onPaymentLink} label="Send" />
+            </Footer>
         {:else}
             <scanner class:enabled={scanner}>
                 <video bind:this={video} autoplay playsinline />
