@@ -81,9 +81,9 @@
         --trinary-dark: #1f5571;
         --light: #c2c7d1;
         --dark: #556273;
-        --warning: #ef562d;
+        --warning: #d33f49;
         --warning-fg: #fff;
-        --warning-hover: #f03f0f;
+        --warning-hover: #c02e38;
         --success: #67dab0;
         --input-bg: #fff;
         --input-border: #d1dae2;
@@ -219,7 +219,7 @@
         font-weight: 600;
         margin-bottom: 9px;
     }
-    
+
     :global(label) {
         display: block;
         font-weight: 600;
