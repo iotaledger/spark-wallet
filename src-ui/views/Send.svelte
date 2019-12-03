@@ -1,5 +1,5 @@
 <script>
-    import { Plugins } from '@capacitor/core'
+    import { Capacitor, Plugins } from '@capacitor/core'
 
     import QrScanner from 'qr-scanner'
     QrScanner.WORKER_PATH = '/scanner.worker.min.js'
@@ -97,7 +97,7 @@
         reference = result.reference || ''
     }
 
-    const scannerDesktop = (stream) => {
+    const scannerWeb = (stream) => {
         try {
             if (!navigator.getUserMedia) {
                 cameraError = true
@@ -165,10 +165,10 @@
     onMount(() => {
         sendState.set('idle')
 
-        if (getPlatform() === 'mobile') {
-            scannerMobile(true)
+        if (Capacitor.getPlatform() === 'web') {
+            scannerWeb()
         } else {
-            scannerDesktop()
+            scannerMobile(true)
         }
 
         return () => {
@@ -187,19 +187,15 @@
 <style>
     main {
         flex: 1;
-        padding: 0 20px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 20px 20px 0;
     }
 
     main.center {
-        display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: center;
-    }
-
-    main.vertical {
-        display: flex;
-        align-items: center;
     }
 
     balance {
@@ -225,7 +221,6 @@
 
     logo {
         display: block;
-        margin: 55px auto 35px;
         text-align: center;
     }
 
@@ -248,8 +243,7 @@
     }
 
     form {
-        flex: 1;
-        padding: 20px;
+        width: 100%;
     }
 
     h4 {
@@ -270,7 +264,6 @@
     receiver {
         display: block;
         text-align: center;
-        margin-bottom: 48px;
     }
 
     main.center p {
@@ -315,7 +308,7 @@
     <balance>Current balance: {currentBalance.rounded} {currentBalance.unit}</balance>
     {#if !cda}
         {#if cameraError}
-            <main class="vertical">
+            <main class="center">
                 <form>
                     <label>Payment link</label>
                     <input placeholder="iota://ABCDEFGH" type="text" bind:value={paymentLink} />
@@ -337,24 +330,28 @@
         {/if}
     {:else}
         <main>
+            <div />
             <logo>
                 <Berny size={120} />
             </logo>
-            {#if cda && cda.expectedAmount}
-                <h4>
-                    <strong>{amount}</strong>
-                    <small>{unit}</small>
-                </h4>
-            {/if}
-            <receiver>{`To ${cda && cda.receiver ? cda.receiver : 'anonymous recipient'}`}</receiver>
-            {#if !cda || !cda.expectedAmount}
-                <label>Amount</label>
-                <Amount bind:amount bind:unit />
-            {/if}
+            <div>
+                {#if cda && cda.expectedAmount}
+                    <h4>
+                        <strong>{amount}</strong>
+                        <small>{unit}</small>
+                    </h4>
+                {/if}
+                <receiver>{`To ${cda && cda.receiver ? cda.receiver : 'anonymous recipient'}`}</receiver>
+            </div>
+            <form>
+                {#if !cda || !cda.expectedAmount}
+                    <label>Amount</label>
+                    <Amount bind:amount bind:unit />
+                {/if}
 
-            <label>Transaction note</label>
-            <input placeholder="Optional reference" type="text" bind:value={reference} />
-
+                <label>Transaction note</label>
+                <input placeholder="Optional reference" type="text" bind:value={reference} />
+            </form>
         </main>
 
         <Footer>

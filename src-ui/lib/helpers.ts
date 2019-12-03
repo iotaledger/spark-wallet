@@ -186,7 +186,7 @@ export const createLink = (
         link = `${link}&amount=${getIotas(amount, unit, marketPrice)}`
     }
 
-    if (typeof receiver === 'string' && message.length) {
+    if (typeof receiver === 'string' && receiver.length) {
         link = `${link}&receiver=${encodeURI(receiver)}`
     }
 
@@ -326,14 +326,4 @@ export const setClipboard = (input: string): boolean => {
         console.log(err)
         return false
     }
-}
-
-/**
- * Get current runtime platform
- */
-export const getPlatform = (): 'mobile' | 'desktop' => {
-    if (navigator.userAgent.indexOf('Android') >= 0 || /iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-        return 'mobile'
-    }
-    return 'desktop'
 }

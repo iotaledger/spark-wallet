@@ -93,11 +93,7 @@
             <h2>{balanceDisplay.fiat}</h2>
 
             <div>
-                <Button
-                    onClick={() => goto('history')}
-                    label="Transaction history"
-                    secondary
-                    small />
+                <Button onClick={() => goto('history')} label="Transaction history" secondary small />
             </div>
         </balance>
     </div>
@@ -109,6 +105,6 @@
 
     <Footer>
         <Button disabled={!$account} onClick={() => goto('request')} label="Request" double />
-        <Button disabled={$balance}  onClick={() => goto('send')} label="Send" double />
+        <Button disabled={!$balance} onClick={() => goto('send')} label="Send" double />
     </Footer>
 </main>

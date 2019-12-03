@@ -64,8 +64,6 @@
     onMount(() => {
         const options = {
             fullWidth: true,
-            height: 140,
-            width: Math.min(460, window.innerWidth),
             chartPadding: {
                 left: 0,
                 right: 40,
@@ -90,7 +88,11 @@
         shadowChart = new Chartist.Line(
             shadowContainer,
             null,
-            Object.assign(options, { height: 160, showArea: true, showLine: false, chartPadding: 0 })
+            Object.assign(options, {
+                showArea: true,
+                showLine: false,
+                chartPadding: 0
+            })
         )
 
         chart.on('draw', function(data) {
@@ -130,13 +132,6 @@
         height: 160px;
     }
 
-    @media only screen and (max-height: 600px) {
-        charts,
-        chart {
-            height: 160px;
-        }
-    }
-
     #chartGradient .gradient-top {
         stop-color: var(--chart-bg);
     }
@@ -161,7 +156,7 @@
     }
 
     chart:nth-of-type(2) {
-        width: calc(100% + 100px);
+        width: calc(100% + 40px);
         left: 50%;
         top: 0px;
         transform: translate(-50%, 0);
@@ -221,7 +216,7 @@
 </style>
 
 <charts>
-    <svg width="100%" height="160" xmlns="http://www.w3.org/2000/svg">
+    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
         <linearGradient id="chartGradient" gradientTransform="rotate(90)">
             <stop class="gradient-top" offset="0%" />
             <stop class="gradient-bottom" offset="100%" />
