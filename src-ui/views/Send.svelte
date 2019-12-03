@@ -1,5 +1,5 @@
 <script>
-    import { Plugins } from '@capacitor/core'
+    import { Capacitor, Plugins } from '@capacitor/core'
 
     import QrScanner from 'qr-scanner'
     QrScanner.WORKER_PATH = '/scanner.worker.min.js'
@@ -25,6 +25,8 @@
     let scanner
     let camera
     let cameraError = false
+
+    let paymentLink = ''
 
     const onSend = async () => {
         try {
@@ -61,6 +63,23 @@
         }
     }
 
+    const onPaste = (e) => {
+        const data = (event.clipboardData || window.clipboardData).getData('text')
+        const result = parseLink(data)
+        if (result) {
+            setCDA(result)
+        }
+    }
+
+    const onPaymentLink = () => {
+        const result = parseLink(paymentLink)
+        if (result) {
+            setCDA(result)
+        } else {
+            error.set('Invalid payment link')
+        }
+    }
+
     const resetSend = () => {
         sendState.set('idle')
         goto('')
@@ -78,14 +97,15 @@
         reference = result.reference || ''
     }
 
-    const scannerDesktop = (stream) => {
+    const scannerWeb = (stream) => {
         try {
             if (!navigator.getUserMedia) {
                 cameraError = true
             } else {
                 navigator.getUserMedia(
                     { video: true, audio: false },
-                    () => {
+                    (stream) => {
+                        stream.getTracks().forEach((track) => track.stop())
                         scanner = new QrScanner(video, (data) => {
                             const result = parseLink(data)
                             if (result) {
@@ -96,7 +116,8 @@
                         })
                         scanner.start()
                     },
-                    () => {
+                    (err) => {
+                        error.set(`Camera: ${err.message || err}`)
                         cameraError = true
                     }
                 )
@@ -114,6 +135,7 @@
 
                 await camera.start({ position: 'rear' })
             } catch (err) {
+                error.set(`Camera: ${err.message || err}`)
                 cameraError = true
             }
         }
@@ -140,24 +162,23 @@
         }
     }
 
-    onMount(async () => {
+    onMount(() => {
         sendState.set('idle')
 
-        if (getPlatform() === 'mobile') {
-            scannerMobile(true)
-            return () => {
-                if (camera) {
-                    camera.stop()
-                    camera = null
-                }
-            }
+        if (Capacitor.getPlatform() === 'web') {
+            scannerWeb()
         } else {
-            scannerDesktop()
-            return () => {
-                if (scanner) {
-                    scanner.destroy()
-                    scanner = null
-                }
+            scannerMobile(true)
+        }
+
+        return () => {
+            if (camera) {
+                camera.stop()
+                camera = null
+            }
+            if (scanner) {
+                scanner.destroy()
+                scanner = null
             }
         }
     })
@@ -166,12 +187,13 @@
 <style>
     main {
         flex: 1;
-        padding: 0 20px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 20px 20px 0;
     }
 
     main.center {
-        display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: center;
     }
@@ -199,7 +221,6 @@
 
     logo {
         display: block;
-        margin: 55px auto 35px;
         text-align: center;
     }
 
@@ -222,8 +243,7 @@
     }
 
     form {
-        flex: 1;
-        padding: 20px;
+        width: 100%;
     }
 
     h4 {
@@ -244,7 +264,6 @@
     receiver {
         display: block;
         text-align: center;
-        margin-bottom: 48px;
     }
 
     main.center p {
@@ -262,6 +281,8 @@
         fill: var(--success);
     }
 </style>
+
+<svelte:window on:paste={onPaste} />
 
 {#if $sendState === 'sending'}
     <main class="center">
@@ -287,7 +308,15 @@
     <balance>Current balance: {currentBalance.rounded} {currentBalance.unit}</balance>
     {#if !cda}
         {#if cameraError}
-            <form>TOOD: No camera available view</form>
+            <main class="center">
+                <form>
+                    <label>Payment link</label>
+                    <input placeholder="iota://ABCDEFGH" type="text" bind:value={paymentLink} />
+                </form>
+            </main>
+            <Footer>
+                <Button disabled={paymentLink.length === 0} onClick={onPaymentLink} label="Send" />
+            </Footer>
         {:else}
             <scanner class:enabled={scanner}>
                 <video bind:this={video} autoplay playsinline />
@@ -301,24 +330,28 @@
         {/if}
     {:else}
         <main>
+            <div />
             <logo>
                 <Berny size={120} />
             </logo>
-            {#if cda && cda.expectedAmount}
-                <h4>
-                    <strong>{amount}</strong>
-                    <small>{unit}</small>
-                </h4>
-            {/if}
-            <receiver>{`To ${cda && cda.receiver ? cda.receiver : 'anonymous recipient'}`}</receiver>
-            {#if !cda || !cda.expectedAmount}
-                <label>Amount</label>
-                <Amount bind:amount bind:unit />
-            {/if}
+            <div>
+                {#if cda && cda.expectedAmount}
+                    <h4>
+                        <strong>{amount}</strong>
+                        <small>{unit}</small>
+                    </h4>
+                {/if}
+                <receiver>{`To ${cda && cda.receiver ? cda.receiver : 'anonymous recipient'}`}</receiver>
+            </div>
+            <form>
+                {#if !cda || !cda.expectedAmount}
+                    <label>Amount</label>
+                    <Amount bind:amount bind:unit />
+                {/if}
 
-            <label>Transaction note</label>
-            <input placeholder="Optional reference" type="text" bind:value={reference} />
-
+                <label>Transaction note</label>
+                <input placeholder="Optional reference" type="text" bind:value={reference} />
+            </form>
         </main>
 
         <Footer>

@@ -3,7 +3,7 @@
     "short_name": "Spark wallet",
     "lang": "en-US",
     "start_url": "/",
-    "display": "browser",
+    "display": "fullscreen",
     "background_color": "#eef1f3",
     "theme_color": "#eef1f3",
     "icons": [

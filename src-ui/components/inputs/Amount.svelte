@@ -26,10 +26,10 @@
     }
     div > button {
         position: absolute;
-        top: 7px;
+        top: 8px;
         right: 8px;
         width: 36px;
-        height: 37px;
+        height: 36px;
         border-radius: 5px;
         background: var(--secondary);
         color: var(--secondary-fg);
@@ -39,6 +39,13 @@
         font-weight: 700;
     }
 
+    @media only screen and (max-height: 600px) {
+        div > button {
+            top: 4px;
+            right: 4px;
+        }
+    }
+
     span {
         position: absolute;
         top: 18px;
@@ -46,6 +53,13 @@
         font-size: 13px;
         color: var(--light);
         text-align: right;
+    }
+
+    @media only screen and (max-height: 600px) {
+        span {
+            top: 15px;
+            right: 50px;
+        }
     }
 
     nav {

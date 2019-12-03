@@ -1,5 +1,8 @@
 import Index from './Index.svelte'
 
+/**
+ * Install service worker
+ */
 try {
     if (window.location.hostname !== 'localhost' && 'serviceWorker' in navigator) {
         window.addEventListener('load', () => {
@@ -10,10 +13,17 @@ try {
     console.log(err)
 }
 
+/**
+ * Reset router location
+ */
+
 window.location.hash = ''
 
-const target = document.body
+/**
+ * Init main component
+ */
 
+const target = document.body
 target.innerHTML = ''
 
 const index = new Index({

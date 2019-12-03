@@ -7,7 +7,6 @@
     let qr = null
 
     onMount(async () => {
-        console.log(value)
         qr = await QRCode.toString(value, {
             type: 'svg',
             width: 190,
@@ -25,7 +24,7 @@
         display: block;
         background: var(--box-bg);
         width: 100%;
-        padding: 30px 0 48px;
+        padding: 30px 0;
         border-radius: 10px;
     }
     qr {
@@ -59,7 +58,6 @@
 </style>
 
 <container>
-    <h4>Share QR</h4>
     <qr>
         <div>
             {@html qr}

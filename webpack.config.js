@@ -73,6 +73,7 @@ module.exports = {
             { from: './src-ui/assets/*', to: './', flatten: true },
             { from: './src-ui/assets/icons/*', to: './icons', flatten: true },
             { from: './src-ui/assets/splash/*', to: './splash', flatten: true },
+            { from: './src-ui/assets/flags/*', to: './flags', flatten: true }
         ]),
         new HtmlWebpackPlugin({
             template: './src-ui/index.html',
