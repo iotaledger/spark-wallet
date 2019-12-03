@@ -6,7 +6,8 @@ module.exports = function() {
     return {
         dev: {},
         build: {
-            distDir
+            distDir,
+            devPath: 'http://localhost:3000' // devServer URL or path to html file
         },
         ctx: {},
         tauri: {
