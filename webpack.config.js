@@ -70,7 +70,8 @@ module.exports = {
     plugins: [
         new CopyPlugin([
             { from: './node_modules/qr-scanner/qr-scanner-worker.min.js', to: './scanner.worker.min.js' },
-            { from: './src-ui/assets/*', to: './', flatten: true }
+            { from: './src-ui/assets/*', to: './', flatten: true },
+            { from: './src-ui/assets/flags/*', to: './flags', flatten: true }
         ]),
         new HtmlWebpackPlugin({
             template: './src-ui/index.html',

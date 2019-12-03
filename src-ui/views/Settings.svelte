@@ -16,8 +16,10 @@
             return []
         }
         const result = Object.keys($rates).map((item) => {
+            const currencyData = cc.code(item)
             return {
-                label: cc.code(item).currency,
+                label: currencyData.currency,
+                flag: currencyData.countries[0],
                 value: item
             }
         })
@@ -140,10 +142,14 @@
 {#if tab === 'Basic'}
     <main>
         <label>Language</label>
-        <Dropdown value="English" flag="uk" />
+        <Dropdown value="English" flag="United Kingdom" disabled />
 
         <label>Currency</label>
-        <Dropdown onSelect={changeCurrency} value={cc.code($fiatCurrency).currency} items={currencies} flag="us" />
+        <Dropdown
+            onSelect={changeCurrency}
+            flag={cc.code($fiatCurrency).countries[0]}
+            value={cc.code($fiatCurrency).currency}
+            items={currencies} />
         <hr />
 
         <label class="inline">

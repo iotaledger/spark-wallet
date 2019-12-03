@@ -1,20 +1,31 @@
 <script>
-    import FlagUS from '~/assets/flags/us.svelte'
-    import FlagUK from '~/assets/flags/uk.svelte'
-
-    const flags = {
-        uk: FlagUK,
-        us: FlagUS
-    }
-
-    export let flag
     export let value
     export let items = []
     export let onSelect
+    export let flag = false
+    export let disabled = false
 
     let dropdown = false
 
-    $: Flag = flags[flag]
+    const getFlagName = (country) => {
+        if (country === 'American Samoa') {
+            return 'united-states-of-america'
+        }
+
+        if (country === 'Bouvet Island') {
+            return 'norway'
+        }
+
+        if (country === 'Andorra') {
+            return 'european-union'
+        }
+
+        return country
+            .replace(' (The)', '')
+            .replace(' (The Republic Of)', '')
+            .replace(/\s+/g, '-')
+            .toLowerCase()
+    }
 
     const clickOutside = () => {
         dropdown = false
@@ -46,14 +57,18 @@
         position: absolute;
     }
 
-    flag {
+    div.disabled {
+        opacity: 0.4;
+        pointer-events: none;
+    }
+
+    img {
         position: relative;
         overflow: hidden;
         margin-right: 13px;
         width: 20px;
         height: 20px;
         border-radius: 20px;
-        background: blue;
     }
 
     div p {
@@ -64,14 +79,14 @@
 
     nav {
         position: absolute;
-        top: 48px;
-        left: 4px;
-        width: calc(100% - 8px);
+        top: 56px;
+        left: 0px;
+        width: 100%;
         max-height: 260px;
         overflow-y: scroll;
         background: var(--input-bg);
         box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.25);
-        border-radius: 3px;
+        border-radius: 7px;
         opacity: 0;
         transition: opacity 0.1s cubic-bezier(0.4, 0, 0.2, 1);
         pointer-events: none;
@@ -84,10 +99,11 @@
     }
 
     nav button {
-        display: block;
+        display: flex;
+        align-items: center;
         background: var(--input-bg);
         height: 36px;
-        padding: 0 24px;
+        padding: 0 20px;
         width: 100%;
         text-align: left;
         font-size: 14px;
@@ -112,17 +128,23 @@
 <svelte:window on:click={clickOutside} />
 
 <div
+    class:disabled
     on:click={(e) => {
         e.stopPropagation()
         dropdown = !dropdown
     }}>
-    <flag>
-        <Flag />
-    </flag>
+    {#if flag}
+        <img src="/flags/{getFlagName(flag)}.svg" alt="" />
+    {/if}
     <p>{value}</p>
     <nav class:active={dropdown}>
         {#each items as item}
-            <button on:click={() => onSelect(item.value)} class:active={item.value === value}>{item.label}</button>
+            <button on:click={() => onSelect(item.value)} class:active={item.label === value}>
+                {#if item.flag}
+                    <img src="/flags/{getFlagName(item.flag)}.svg" alt="" />
+                {/if}
+                {item.label}
+            </button>
         {/each}
     </nav>
 </div>

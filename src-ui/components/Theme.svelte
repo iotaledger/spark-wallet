@@ -189,7 +189,7 @@
         font-family: 'Poppins', sans-serif;
         -webkit-appearance: none;
         color: var(--fg);
-        font-size: 13px;
+        font-size: 16px;
         width: 100%;
         height: 52px;
         resize: none;
@@ -210,6 +210,13 @@
     :global(::placeholder) {
         color: var(--input-placeholder);
         font-weight: 600;
+        font-size: 13px;
+    }
+
+    @media only screen and (max-height: 600px) {
+        :global(::placeholder) {
+            line-height: 26px;
+        }
     }
 
     :global(h6) {
@@ -219,7 +226,7 @@
         font-weight: 600;
         margin-bottom: 9px;
     }
-    
+
     :global(label) {
         display: block;
         font-weight: 600;
