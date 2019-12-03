@@ -36,6 +36,7 @@
         flex-direction: column;
         justify-content: space-between;
         height: calc(100% - 65px);
+        overflow: scroll;
     }
 
     header {
