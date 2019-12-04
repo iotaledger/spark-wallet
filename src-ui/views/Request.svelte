@@ -4,7 +4,7 @@
     import { marketPrice } from '~/lib/market'
     import { getIotas, createLink, getTimeUnits, setClipboard } from '~/lib/helpers'
 
-    import { Amount, Berny, Footer, Header, Button } from '~/components'
+    import { Animation, Amount, Berny, Footer, Header, Button } from '~/components'
     import { notification } from '~/lib/app'
     import { QR } from '~/components'
 
@@ -56,13 +56,13 @@
 
     icon {
         display: block;
-        width: 100px;
+        height: 120px;
         margin: -10px auto 5px;
     }
 
     @media only screen and (max-height: 600px) {
         icon {
-            width: 80px;
+            height: 80px;
         }
     }
 
@@ -101,7 +101,7 @@
 {#if !$address}
     <main>
         <icon>
-            <Berny />
+            <Animation type="receive" />
         </icon>
         <label>Amount</label>
         <Amount bind:amount bind:unit />
