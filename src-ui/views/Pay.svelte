@@ -6,7 +6,7 @@
 
     import { onMount } from 'svelte'
 
-    import { formatValue, goto, parseLink, getIotas, getPlatform } from '~/lib/helpers'
+    import { formatValue, getDomain, goto, parseLink, getIotas, getPlatform } from '~/lib/helpers'
     import { account, balance, history, sendState } from '~/lib/account'
     import { marketPrice } from '~/lib/market'
     import { notification, error } from '~/lib/app'
@@ -107,6 +107,7 @@
                     (stream) => {
                         stream.getTracks().forEach((track) => track.stop())
                         scanner = new QrScanner(video, (data) => {
+                            console.log(data)
                             const result = parseLink(data)
                             if (result) {
                                 setCDA(result)
@@ -165,7 +166,12 @@
     onMount(() => {
         sendState.set('idle')
 
-        if (Capacitor.getPlatform() === 'web') {
+        const cdaLink = parseLink()
+
+        if (cdaLink) {
+            setCDA(cdaLink)
+            window.history.pushState('Dashboard', null, '/#pay')
+        } else if (Capacitor.getPlatform() === 'web') {
             scannerWeb()
         } else {
             scannerMobile(true)
@@ -310,7 +316,7 @@
             <main class="center">
                 <form>
                     <label>Payment link</label>
-                    <input placeholder="iota://ABCDEFGH" type="text" bind:value={paymentLink} />
+                    <input placeholder={`${getDomain()}/?address=ABC...`} type="text" bind:value={paymentLink} />
                 </form>
             </main>
             <Footer>
