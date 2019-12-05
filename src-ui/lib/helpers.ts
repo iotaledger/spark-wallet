@@ -164,6 +164,16 @@ export const getIotas = (value: number, unit: string, marketPrice: MarketPrice):
 }
 
 /**
+ * Get current application domain
+ */
+export const getDomain = () => {
+    const protocol = typeof window === 'object' ? window.location.protocol : 'http:'
+    const host = typeof window === 'object' ? window.location.host : 'localhost:3000'
+
+    return `${protocol}//${host}`
+}
+
+/**
  * Create an iota CDA link
  */
 export const createLink = (
@@ -177,7 +187,8 @@ export const createLink = (
     if (!address) {
         return null
     }
-    let link = `iota://${address.address}?timeoutAt=${address.timeoutAt}`
+
+    let link = `${getDomain()}/?address=${address.address}&timeoutAt=${address.timeoutAt}`
 
     if (typeof message === 'string' && message.length) {
         link = `${link}&message=${encodeURI(message)}`
@@ -196,8 +207,12 @@ export const createLink = (
 /**
  * Parse a CDA link
  */
-export const parseLink = (input: string): cdaUrl => {
-    if (input.toLowerCase().indexOf('iota://') !== 0) {
+export const parseLink = (input?: string): cdaUrl => {
+    if (!input) {
+        input = window.location.href
+    }
+
+    if (input.toLowerCase().indexOf(getDomain()) !== 0) {
         return null
     }
 
@@ -211,10 +226,10 @@ export const parseLink = (input: string): cdaUrl => {
 
     try {
         const url = new URL(input, true)
-        const { message, amount, timeoutAt, receiver } = url.query
+        const { address, message, amount, timeoutAt, receiver } = url.query
 
-        if (url.hostname.toUpperCase().match(/^[A-Z9]{90}$/)) {
-            result.address = url.hostname.toUpperCase()
+        if (address.match(/^[A-Z9]{90}$/)) {
+            result.address = address.toUpperCase()
         } else {
             return null
         }

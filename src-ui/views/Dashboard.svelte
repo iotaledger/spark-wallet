@@ -1,12 +1,25 @@
 <script>
     import API from '~/lib/api'
-    import { goto, formatValue } from '~/lib/helpers'
+    import { error } from '~/lib/app'
+    import { goto, formatValue, parseLink } from '~/lib/helpers'
     import { account, balance, history } from '~/lib/account'
     import { marketPrice } from '~/lib/market'
 
     import { Button, Chart, Footer, Icon } from '~/components'
 
     $: balanceDisplay = formatValue($balance, $marketPrice)
+
+    $: checkPaymentLink($balance)
+
+    const checkPaymentLink = ($balance) => {
+        const cda = parseLink()
+
+        if ($balance === 0 || !cda || cda.expectedAmount > $balance) {
+            window.history.pushState('Dashboard', null, '/')
+        } else {
+            goto('pay')
+        }
+    }
 </script>
 
 <style>
