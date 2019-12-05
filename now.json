@@ -3,9 +3,19 @@
     "name": "spark-wallet",
     "builds": [
         {
+            "src": "api/**/*.ts",
+            "use": "@now/node"
+        },
+        {
             "src": "package.json",
             "use": "@now/static-build",
             "config": { "distDir": ".build" }
+        }
+    ],
+    "routes": [
+        {
+            "src": "/manifest.json",
+            "dest": "/api/manifest.ts"
         }
     ]
 }
