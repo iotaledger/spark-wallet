@@ -11,7 +11,7 @@
     import { marketPrice } from '~/lib/market'
     import { notification, error } from '~/lib/app'
 
-    import { Address, Amount, Berny, Button, Footer, Header, Spinner } from '~/components'
+    import { Animation, Address, Amount, Berny, Button, Footer, Header, Spinner } from '~/components'
 
     $: currentBalance = formatValue($balance)
 
@@ -219,9 +219,16 @@
         opacity: 1;
     }
 
-    logo {
+    animation {
         display: block;
+        height: 150px;
         text-align: center;
+    }
+
+    @media only screen and (max-height: 600px) {
+        animation {
+            height: 100px;
+        }
     }
 
     video {
@@ -273,10 +280,6 @@
         text-align: center;
     }
 
-    main.center svg {
-        margin-bottom: 24px;
-    }
-
     main.center svg path {
         fill: var(--success);
     }
@@ -291,13 +294,9 @@
     </main>
 {:else if $sendState === 'done'}
     <main class="center">
-        <svg width="68" height="68" xmlns="http://www.w3.org/2000/svg">
-            <path
-                d="M48.218 20.863c1.16-1.159 3.169-1.159 4.328 0a3.079 3.079 0 010 4.405L30.677
-                47.136c-.618.618-1.39.864-2.163.864-.773 0-1.546-.246-2.164-.864L15.377 36.241a3.079 3.079 0 010-4.405 3.079 3.079
-                0 014.405 0l8.732 8.732 19.704-19.704zM34 68C15.222 68 0 52.778 0 34S15.222 0 34 0s34 15.222 34 34-15.222 34-34
-                34zm0-6c15.464 0 28-12.536 28-28S49.464 6 34 6 6 18.536 6 34s12.536 28 28 28z" />
-        </svg>
+        <div style="height: 200px; margin-bottom: 30px;">
+            <Animation type="pay-ok" />
+        </div>
         <p>Your payment is complete</p>
     </main>
     <Footer>
@@ -331,9 +330,9 @@
     {:else}
         <main>
             <div />
-            <logo>
-                <Berny size={120} />
-            </logo>
+            <animation>
+                <Animation type="pay" />
+            </animation>
             <div>
                 {#if cda && cda.expectedAmount}
                     <h4>

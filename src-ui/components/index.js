@@ -1,3 +1,4 @@
+import Animation from '~/components/Animation'
 import Button from '~/components/Button'
 import Chart from '~/components/Chart'
 import Footer from '~/components/Footer'
@@ -25,6 +26,7 @@ import Export from '~/components/popups/Export'
 export {
     Address,
     Amount,
+    Animation,
     Berny,
     Button,
     Chart,

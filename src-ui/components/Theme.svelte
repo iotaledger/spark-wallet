@@ -19,14 +19,14 @@
             hammer.on('swiperight', () => {
                 if ($account && $path === '') {
                     goto('request')
-                } else if ($path === 'send') {
+                } else if ($path === 'pay') {
                     goto('')
                 }
             })
 
             hammer.on('swipeleft', () => {
                 if ($balance && $path === '') {
-                    goto('send')
+                    goto('pay')
                 } else if ($path === 'request') {
                     goto('')
                 }

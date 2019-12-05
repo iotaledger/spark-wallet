@@ -34,11 +34,6 @@
         height: 204px;
         margin: 0 auto;
     }
-    h4 {
-        font-size: 13px;
-        text-align: center;
-        margin-bottom: 32px;
-    }
 
     svg,
     div {
