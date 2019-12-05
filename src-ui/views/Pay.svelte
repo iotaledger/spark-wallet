@@ -219,10 +219,16 @@
         opacity: 1;
     }
 
-    logo {
+    animation {
         display: block;
-        height: 120px;
+        height: 150px;
         text-align: center;
+    }
+
+    @media only screen and (max-height: 600px) {
+        animation {
+            height: 100px;
+        }
     }
 
     video {
@@ -324,9 +330,9 @@
     {:else}
         <main>
             <div />
-            <logo>
+            <animation>
                 <Animation type="pay" />
-            </logo>
+            </animation>
             <div>
                 {#if cda && cda.expectedAmount}
                     <h4>

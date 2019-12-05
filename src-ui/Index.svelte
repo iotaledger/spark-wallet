@@ -10,7 +10,7 @@
     import Splash from '~/views/Splash'
     import Setup from '~/views/Setup'
     import Dashboard from '~/views/Dashboard'
-    import Send from '~/views/Send'
+    import Pay from '~/views/Pay'
     import Request from '~/views/Request'
     import Settings from '~/views/Settings'
     import History from '~/views/History'
@@ -50,8 +50,8 @@
                 <Setup />
             {/if}
         </Route>
-        <Route route="send" left transparent>
-            <Send />
+        <Route route="pay" left transparent>
+            <Pay />
         </Route>
         <Route route="request">
             <Request />

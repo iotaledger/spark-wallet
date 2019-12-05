@@ -11,6 +11,9 @@
         let animationData = null
 
         switch (type) {
+            case 'loading':
+                animationData = await import('./animations/loading.json')
+                break
             case 'receive':
                 animationData = await import('./animations/receive.json')
                 break
