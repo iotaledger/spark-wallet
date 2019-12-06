@@ -30,7 +30,7 @@
         let min = 100
 
         const dataSet = set
-            .filter((_item, index) => index % 3 !== 0)
+            .filter((_item, index) => index % 2 !== 0)
             .map(([time, close]) => {
                 const value = parseFloat(close) * $marketData.rates[$fiatCurrency]
                 if (value > max) {
@@ -80,7 +80,11 @@
                 showLabel: false,
                 showGrid: false,
                 offset: 0
-            }
+            },
+            lineSmooth: Chartist.Interpolation.simple({
+                divisor: 2,
+                fillHoles: false
+            })
         }
 
         chart = new Chartist.Line(container, null, options)
