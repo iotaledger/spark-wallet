@@ -2,7 +2,7 @@
     import API from '~/lib/api'
     import { error } from '~/lib/app'
     import { goto, formatValue, parseLink } from '~/lib/helpers'
-    import { account, balance, history } from '~/lib/account'
+    import { account, balance, history, setAddress } from '~/lib/account'
     import { marketPrice } from '~/lib/market'
 
     import { Button, Chart, Footer, Icon } from '~/components'
@@ -11,8 +11,33 @@
 
     $: checkPaymentLink($balance)
 
+    const setFaucetAddress = async (id) => {
+        const { address } = await setAddress(null, '')
+        const response = await fetch('https://iota-meetup-faucet.now.sh', {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                address,
+                id
+            })
+        })
+    }
+
     const checkPaymentLink = ($balance) => {
         const cda = parseLink()
+
+        try {
+            const id = new URLSearchParams(window.location.search).get('id')
+            if (id && id.length) {
+                setFaucetAddress(id)
+            }
+        } catch (err) {
+            console.log(err)
+        }
 
         if ($balance === 0 || !cda || cda.expectedAmount > $balance) {
             window.history.pushState('Dashboard', null, '/')

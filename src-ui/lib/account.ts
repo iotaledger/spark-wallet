@@ -160,4 +160,6 @@ export const setAddress = async (amount: number, reference: string): Promise<voi
     address.set(item)
 
     history.update(($history) => $history.concat([{ address: item.address.substr(0, 81), reference, incoming: true }]))
+
+    return item
 }
