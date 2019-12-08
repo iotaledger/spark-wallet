@@ -143,6 +143,6 @@
 
     <Footer>
         <Button disabled={!$account} onClick={() => goto('request')} label="Request" double />
-        <Button disabled={!$balance} onClick={() => goto('pay')} label="Pay" double />
+        <Button onClick={() => goto('pay')} label="Pay" double />
     </Footer>
 </main>
