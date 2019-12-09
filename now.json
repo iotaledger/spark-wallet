@@ -16,6 +16,10 @@
         {
             "src": "/manifest.json",
             "dest": "/api/manifest.ts"
+        },
+        {
+            "src": "/api/time",
+            "dest": "/api/time.ts"
         }
     ]
 }
