@@ -12,7 +12,7 @@ export const notification = writable<string>(null)
 export const error = writable<string>(null)
 
 /**
- * Dark mode enabled state¬
+ * Dark mode enabled state
  */
 export const darkMode = persistent<boolean>('darkMode', false)
 
@@ -20,6 +20,11 @@ export const darkMode = persistent<boolean>('darkMode', false)
  * Wallet value currency
  */
 export const fiatCurrency = persistent<string>('fiatCurrency', 'USD')
+
+/**
+ * Backup reminder show state
+ */
+export const backupReminder = persistent<boolean>('backupReminder', true)
 
 /**
  * Unset notification timeout
