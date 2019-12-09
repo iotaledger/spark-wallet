@@ -1,11 +1,13 @@
 <script>
     import API from '~/lib/api'
-    import { error } from '~/lib/app'
+    import { error, backupReminder } from '~/lib/app'
     import { goto, formatValue, parseLink } from '~/lib/helpers'
     import { account, balance, history, setAddress } from '~/lib/account'
     import { marketPrice } from '~/lib/market'
 
-    import { Button, Chart, Footer, Icon } from '~/components'
+    import { Backup, Button, Chart, Export, Footer, Icon } from '~/components'
+
+    let showExport = false
 
     $: balanceDisplay = formatValue($balance, $marketPrice)
 
@@ -114,6 +116,14 @@
         text-align: center;
     }
 </style>
+
+{#if $backupReminder}
+    <Backup bind:showExport />
+{/if}
+
+{#if showExport}
+    <Export bind:active={showExport} />
+{/if}
 
 <main>
     <div>
