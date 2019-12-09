@@ -6,7 +6,7 @@
 
     import { onMount } from 'svelte'
 
-    import { formatValue, getDomain, goto, parseLink, getIotas, getPlatform } from '~/lib/helpers'
+    import { formatValue, getDomain, goto, parseLink, getIotas, getPlatform, getTime } from '~/lib/helpers'
     import { account, balance, history, sendState } from '~/lib/account'
     import { marketPrice } from '~/lib/market'
     import { notification, error } from '~/lib/app'
@@ -31,9 +31,14 @@
     const onSend = async () => {
         try {
             const value = getIotas(amount, unit, $marketPrice)
+            const time = await getTime()
 
             if (!value) {
                 return error.set('Cannot send payment without value')
+            }
+
+            if (Math.ceil(time / 1000) >= cda.timeoutAt) {
+                return error.set('Payment request expired')
             }
 
             if (value > $balance) {

@@ -259,6 +259,15 @@ export const parseLink = (input?: string): cdaUrl => {
 }
 
 /**
+ * Retrieve current time timestamp via NTP
+ */
+export const getTime = async (): Promise<number> => {
+    const response = await fetch('/api/time')
+    const { time } = (await response.json()) as { time: number }
+    return time
+}
+
+/**
  * Format timestamp to human readable date string
  */
 export const formatDate = (time: number, type: 'short' | 'long' | 'time' = 'short'): string => {
