@@ -104,7 +104,8 @@ export const account = derived<Writable<string>, Account<CDAParams, CDA, readonl
                 const acc = createAccount({
                     seed: $seed,
                     provider,
-                    persistencePath: '/'
+                    persistencePath: '/',
+                    minWeightMagnitude: 14
                 })
 
                 set(acc)
