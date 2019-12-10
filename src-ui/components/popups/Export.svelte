@@ -172,7 +172,7 @@
                         <div>
                             <h6>Warning</h6>
                             <p>
-                                Older iOS versions download the SeedVault with a file name
+                                For iOS versions <13 the SeedVault will be downloaded with the filename
                                 <strong>"unknown"</strong>
                             </p>
                         </div>
