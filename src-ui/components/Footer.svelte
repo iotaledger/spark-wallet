@@ -16,7 +16,7 @@
     }
 
     footer.tooltip {
-        flex-direction: column;
+        display: block;
         background: var(--box-bg);
         border-radius: 20px 20px 0 0;
         width: 100%;
