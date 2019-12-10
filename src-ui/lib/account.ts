@@ -2,7 +2,7 @@ import { derived, get, writable, Writable } from 'svelte/store'
 import { Account } from '@iota/account'
 import { CDAParams, CDA } from '@iota/cda'
 
-import { cda, persistent, getRandomNode, getTime } from '~/lib/helpers'
+import { cda, persistent, getRandomNode, getTime, isDevnet } from '~/lib/helpers'
 
 /**
  * Current active CDA address
@@ -105,7 +105,7 @@ export const account = derived<Writable<string>, Account<CDAParams, CDA, readonl
                     seed: $seed,
                     provider,
                     persistencePath: '/',
-                    minWeightMagnitude: 14
+                    minWeightMagnitude: isDevnet() ? 9 : 14
                 })
 
                 set(acc)

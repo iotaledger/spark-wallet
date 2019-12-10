@@ -1,5 +1,5 @@
 <script>
-    import { formatDate } from '~/lib/helpers'
+    import { isDevnet, formatDate } from '~/lib/helpers'
 
     import Popup from './Popup'
     import { Button } from '~/components'
@@ -129,7 +129,7 @@
                 <date>{formatDate(tx.timestamp, 'long')}</date>
 
                 <h5>Bundle hash</h5>
-                <a href="https://devnet.thetangle.org/transaction/{tx.hash}" target="_blank">
+                <a href="https://{isDevnet() ? 'devnet.' : ''}thetangle.org/transaction/{tx.hash}" target="_blank">
                     {tx.hash.substr(0, 10)}...{tx.hash.substr(-10)}
                 </a>
                 {#if tx.receiver}

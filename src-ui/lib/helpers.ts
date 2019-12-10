@@ -53,8 +53,10 @@ export const generateSeed = (): string => {
  * Fetch list of and select a single random IRI node
  */
 export const getRandomNode = async (): Promise<string> => {
-    return 'https://nodes.devnet.thetangle.org:443'
-    /*
+    if (isDevnet()) {
+        return 'https://nodes.devnet.iota.org:443'
+    }
+
     const requestOptions = {
         headers: {
             Accept: 'application/json'
@@ -86,7 +88,6 @@ export const getRandomNode = async (): Promise<string> => {
     }
 
     return nodes[Math.floor(Math.random() * nodes.length)].node
-    */
 }
 
 /**
@@ -137,6 +138,13 @@ export const formatValue = (
         unit,
         fiat
     }
+}
+
+/**
+ * Domain based check if Spark should use Devnet
+ */
+export const isDevnet = () => {
+    return window.location.href.indexOf('//spark-devnet') || window.location.href.indexOf('//localhost') > 0
 }
 
 /**
