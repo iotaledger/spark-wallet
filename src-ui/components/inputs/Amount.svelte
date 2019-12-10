@@ -113,6 +113,7 @@
     {/if}
     <button
         on:click={(e) => {
+            e.preventDefault()
             e.stopPropagation()
             dropdown = !dropdown
         }}>
@@ -122,7 +123,8 @@
         {#each units as item}
             <button
                 class:active={unit === item}
-                on:click={() => {
+                on:click={(e) => {
+                    e.preventDefault()
                     unit = item
                 }}>
                 {item}
