@@ -23,7 +23,6 @@
         width: 100%;
         height: 100%;
         background: var(--bg);
-        overflow: scroll;
     }
     div.transparent {
         background: none;

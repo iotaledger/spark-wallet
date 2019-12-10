@@ -64,7 +64,12 @@
         height: calc(100% - 123px);
         display: flex;
         flex-direction: column;
-        overflow: scroll;
+    }
+
+    @media (max-height: 550px) {
+        main {
+            overflow-y: scroll;
+        }
     }
 
     section {
