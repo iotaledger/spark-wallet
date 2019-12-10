@@ -12,6 +12,19 @@
     let password1 = ''
     let password2 = ''
 
+    const getiOSVersion = () => {
+        const agent = window.navigator.userAgent
+        const start = agent.indexOf('OS')
+        if ((agent.indexOf('iPhone') > -1 || agent.indexOf('iPad') > -1) && start > -1) {
+            return window.Number(agent.substr(start + 3, 3).replace('_', '.'))
+        }
+        return null
+    }
+
+    const iOSVersion = getiOSVersion()
+
+    const showWarning = iOSVersion && iOSVersion < 13
+
     const exportVault = async () => {
         if (password1.length < 6) {
             return error.set('Password too short')
@@ -72,7 +85,7 @@
         font-weight: 600;
     }
 
-    article {
+    section > article {
         padding: 25px 24px;
     }
 
@@ -91,6 +104,31 @@
         width: 70px;
         display: block;
         margin: 45px auto;
+    }
+
+    @media only screen and (max-height: 600px) {
+        icon {
+            width: 60px;
+            margin: 0 auto 25px;
+        }
+    }
+
+    article.warning {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    article.warning div {
+        padding-left: 24px;
+    }
+
+    article.warning p {
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    article.warning p strong {
+        font-weight: 600;
     }
 </style>
 
@@ -127,9 +165,25 @@
                 <input type="password" bind:value={password2} />
 
             </article>
-            <Footer>
-                <Button onClick={exportVault} label="Download SeedVault" />
-            </Footer>
+            {#if showWarning}
+                <Footer tooltip>
+                    <article class="warning">
+                        <Icon icon="warning" warning />
+                        <div>
+                            <h6>Warning</h6>
+                            <p>
+                                For iOS versions below 13 the SeedVault will be downloaded with the filename
+                                <strong>"unknown"</strong>
+                            </p>
+                        </div>
+                    </article>
+                    <Button onClick={exportVault} label="Download SeedVault" />
+                </Footer>
+            {:else}
+                <Footer>
+                    <Button onClick={exportVault} label="Download SeedVault" />
+                </Footer>
+            {/if}
         </section>
     </div>
 </Popup>

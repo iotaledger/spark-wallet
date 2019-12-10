@@ -61,8 +61,14 @@
 
 <style>
     main {
-        flex: 1;
+        height: calc(100% - 123px);
+        display: flex;
         flex-direction: column;
+        overflow: scroll;
+    }
+
+    section {
+        flex: 1;
         padding: 28px 20px;
     }
 
@@ -139,75 +145,77 @@
 
 <Tabs {tabs} bind:tab />
 
-{#if tab === 'Basic'}
-    <main>
-        <label>Language</label>
-        <Dropdown value="English" flag="United Kingdom" disabled />
+<main>
+    {#if tab === 'Basic'}
+        <section>
+            <label>Language</label>
+            <Dropdown value="English" flag="United Kingdom" disabled />
 
-        <label>Currency</label>
-        <Dropdown
-            onSelect={changeCurrency}
-            flag={cc.code($fiatCurrency).countries[0]}
-            value={cc.code($fiatCurrency).currency}
-            items={currencies} />
-        <hr />
+            <label>Currency</label>
+            <Dropdown
+                onSelect={changeCurrency}
+                flag={cc.code($fiatCurrency).countries[0]}
+                value={cc.code($fiatCurrency).currency}
+                items={currencies} />
+            <hr />
 
-        <label class="inline">
-            <span>Dark mode</span>
-            <span>
-                <Toggle on={darkMode} />
-            </span>
-        </label>
-        <p>Visual theme optimised for night time use</p>
-        <hr />
-    </main>
-{/if}
-{#if tab === 'Advanced'}
-    <main>
-        <label>Set node</label>
-        <input type="text" value="https://wallet2.iota.town:443" />
-    </main>
-{/if}
-{#if tab === 'Wallet'}
-    <main>
-        <article>
-            <icon>
-                <Icon icon="seedvault" />
-            </icon>
-            <div>
-                <h6 class="dark">BACK UP WITH SEEDVAULT</h6>
-                <p>
-                    You can backup this wallet by exporting a seedvault. The exported SeedVault can then be imported into Trinity
-                    wallet.
-                </p>
+            <label class="inline">
+                <span>Dark mode</span>
+                <span>
+                    <Toggle on={darkMode} />
+                </span>
+            </label>
+            <p>Visual theme optimised for night time use</p>
+            <hr />
+        </section>
+    {/if}
+    {#if tab === 'Advanced'}
+        <section>
+            <label>Set node</label>
+            <input type="text" value="https://wallet2.iota.town:443" />
+        </section>
+    {/if}
+    {#if tab === 'Wallet'}
+        <section>
+            <article>
+                <icon>
+                    <Icon icon="seedvault" />
+                </icon>
+                <div>
+                    <h6 class="dark">BACK UP WITH SEEDVAULT</h6>
+                    <p>
+                        You can backup this wallet by exporting a seedvault. The exported SeedVault can then be imported into
+                        Trinity wallet.
+                    </p>
 
-            </div>
-        </article>
-        <Button
-            onClick={() => {
-                showExport = true
-            }}
-            label="Create SeedVault" />
-    </main>
-    <Footer tooltip>
-        <article>
-            <icon>
-                <Icon icon="warning" warning />
-            </icon>
-            <div>
-                <h6>BURN YOUR WALLET</h6>
-                <p>
-                    You can destroy this wallet, but you will lose access to your tokens and transaction history.
-                    <br />
-                    Be sure to back up your wallet before proceeding, otherwise your tokens will be unrecoverable.
-                </p>
-            </div>
-        </article>
-        <Button
-            onClick={() => {
-                showWarning = true
-            }}
-            warning
-            label="Destroy this wallet" />
-    </Footer>
-{/if}
+                </div>
+            </article>
+            <Button
+                onClick={() => {
+                    showExport = true
+                }}
+                label="Create SeedVault" />
+        </section>
+        <Footer tooltip>
+            <article>
+                <icon>
+                    <Icon icon="warning" warning />
+                </icon>
+                <div>
+                    <h6>BURN YOUR WALLET</h6>
+                    <p>
+                        You can destroy this wallet, but you will lose access to your tokens and transaction history.
+                        <br />
+                        Be sure to back up your wallet before proceeding, otherwise your tokens will be unrecoverable.
+                    </p>
+                </div>
+            </article>
+            <Button
+                onClick={() => {
+                    showWarning = true
+                }}
+                warning
+                label="Destroy this wallet" />
+        </Footer>
+    {/if}
+</main>
