@@ -1,7 +1,6 @@
 import express from 'express'
 import webpack from 'webpack'
 const webpackDevMiddleware = require('webpack-dev-middleware')
-const webpackHotMiddleware = require('webpack-hot-middleware')
 
 import routeTime from './api/time'
 import routeManifest from './api/manifest'
@@ -15,8 +14,6 @@ app.use(
         publicPath: config.output.publicPath
     })
 )
-
-app.use(webpackHotMiddleware(compiler))
 
 app.use('/api/time', routeTime)
 app.use('/manifest.json', routeManifest)

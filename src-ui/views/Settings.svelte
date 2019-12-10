@@ -55,7 +55,7 @@
         }
     }
 
-    let tabs = ['Basic', 'Advanced', 'Wallet']
+    let tabs = ['Basic', 'Wallet']
     let tab = 'Basic'
 </script>
 

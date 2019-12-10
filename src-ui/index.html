@@ -250,6 +250,9 @@
             <p>Launching</p>
         </main>
     </body>
+    <% if (htmlWebpackPlugin.options.devMode){ %>
+    <script src="http://localhost:35729/livereload.js"></script>    
+    <% } else { %>
     <!-- Fathom - simple website analytics - https://usefathom.com -->
     <script>
         ;(function(f, a, t, h, o, m) {
@@ -268,4 +271,5 @@
         fathom('trackPageview')
     </script>
     <!-- / Fathom -->
+    <% } %>
 </html>

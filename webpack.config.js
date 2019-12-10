@@ -4,11 +4,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 const WorkboxPlugin = require('workbox-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const LiveReloadPlugin = require('webpack-livereload-plugin')
 
 const mode = process.env.NODE_ENV || 'development'
 const devMode = mode !== 'production'
 
-module.exports = {
+const config = {
     entry: {
         bundle: ['./src-ui/index.js']
     },
@@ -78,7 +79,8 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './src-ui/index.html',
             filename: './index.html',
-            minify: true
+            minify: true,
+            devMode
         }),
         new ScriptExtHtmlWebpackPlugin({
             defaultAttribute: 'defer'
@@ -92,3 +94,9 @@ module.exports = {
     mode,
     devtool: devMode ? 'source-map' : false
 }
+
+if (devMode) {
+    config.plugins.push(new LiveReloadPlugin())
+}
+
+module.exports = config
