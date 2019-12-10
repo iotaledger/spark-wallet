@@ -51,6 +51,8 @@ export const updateHistory = async (
         return
     }
 
+    console.log(incoming, address, bundle)
+
     const $history = get(history) as Transaction[]
 
     const tx = incoming
@@ -74,7 +76,7 @@ export const updateHistory = async (
             sendState.set('done')
         }
 
-        $history[txIndex] = { ...$history[txIndex], ...tx }
+        $history[txIndex] = { ...$history[txIndex], ...tx, persistence: $history[txIndex].persistence || tx.persistence }
         history.set($history)
     } else {
         history.update((item) => item.concat([{ ...txAddress, ...tx }]))
