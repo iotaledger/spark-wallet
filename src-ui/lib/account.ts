@@ -51,8 +51,6 @@ export const updateHistory = async (
         return
     }
 
-    console.log(incoming, address, bundle)
-
     const $history = get(history) as Transaction[]
 
     const tx = incoming
