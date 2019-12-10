@@ -100,33 +100,34 @@
         }
 
         reference = result.reference || ''
+
+        if (camera) {
+            camera.stop()
+            camera = null
+        }
+        if (scanner) {
+            scanner.destroy()
+            scanner = null
+        }
     }
 
     const scannerWeb = (stream) => {
         try {
-            if (!navigator.getUserMedia) {
+            navigator.getUserMedia =
+                navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia
+
+            if (!navigator.mediaDevices.getUserMedia && !navigator.getUserMedia) {
                 cameraError = true
             } else {
-                navigator.getUserMedia(
-                    { video: true, audio: false },
-                    (stream) => {
-                        stream.getTracks().forEach((track) => track.stop())
-                        scanner = new QrScanner(video, (data) => {
-                            console.log(data)
-                            const result = parseLink(data)
-                            if (result) {
-                                setCDA(result)
-                                scanner.destroy()
-                                scanner = null
-                            }
-                        })
-                        scanner.start()
-                    },
-                    (err) => {
-                        error.set(`Camera: ${err.message || err}`)
-                        cameraError = true
+                scanner = new QrScanner(video, (data) => {
+                    const result = parseLink(data)
+                    if (result) {
+                        setCDA(result)
+                        scanner.destroy()
+                        scanner = null
                     }
-                )
+                })
+                scanner.start()
             }
         } catch (err) {
             cameraError = true
