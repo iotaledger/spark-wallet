@@ -45,7 +45,12 @@
     article {
         height: calc(100% - 65px);
         padding: 25px 24px;
-        overflow: scroll;
+    }
+
+    @media (max-height: 660px) {
+        article {
+            overflow-y: scroll;
+        }
     }
 
     h4 {
@@ -107,16 +112,14 @@
             </button>
         </header>
         <article>
-            <h4>About CDAs</h4>
+            <h4>About Payment Requests</h4>
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Aenean euismod bibendum
-                laoreet ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet
+                Payment requests are a new way of exchanging IOTA. Simply generate a request and share it with the sender. You can
+                add options such as an amount, the sender's name or a transaction note. To complete a payment request, simply scan
+                the QR or open the link in your browser. We are trialling payment requests as an alternative IOTA payment
+                solution.
             </p>
-            <h4>How they work</h4>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet .Lorem ipsum dolor sit
-                amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet
-            </p>
+
             <h4>IOTA units</h4>
             <p>IOTAs are typically acquired in multiples of one million, but can be transferred as a single IOTA</p>
 

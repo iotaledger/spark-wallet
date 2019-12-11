@@ -39,7 +39,12 @@
         flex: 1;
         flex-direction: column;
         padding: 0 20px;
-        overflow: scroll;
+    }
+
+    @media (max-height: 550px) {
+        main {
+            overflow-y: scroll;
+        }
     }
 
     main.empty {
