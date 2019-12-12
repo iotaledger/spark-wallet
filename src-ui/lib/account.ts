@@ -67,7 +67,9 @@ export const updateHistory = async (
         return
     }
 
-    const txIndex = $history.findIndex((item) => item.address === tx.address && (!item.bundle || item.bundle === tx.bundle))
+    const txIndex = $history.findIndex(
+        (item) => item.address === tx.address && item.incoming === incoming && (!item.bundle || item.bundle === tx.bundle)
+    )
 
     if (txIndex > -1) {
         if (!$history[txIndex].bundle && !incoming) {
