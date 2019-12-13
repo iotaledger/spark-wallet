@@ -22,8 +22,8 @@ module.exports = function() {
             },
             window: {
                 title: 'Spark',
-                width: 360,
-                height: 640,
+                width: 460,
+                height: 680,
                 resizable: false
             },
             security: {

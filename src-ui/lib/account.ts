@@ -2,7 +2,8 @@ import { derived, get, writable, Writable } from 'svelte/store'
 import { Account } from '@iota/account'
 import { CDAParams, CDA } from '@iota/cda'
 
-import { cda, persistent, getRandomNode, getTime, isDevnet } from '~/lib/helpers'
+import { cda, persistent, getRandomNode, isDevnet } from '~/lib/helpers'
+import API from '~/lib/api'
 
 /**
  * Current active CDA address
@@ -157,7 +158,7 @@ export const setAddress = async (amount: number, reference: string): Promise<voi
 
     address.set(null)
 
-    const currentTime = await getTime()
+    const currentTime = await API.getTime()
     const timeoutAt = Math.ceil(currentTime / 1000) + 60 * 60 * 24
     const item = await $account.generateCDA({ timeoutAt, expectedAmount: amount > 0 ? amount : undefined })
 
