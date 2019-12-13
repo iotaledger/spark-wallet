@@ -2,7 +2,7 @@
     import { onDestroy } from 'svelte'
     import { address, receiver, setAddress } from '~/lib/account'
     import { marketPrice } from '~/lib/market'
-    import { getIotas, createLink, getTimeUnits, setClipboard } from '~/lib/helpers'
+    import { getIotas, goto, createLink, getTimeUnits, setClipboard } from '~/lib/helpers'
 
     import { Animation, Amount, Berny, Footer, Header, Button } from '~/components'
     import { notification } from '~/lib/app'
@@ -21,6 +21,9 @@
 
     function startTimer(data) {
         if (!data) {
+            if (time) {
+                goto('')
+            }
             return
         }
 

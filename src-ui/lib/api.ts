@@ -2,10 +2,6 @@ type APICall = 'setSecret' | 'getSecret' | 'getTime'
 
 type API = { [key in APICall]?: any }
 
-interface Window {
-    [key: string]: any
-}
-
 const ApiMock: API = {
     setSecret: ({ secret }: { secret: string }) => {
         return localStorage.setItem('secret', secret)

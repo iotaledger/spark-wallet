@@ -37,50 +37,56 @@ export type Transaction = {
 export const history = persistent<Transaction[]>('history', [])
 
 /**
- * Current transactions send state¬
+ * Current transactions send state
  */
 export const sendState = persistent<string>('send-state', 'idle')
 
 /**
  * Adds new transactions to history
  */
-export const updateHistory = async (
-    incoming: boolean,
-    { address, bundle }: { address: string; bundle: Transaction[] }
-): Promise<void> => {
+export const updateHistory = async (incoming: boolean, payload: { address: string; bundle: Transaction[] }): Promise<void> => {
     if (!address) {
         return
     }
 
     const $history = get(history) as Transaction[]
+    const $address = get(address) as cda
 
     const tx = incoming
-        ? bundle.find((item) => item.value > 0 && item.address === address)
-        : bundle.find((item) => item.currentIndex === 0)
+        ? payload.bundle.find((item) => item.value > 0 && item.address === payload.address)
+        : payload.bundle.find((item) => item.currentIndex === 0)
 
     if (!tx) {
         return
     }
 
-    const txAddress = $history.find((item) => item.address === tx.address)
+    const historyEntry = $history.find((item) => item.address === tx.address)
 
-    if (!txAddress) {
+    if (!historyEntry) {
         return
     }
 
-    const txIndex = $history.findIndex(
+    const historyIndex = $history.findIndex(
         (item) => item.address === tx.address && item.incoming === incoming && (!item.bundle || item.bundle === tx.bundle)
     )
 
-    if (txIndex > -1) {
-        if (!$history[txIndex].bundle && !incoming) {
+    if ($address && $address.address.substr(0, 81) === historyEntry.address && incoming) {
+        address.set(null)
+    }
+
+    if (historyIndex > -1) {
+        if (!$history[historyIndex].bundle && !incoming) {
             sendState.set('done')
         }
 
-        $history[txIndex] = { ...$history[txIndex], ...tx, persistence: $history[txIndex].persistence || tx.persistence }
+        $history[historyIndex] = {
+            ...$history[historyIndex],
+            ...tx,
+            persistence: $history[historyIndex].persistence || tx.persistence
+        }
         history.set($history)
     } else {
-        history.update((item) => item.concat([{ ...txAddress, ...tx }]))
+        history.update((item) => item.concat([{ ...historyEntry, ...tx }]))
     }
 }
 
