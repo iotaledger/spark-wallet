@@ -137,10 +137,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@capacitor/cli@^1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@capacitor/cli/-/cli-1.3.0.tgz#24d071f4792a9c74b356b7d8981d3672d4a960be"
-  integrity sha512-E0Dgo+k5SZ85E4liU2deRD1YCGADv/TAGSeqVZGRahogygmby56zZDo+ZW+OLffBDo5Q6G2ZFN1voyxrbaKq5g==
+"@capacitor/cli@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@capacitor/cli/-/cli-1.4.0.tgz#09c95aa6b1eefd0b6c9c454bf741efb792e566e2"
+  integrity sha512-jY4FQ7T5XW3XXYeh2asTBO1egRmGC4cAH3WE6TUn6STvfsD/BMbfEdNTFLErA8e2huP5dzI6PHttGEldz4MR6Q==
   dependencies:
     chalk "^2.3.0"
     commander "^2.12.2"
@@ -154,17 +154,24 @@
     which "^1.3.0"
     xml2js "^0.4.19"
 
-"@capacitor/core@^1.3.0", "@capacitor/core@latest":
+"@capacitor/core@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@capacitor/core/-/core-1.4.0.tgz#4f6a1fd501687f1819e7be673b528cc3e8f7ce97"
+  integrity sha512-9cLk6f8A2BjSh9KTItAOXGFSS9ZsVReMUACWw+1lEHsSk5kdPbp0oQ8c1kOX36LlHeBKi/EPSs8dXNedNHyHQA==
+  dependencies:
+    tslib "^1.9.0"
+
+"@capacitor/core@latest":
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@capacitor/core/-/core-1.3.0.tgz#d1a319f14888f29c87dadaeea36b2949365344a6"
   integrity sha512-cVllg+OaYAPCsWOOOuMDqIk0tqjTH1QEBNgTKhAwLJraYy0w5CziUW5gtcmKXTRqD3dzUlHjx1emCKXrg0DACg==
   dependencies:
     tslib "^1.9.0"
 
-"@capacitor/ios@^1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@capacitor/ios/-/ios-1.3.0.tgz#bb7df03e2a031a9def600946d7ede9681d8ea028"
-  integrity sha512-iRFM1uMvlFS/N/6GJ735uE4OzjyrxDNPb8+OBUyRqmL7j/XBSv1mjKG5gpk2zWIbj/sXWWBHwXleuBsDIG7Fpg==
+"@capacitor/ios@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@capacitor/ios/-/ios-1.4.0.tgz#d38702375be67dc4be5b399f384b6e727973d741"
+  integrity sha512-vauJj/ye7d9cHPeLWHHS+sk+5V+Cgw8hhEzzYIxuwJ0t0HRIq9jnsJ+U9FF6Z2wphfX5jRFatfAxLxFLOmKGFg==
 
 "@hapi/address@2.x.x":
   version "2.1.2"
@@ -1865,10 +1872,10 @@ copy-descriptor@^0.1.0:
   resolved "https://registry.yarnpkg.com/copy-descriptor/-/copy-descriptor-0.1.1.tgz#676f6eb3c39997c2ee1ac3a924fd6124748f578d"
   integrity sha1-Z29us8OZl8LuGsOpJP1hJHSPV40=
 
-copy-webpack-plugin@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/copy-webpack-plugin/-/copy-webpack-plugin-5.1.0.tgz#cd6bb506ffbbe830bf9ecb3d15cc4946b2edd011"
-  integrity sha512-0sNrj/Sx7/cWA0k7CVQa0sdA/dzCybqSb0+GbhKuQdOlAvnAwgC2osmbAFOAfha7ZXnreoQmCq5oDjG3gP4VHw==
+copy-webpack-plugin@^5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/copy-webpack-plugin/-/copy-webpack-plugin-5.1.1.tgz#5481a03dea1123d88a988c6ff8b78247214f0b88"
+  integrity sha512-P15M5ZC8dyCjQHWwd4Ia/dm0SgVvZJMYeykVIVYXbGyqO4dWB5oyPHp9i7wjwo5LhtlhKbiBCdS2NvM07Wlybg==
   dependencies:
     cacache "^12.0.3"
     find-cache-dir "^2.1.0"
@@ -2004,10 +2011,10 @@ crypto-js@^3.1.9-1:
   resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-3.1.9-1.tgz#fda19e761fc077e01ffbfdc6e9fdfc59e8806cd8"
   integrity sha1-/aGedh/Ad+Af+/3G6f38WeiAbNg=
 
-css-loader@^3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/css-loader/-/css-loader-3.3.0.tgz#65f889807baec3197313965d6cda9899f936734d"
-  integrity sha512-x9Y1vvHe5RR+4tzwFdWExPueK00uqFTCw7mZy+9aE/X1SKWOArm5luaOrtJ4d05IpOwJ6S86b/tVcIdhw1Bu4A==
+css-loader@^3.3.2:
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/css-loader/-/css-loader-3.3.2.tgz#41b2086528aa4fbf8c0692e874bc14f081129b21"
+  integrity sha512-4XSiURS+YEK2fQhmSaM1onnUm0VKWNf6WWBYjkp9YbSDGCBTVZ5XOM6Gkxo8tLgQlzkZOBJvk9trHlDk4gjEYg==
   dependencies:
     camelcase "^5.3.1"
     cssesc "^3.0.0"
