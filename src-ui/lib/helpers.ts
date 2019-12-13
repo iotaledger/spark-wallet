@@ -144,7 +144,7 @@ export const formatValue = (
  * Domain based check if Spark should use Devnet
  */
 export const isDevnet = () => {
-    return window.location.href.indexOf('//spark-devnet') || window.location.href.indexOf('//localhost') > 0
+    return window.location.href.indexOf('//spark-devnet') > 0 || window.location.href.indexOf('//localhost') > 0
 }
 
 /**
@@ -264,15 +264,6 @@ export const parseLink = (input?: string): cdaUrl => {
     }
 
     return result
-}
-
-/**
- * Retrieve current time timestamp via NTP
- */
-export const getTime = async (): Promise<number> => {
-    const response = await fetch('/api/time')
-    const { time } = (await response.json()) as { time: number }
-    return time
 }
 
 /**

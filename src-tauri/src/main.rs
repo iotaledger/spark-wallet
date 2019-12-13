@@ -8,6 +8,7 @@ extern crate serde_derive;
 
 use unwrap::unwrap;
 use system_uri::{install, App, SystemUriError};
+use std::time::{SystemTime, UNIX_EPOCH};
 
 mod cmd;
 
@@ -60,6 +61,11 @@ fn main() {
                 Ok(s) => _webview.eval(&format!("window[\"{}\"]({:?})", callback, s)).unwrap(),
                 Err(_e) => _webview.eval(&format!("window[\"{}\"]()", callback)).unwrap(),
               };
+            },
+            GetTime { callback } => {
+              let now = SystemTime::now().duration_since(UNIX_EPOCH).expect("Get time error");
+              let timestamp = now.as_millis();
+              _webview.eval(&format!("window[\"{}\"]({:?})", callback, timestamp)).unwrap();
             }
           }
         }

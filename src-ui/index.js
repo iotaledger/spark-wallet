@@ -4,7 +4,7 @@ import Index from './Index.svelte'
  * Install service worker
  */
 try {
-    if (window.location.hostname !== 'localhost' && 'serviceWorker' in navigator) {
+    if (['127.0.0.1', 'localhost'].indexOf(window.location.hostname) < 0 && 'serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('/service-worker.js')
         })

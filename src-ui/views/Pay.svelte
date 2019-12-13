@@ -6,10 +6,11 @@
 
     import { onMount } from 'svelte'
 
-    import { formatValue, getDomain, goto, parseLink, getIotas, getPlatform, getTime } from '~/lib/helpers'
+    import { formatValue, getDomain, goto, parseLink, getIotas, getPlatform } from '~/lib/helpers'
     import { account, balance, history, sendState } from '~/lib/account'
     import { marketPrice } from '~/lib/market'
     import { notification, error } from '~/lib/app'
+    import API from '~/lib/api'
 
     import { Animation, Address, Amount, Berny, Button, Footer, Header, Spinner } from '~/components'
 
@@ -31,7 +32,7 @@
     const onSend = async () => {
         try {
             const value = getIotas(amount, unit, $marketPrice)
-            const time = await getTime()
+            const time = await API.getTime()
 
             if (!value) {
                 return error.set('Cannot send payment without value')

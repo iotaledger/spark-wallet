@@ -1,4 +1,4 @@
-type APICall = 'setSecret' | 'getSecret'
+type APICall = 'setSecret' | 'getSecret' | 'getTime'
 
 type API = { [key in APICall]?: any }
 
@@ -12,6 +12,11 @@ const ApiMock: API = {
     },
     getSecret: () => {
         return localStorage.getItem('secret')
+    },
+    getTime: async () => {
+        const response = await fetch('/api/time')
+        const { time } = (await response.json()) as { time: number }
+        return time
     }
 }
 
@@ -48,14 +53,13 @@ const Middleware = {
     get: (_target: object, cmd: APICall) => {
         return async (payload: object): Promise<string> => {
             if (typeof external === 'undefined' || typeof (external as any).invoke === 'undefined') {
-                return ApiMock[cmd](payload)
+                return await ApiMock[cmd](payload)
             }
-
             return tauriAPI({ cmd, ...payload })
         }
     }
 }
 
-const API = new Proxy({}, Middleware)
+const API = new Proxy<API>({}, Middleware)
 
 export default API
