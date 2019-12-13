@@ -4,12 +4,14 @@
     import { Export, Button, Dropdown, Footer, Header, Icon, Tabs, Toggle, Warning } from '~/components'
     import { account, seed } from '~/lib/account'
     import { marketData } from '~/lib/market'
-    import { darkMode, fiatCurrency } from '~/lib/app'
+    import { darkMode, fiatCurrency, showNotifications } from '~/lib/app'
 
     let showWarning = false
     let showExport = false
 
     $: currencies = getCurrencies($marketData.rates)
+
+    let disabledNotifications = typeof Notification !== 'function' || Notification.permission === 'denied'
 
     const getCurrencies = ($rates) => {
         if (!$rates) {
@@ -171,6 +173,18 @@
                 </span>
             </label>
             <p>Visual theme optimised for night time use</p>
+            <hr />
+            <label class="inline">
+                <span>Notifications</span>
+                <span>
+                    <Toggle disabled={disabledNotifications} on={showNotifications} />
+                </span>
+            </label>
+            {#if disabledNotifications}
+                <p>Notifications are blocked by the browser. Allow them in browser settings and restart Spark.</p>
+            {:else}
+                <p>Show incoming payment notifications</p>
+            {/if}
             <hr />
         </section>
     {/if}

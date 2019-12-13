@@ -95,7 +95,7 @@ export const getRandomNode = async (): Promise<string> => {
  */
 export const formatValue = (
     iotas: number,
-    marketPrice: MarketPrice,
+    marketPrice?: MarketPrice,
     units?: string
 ): { value: number; rounded: string; unit: string; fiat: string } => {
     let value = getIotas(iotas, units, marketPrice)

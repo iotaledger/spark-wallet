@@ -2,7 +2,7 @@ import { derived, get, writable, Writable } from 'svelte/store'
 import { Account } from '@iota/account'
 import { CDAParams, CDA } from '@iota/cda'
 
-import { cda, persistent, getRandomNode, isDevnet } from '~/lib/helpers'
+import { cda, formatValue, persistent, getRandomNode, isDevnet } from '~/lib/helpers'
 import API from '~/lib/api'
 
 /**
@@ -52,41 +52,82 @@ export const updateHistory = async (incoming: boolean, payload: { address: strin
     const $history = get(history) as Transaction[]
     const $address = get(address) as cda
 
-    const tx = incoming
+    // Filter incoming or outgoing transaction from the bundle
+    const incomingTx = incoming
         ? payload.bundle.find((item) => item.value > 0 && item.address === payload.address)
         : payload.bundle.find((item) => item.currentIndex === 0)
 
-    if (!tx) {
+    if (!incomingTx) {
         return
     }
 
-    const historyEntry = $history.find((item) => item.address === tx.address)
+    // Check if CDA address exists in history
+    const addressExists = $history.find((item) => item.address === incomingTx.address)
 
-    if (!historyEntry) {
+    if (!addressExists) {
         return
     }
 
-    const historyIndex = $history.findIndex(
-        (item) => item.address === tx.address && item.incoming === incoming && (!item.bundle || item.bundle === tx.bundle)
+    // Check if history item already exists
+    const existingIndex = $history.findIndex(
+        (item) =>
+            item.address === incomingTx.address &&
+            item.incoming === incoming &&
+            (!item.bundle || item.bundle === incomingTx.bundle)
     )
 
-    if ($address && $address.address.substr(0, 81) === historyEntry.address && incoming) {
+    const existingTx = $history[existingIndex]
+
+    // Unset current request adddress if it is receiving tokens
+    if ($address && $address.address.substr(0, 81) === incomingTx.address && incoming) {
         address.set(null)
     }
 
-    if (historyIndex > -1) {
-        if (!$history[historyIndex].bundle && !incoming) {
+    // If history item already exists - update it, otherwise add to history
+    if (existingIndex > -1) {
+        if (!existingTx.bundle && !incoming) {
             sendState.set('done')
         }
 
-        $history[historyIndex] = {
-            ...$history[historyIndex],
-            ...tx,
-            persistence: $history[historyIndex].persistence || tx.persistence
+        // Show notification for oncoming payments
+        if (incoming) {
+            const value = formatValue(incomingTx.value)
+
+            if (!existingTx.bundle) {
+                new Notification(`New pending payment`, {
+                    icon: '/icons/512x512.png',
+                    body: `You are receiving ${value.rounded}${value.unit}`
+                })
+            }
+
+            if (!existingTx.persistence && incomingTx.persistence) {
+                new Notification(`Payment confirmed`, {
+                    icon: '/icons/512x512.png',
+                    body: `Incoming payment of ${value.rounded}${value.unit} was just confirmed`
+                })
+            }
+        }
+
+        // Show notification for outgoing confirmed payments
+        if (!incoming) {
+            const value = formatValue(incomingTx.value)
+
+            if (!existingTx.persistence && incomingTx.persistence) {
+                new Notification(`Payment confirmed`, {
+                    icon: '/icons/512x512.png',
+                    body: `Outgoing payment of ${value.rounded}${value.unit} was just confirmed`
+                })
+            }
+        }
+
+        $history[existingIndex] = {
+            ...existingTx,
+            ...incomingTx,
+            persistence: existingTx.persistence || incomingTx.persistence
         }
         history.set($history)
     } else {
-        history.update((item) => item.concat([{ ...historyEntry, ...tx }]))
+        history.update((item) => item.concat([{ ...addressExists, ...incomingTx }]))
     }
 }
 

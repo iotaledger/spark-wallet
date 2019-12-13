@@ -1,5 +1,6 @@
 <script>
     export let on
+    export let disabled
 
     $: active = $on === true
 </script>
@@ -14,7 +15,13 @@
         background: var(--box-bg);
         cursor: pointer;
     }
-    knob {
+
+    toggle.disabled {
+        pointer-events: none;
+    }
+
+    knob,
+    toggle.disabled knob.active {
         position: absolute;
         top: 2px;
         left: 2px;
@@ -25,6 +32,7 @@
         opacity: 0.2;
         transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
     }
+
     knob.active {
         left: 20px;
         opacity: 1;
@@ -34,6 +42,7 @@
 <toggle
     on:click={() => {
         on.update((on) => !on)
-    }}>
+    }}
+    class:disabled>
     <knob class:active />
 </toggle>
