@@ -115,6 +115,7 @@ export const account = derived<Writable<string>, Account<CDAParams, CDA, readonl
                 acc.on('includedDeposit', (tx) => updateHistory(true, tx))
                 acc.on('pendingWithdrawal', (tx) => updateHistory(false, tx))
                 acc.on('includedWithdrawal', (tx) => updateHistory(false, tx))
+                acc.on('attachToTangle', (tx) => updateHistory(false, tx))
             } catch (err) {
                 console.error(err)
             }
