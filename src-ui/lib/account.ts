@@ -52,7 +52,7 @@ export const updateHistory = async (incoming: boolean, payload: { address: strin
     const $history = get(history) as Transaction[]
     const $address = get(address) as cda
 
-    // Filter incoming or outgoing transaction from the bundle
+    // Filter incoming or outgoing transaction from the bundle that match the CDA address
     const incomingTx = incoming
         ? payload.bundle.find((item) => item.value > 0 && item.address === payload.address)
         : payload.bundle.find((item) => item.currentIndex === 0)
@@ -89,7 +89,7 @@ export const updateHistory = async (incoming: boolean, payload: { address: strin
             sendState.set('done')
         }
 
-        // Show notification for oncoming payments
+        // Show notification if incoming payment
         if (incoming) {
             const value = formatValue(incomingTx.value)
 
@@ -108,9 +108,18 @@ export const updateHistory = async (incoming: boolean, payload: { address: strin
             }
         }
 
-        // Show notification for outgoing confirmed payments
+        // Show notification if outgoing payment
         if (!incoming) {
             const value = formatValue(incomingTx.value)
+            
+            if (!existingTx.bundle) {
+                sendState.set('done')
+
+                new Notification(`Payment sent`, {
+                    icon: '/icons/512x512.png',
+                    body: `Payment of ${value.rounded}${value.unit} was just sent`
+                })
+            }
 
             if (!existingTx.persistence && incomingTx.persistence) {
                 new Notification(`Payment confirmed`, {
