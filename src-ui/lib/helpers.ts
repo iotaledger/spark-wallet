@@ -106,6 +106,7 @@ export const formatValue = (
         : (marketPrice.value * (value / 1000000)).toLocaleString('en-US', {
               style: 'currency',
               currency: marketPrice.currency,
+              minimumFractionDigits: 2,
               maximumFractionDigits: 5
           })
 
@@ -130,7 +131,7 @@ export const formatValue = (
             break
     }
 
-    const rounded = Math.round(value * 10) / 10 + (iotas < 1000 || (iotas / value) % 10 === 0 ? '' : '+')
+    const rounded = Math.round(value * 10) / 10 + (Math.round(value * 10) / 10 === value ? '' : '+')
 
     return {
         value,
@@ -269,7 +270,7 @@ export const parseLink = (input?: string): cdaUrl => {
 /**
  * Format timestamp to human readable date string
  */
-export const formatDate = (time: number, type: 'short' | 'long' | 'time' = 'short'): string => {
+export const formatDate = (time: number, type: 'short' | 'long' | 'time'): string => {
     const options = { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' }
     const date = new Date(time * 1000)
 
