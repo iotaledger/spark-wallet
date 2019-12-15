@@ -38,6 +38,12 @@
             "^.+\\.ts$": "ts-jest",
             "^.+\\.svelte$": "jest-transform-svelte"
         },
+        "testPathIgnorePatterns": [
+            "/node_modules/",
+            "babel.config.js",
+            "config.js"
+        ],
+        "globalSetup": "./config.js",
         "setupFilesAfterEnv": [
             "@testing-library/jest-dom/extend-expect"
         ],

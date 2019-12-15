@@ -244,7 +244,7 @@ test('formatDate', () => {
     const sets = [
         {
             params: [-842704200, 'short'],
-            result: '4/19/1943 1:30:00 PM'
+            result: '4/19/1943 11:30:00 AM'
         },
         {
             params: [-842704200, 'long'],
@@ -252,7 +252,7 @@ test('formatDate', () => {
         },
         {
             params: [-842704200, 'time'],
-            result: '1:30:00 PM'
+            result: '11:30:00 AM'
         }
     ]
 
