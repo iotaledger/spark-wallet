@@ -16,7 +16,7 @@ jobs:
     - name: Run tests
       run: |
         yarn install --frozen-lockfile
-        cd .tests
+        cd __tests__
         yarn install --frozen-lockfile
         yarn test
       env:

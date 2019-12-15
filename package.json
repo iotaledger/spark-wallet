@@ -7,7 +7,7 @@
         "run:ios": "yarn build && cap copy && cap open ios",
         "build": "cross-env NODE_ENV=production webpack",
         "build:desktop": "npm run build && tauri build",
-        "test": "cd .tests && npm run test"
+        "test": "cd __tests__ && yarn test"
     },
     "keywords": [],
     "author": "IOTA Foundation <contact@iota.org>",
