@@ -32,7 +32,7 @@ git clone https://github.com/iotaledger/spark-wallet.git
 Spark wallet requires some additional dependencies for building the application. To install them, run:
 
 ```
-npm install
+yarn
 ```
 
 #### 3. Run Spark wallet
@@ -40,7 +40,7 @@ npm install
 To launch Spark wallet locally, run:
 
 ```
-npm run dev
+yarn dev
 ```
 
 and open `http://localhost:3000` in your favourite browser.
@@ -64,7 +64,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 To start the build process run:
 
 ```
-npm run build
+yarn build
 ```
 
 The built desktop application will be located at `src-tauri/target/release/bundle/`
