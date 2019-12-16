@@ -15,7 +15,7 @@
             tab === 'All'
                 ? $history.filter((item) => item.hash)
                 : $history.filter(
-                      (item) => item.hash && ((tab === 'Sent' && item.outgoing) || (tab === 'Received' && item.incoming))
+                      (item) => item.hash && ((tab === 'Sent' && !item.incoming) || (tab === 'Received' && item.incoming))
                   )
 
         filtered.sort((a, b) => b.timestamp - a.timestamp)
