@@ -249,8 +249,10 @@ export const parseLink = (input?: string): cdaUrl => {
             return null
         }
 
-        if (amount && String(amount) === String(parseInt(amount, 10))) {
+        if (amount && String(amount) === String(parseInt(amount, 10)) && parseInt(amount) > 0) {
             result.expectedAmount = Math.abs(parseInt(amount, 10))
+        } else {
+            return null
         }
 
         if (message && typeof message === 'string') {

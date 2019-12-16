@@ -5,7 +5,7 @@
     import { getIotas, goto, createLink, getTimeUnits, setClipboard } from '~/lib/helpers'
 
     import { Animation, Amount, Berny, Footer, Header, Button } from '~/components'
-    import { notification } from '~/lib/app'
+    import { error, notification } from '~/lib/app'
     import { QR } from '~/components'
 
     let amount = null
@@ -35,9 +35,19 @@
         }, 1000)
     }
 
-    function generate() {
+    async function generate() {
+        if (!amount) {
+            error.set('Please enter your requested amount')
+            return
+        }
+
         loading = true
-        setAddress(getIotas(amount, unit, $marketPrice), reference)
+        try {
+            await setAddress(getIotas(amount, unit, $marketPrice), reference)
+        } catch (err) {
+            loading = false
+            error.set((err && err.message) || err || 'Error generating address')
+        }
     }
 
     function copyAddress() {
