@@ -162,7 +162,7 @@
                     <Icon icon="seedvault" auto />
                 </icon>
                 <h4>Choose password</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet.</p>
+                <p>Please choose a password to encrypt the file. You will use this password if you need to restore your seed from the SeedVault back up.</p>
 
                 <label>Password</label>
                 <input type="password" bind:value={password1} />
