@@ -36,6 +36,11 @@
     }
 
     async function generate() {
+        if (!amount) {
+            error.set('Please enter your requested amount')
+            return
+        }
+
         loading = true
         try {
             await setAddress(getIotas(amount, unit, $marketPrice), reference)

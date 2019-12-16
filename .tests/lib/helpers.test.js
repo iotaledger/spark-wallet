@@ -77,13 +77,7 @@ test('parseLink', () => {
         {
             params:
                 'http://localhost/?address=FOOBARBAZFOOBARBAZFOOBARBAZFOOBARBAZFOOBARBAZFOOBARBAZFOOBARBAZFOOBARBAZFOOBARBAZFOOBARBAZ&timeoutAt=100000000',
-            result: {
-                address: 'FOOBARBAZFOOBARBAZFOOBARBAZFOOBARBAZFOOBARBAZFOOBARBAZFOOBARBAZFOOBARBAZFOOBARBAZFOOBARBAZ',
-                reference: null,
-                expectedAmount: null,
-                timeoutAt: 100000000,
-                receiver: null
-            }
+            result: null
         },
         {
             params: 'http://localhost/?timeoutAt=100000000',
