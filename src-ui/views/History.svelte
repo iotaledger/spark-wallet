@@ -7,8 +7,6 @@
 
     $: items = setItems($history, tab)
 
-    console.log('history', $history);
-
     let selectedHash = null
     $: selected = items.find((item) => item.hash === selectedHash)
 
