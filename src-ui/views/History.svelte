@@ -7,6 +7,8 @@
 
     $: items = setItems($history, tab)
 
+    console.log('history', $history);
+
     let selectedHash = null
     $: selected = items.find((item) => item.hash === selectedHash)
 
@@ -15,7 +17,7 @@
             tab === 'All'
                 ? $history.filter((item) => item.hash)
                 : $history.filter(
-                      (item) => item.hash && ((tab === 'Sent' && item.outgoing) || (tab === 'Received' && item.incoming))
+                      (item) => item.hash && ((tab === 'Sent' && !item.incoming) || (tab === 'Received' && item.incoming))
                   )
 
         filtered.sort((a, b) => b.timestamp - a.timestamp)
