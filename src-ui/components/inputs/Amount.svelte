@@ -8,7 +8,7 @@
     let dropdown = false
 
     $: marketValue = formatValue(amount, $marketPrice, unit)
-    $: units = ['i', 'Ki', 'Mi', 'Gi', 'Ti', $marketPrice.currency]
+    $: units = ['i', 'Ki', 'Mi', 'Gi', 'Ti', $marketPrice ? $marketPrice.currency : 'USD']
 
     const clickOutside = () => {
         dropdown = false
