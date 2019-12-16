@@ -73,6 +73,14 @@ Install the [tauri-cli](https://crates.io/crates/tauri-cli) Rust crate:
 cargo install rust-cli
 ```
 
+### 2.1. Linux only - Install WebKit
+
+Install required WebKit for GTK+ package:
+
+```
+sudo apt-get install libwebkit2gtk-4.0-dev
+```
+
 #### 3. Build the application
 
 To start the build process run:
