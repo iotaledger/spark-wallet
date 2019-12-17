@@ -11,7 +11,7 @@
 
 Spark is a low-security wallet intended for short-term use and to send small amounts of [IOTA](https://www.iota.org) tokens.
 
-## 🔥 Initial Setup
+## 🔥 Development Setup
 
 To run Spark wallet on your computer, follow these steps:
 
@@ -70,7 +70,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 Install the [tauri-cli](https://crates.io/crates/tauri-cli) Rust crate:
 
 ```
-cargo install rust-cli
+cargo install rust-cli --force
 ```
 
 ### 2.1. Linux only - Install WebKit
