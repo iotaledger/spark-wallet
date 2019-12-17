@@ -8,7 +8,7 @@
     let dropdown = false
 
     $: marketValue = formatValue(amount, $marketPrice, unit)
-    $: units = ['i', 'Ki', 'Mi', 'Gi', 'Ti', $marketPrice.currency]
+    $: units = ['i', 'Ki', 'Mi', 'Gi', 'Ti', $marketPrice ? $marketPrice.currency : 'USD']
 
     const clickOutside = () => {
         dropdown = false
@@ -107,7 +107,7 @@
 <svelte:window on:click={clickOutside} />
 
 <div>
-    <input type="number" placeholder="Enter your amount" bind:value={amount} />
+    <input type="number" placeholder="Enter your amount" min="0" bind:value={amount} />
     {#if amount}
         <span>={unit !== $marketPrice.currency ? marketValue.fiat : `${marketValue.rounded} ${marketValue.unit}`}</span>
     {/if}

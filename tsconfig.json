@@ -12,7 +12,8 @@
         "baseUrl": "./src-ui",
         "paths": {
             "~*": ["./*"]
-        }
+        },
+        "types": ["jest"]
     },
     "exclude": ["node_modules", "ios"]
 }

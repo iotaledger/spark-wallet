@@ -61,7 +61,7 @@
     }
 
     :global(body > main) {
-        --max-width: 460px;
+        --max-width: 425px;
         --max-height: 680px;
 
         --bg: #eef1f3;

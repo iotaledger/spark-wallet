@@ -10,7 +10,11 @@ const ApiMock: API = {
         return localStorage.getItem('secret')
     },
     getTime: async () => {
-        const response = await fetch('/api/time')
+        const response = await Promise.race<Promise<Response>>([
+            fetch('/api/time'),
+            new Promise((_, reject) => setTimeout(() => reject(new Error('Current time fetch error')), 2000))
+        ])
+
         const { time } = (await response.json()) as { time: number }
         return time
     }

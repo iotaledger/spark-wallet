@@ -124,8 +124,6 @@
                     const result = parseLink(data)
                     if (result) {
                         setCDA(result)
-                        scanner.destroy()
-                        scanner = null
                     }
                 })
                 scanner.start()

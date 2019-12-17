@@ -249,8 +249,10 @@ export const parseLink = (input?: string): cdaUrl => {
             return null
         }
 
-        if (amount && String(amount) === String(parseInt(amount, 10))) {
+        if (amount && String(amount) === String(parseInt(amount, 10)) && parseInt(amount) > 0) {
             result.expectedAmount = Math.abs(parseInt(amount, 10))
+        } else {
+            return null
         }
 
         if (message && typeof message === 'string') {
@@ -275,9 +277,9 @@ export const formatDate = (time: number, type: 'short' | 'long' | 'time'): strin
     const date = new Date(time * 1000)
 
     switch (type) {
-        case 'short':
-            return `${date.toLocaleDateString(navigator.language)} ${date.toLocaleTimeString(navigator.language)}`
         case 'long':
+            return `${date.toLocaleDateString(navigator.language, options)}, ${date.toLocaleTimeString(navigator.language)}`
+        case 'short':
             return date.toLocaleDateString(navigator.language, options)
         default:
             return date.toLocaleTimeString(navigator.language)
