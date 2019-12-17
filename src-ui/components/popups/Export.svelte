@@ -26,11 +26,11 @@
     const showWarning = iOSVersion && iOSVersion < 13
 
     const exportVault = async () => {
-        if (password1.length < 6) {
-            return error.set('Password too short')
+        if (password1.length < 8) {
+            return error.set('Password must be at least 8 characters')
         }
         if (password1 !== password2) {
-            return error.set("Password don't match")
+            return error.set("Passwords don't match")
         }
 
         await createVault(password1, $seed)
