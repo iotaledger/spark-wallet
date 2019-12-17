@@ -34,7 +34,7 @@ test('createLink', () => {
     ]
 
     sets.forEach(({ params, result }) => {
-        const output = createLink(...params)
+        const output = (createLink as any)(...params)
         expect(output).toBe(result)
     })
 })
@@ -125,7 +125,7 @@ test('geIotas', () => {
     ]
 
     sets.forEach(({ params, result }) => {
-        const output = getIotas(...params)
+        const output = (getIotas as any)(...params)
         expect(output).toBe(result)
     })
 })
@@ -198,7 +198,7 @@ test('formatValue', () => {
     ]
 
     sets.forEach(({ params, result }) => {
-        const output = formatValue(...params)
+        const output = (formatValue as any)(...params)
         expect(output).toStrictEqual(result)
     })
 })
@@ -226,8 +226,8 @@ test('goto', () => {
 })
 
 test('generateSeed', () => {
-    global.crypto = {
-        getRandomValues: (bytes) => Array.from(Array(bytes.length), (_, i) => i)
+    ;(global as any).crypto = {
+        getRandomValues: (bytes: Number[]) => Array.from(Array(bytes.length), (_, i) => i)
     }
 
     const seed = generateSeed()
@@ -238,20 +238,20 @@ test('formatDate', () => {
     const sets = [
         {
             params: [-842704200, 'short'],
-            result: '4/19/1943 1:30:00 PM'
-        },
-        {
-            params: [-842704200, 'long'],
             result: 'Mon, April 19, 1943'
         },
         {
+            params: [-842704200, 'long'],
+            result: 'Mon, April 19, 1943, 11:30:00 AM'
+        },
+        {
             params: [-842704200, 'time'],
-            result: '1:30:00 PM'
+            result: '11:30:00 AM'
         }
     ]
 
     sets.forEach(({ params, result }) => {
-        const output = formatDate(...params)
+        const output = (formatDate as any)(...params)
         expect(output).toBe(result)
     })
 })
@@ -275,7 +275,7 @@ test('getTimeUnits', () => {
     ]
 
     sets.forEach(({ params, result }) => {
-        const output = getTimeUnits(...params)
+        const output = (getTimeUnits as any)(...params)
         expect(output).toBe(result)
     })
 })
