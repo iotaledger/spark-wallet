@@ -33,6 +33,7 @@
                 "tsConfig": "../tsconfig.json"
             }
         },
+        "globalSetup": "./config.ts",
         "transform": {
             "^.+\\.js$": "babel-jest",
             "^.+\\.ts$": "ts-jest",
