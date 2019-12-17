@@ -64,6 +64,7 @@ First you need to install [Rust](https://www.rust-lang.org/) if you haven’t do
 ```
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
+on Windows you can use the [rustup installer](https://rustup.rs).
 
 #### 2. Install Tauri
 
