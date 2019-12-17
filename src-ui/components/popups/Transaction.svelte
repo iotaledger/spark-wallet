@@ -106,6 +106,10 @@
         cursor: pointer;
     }
 
+    a:hover {
+        color: var(--fg-hover);
+    }
+
     footer {
         padding-top: 10px;
     }

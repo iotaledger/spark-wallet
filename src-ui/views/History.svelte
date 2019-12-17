@@ -39,7 +39,7 @@
         flex: 1;
         flex-direction: column;
         padding: 0 20px;
-        overflow-y: scroll;
+        overflow-y: auto;
     }
 
     main.empty {
@@ -187,7 +187,7 @@
     {/if}
     {#each items as tx}
         {#if tx.day}
-            <date>{formatDate(tx.day, 'long')}</date>
+            <date>{formatDate(tx.day, 'short')}</date>
         {/if}
         <item
             on:click={() => {
