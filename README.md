@@ -73,7 +73,7 @@ Install the [tauri-cli](https://crates.io/crates/tauri-cli) Rust crate:
 cargo install rust-cli --force
 ```
 
-### 2.1. Linux only - Install WebKit
+#### 2.1. Linux only - Install WebKit
 
 Install required WebKit for GTK+ package:
 
