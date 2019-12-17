@@ -70,7 +70,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 Install the [tauri-cli](https://crates.io/crates/tauri-cli) Rust crate:
 
 ```
-cargo install rust-cli --force
+cargo install tauri-cli --force
 ```
 
 #### 2.1. Linux only - Install WebKit
