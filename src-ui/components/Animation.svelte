@@ -1,6 +1,5 @@
 <script>
     import { onMount } from 'svelte'
-    import lottie from 'lottie-web'
 
     export let type
 
@@ -8,6 +7,8 @@
     let animation
 
     onMount(async () => {
+        const lottie = await import('lottie-web')
+
         let animationData = null
 
         switch (type) {
