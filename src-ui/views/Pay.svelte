@@ -64,7 +64,7 @@
                 $history.concat([{ address: cda.address.substr(0, 81), reference, receiver: cda.receiver, incoming: false }])
             )
         } catch (err) {
-            error.set(err.message || err)
+            error.set(err.message ? err.message.split(';')[0] : err)
             sendState.set('idle')
         }
     }

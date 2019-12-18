@@ -35,7 +35,15 @@ const config = {
         rules: [
             {
                 test: /\.tsx?$/,
-                use: 'ts-loader',
+                use: [
+                    {
+                        loader: 'ts-loader',
+                        options: {
+                            transpileOnly: true,
+                            experimentalWatchApi: true
+                        }
+                    }
+                ],
                 exclude: /node_modules/
             },
             {
@@ -91,8 +99,7 @@ const config = {
         }),
         new MiniCssExtractPlugin()
     ],
-    mode,
-    devtool: devMode ? 'source-map' : false
+    mode
 }
 
 if (devMode) {

@@ -167,6 +167,7 @@
         font-family: 'Poppins', sans-serif;
         font-weight: 400;
         background: url('/bg.jpg') no-repeat;
+
         background-size: cover;
         transition: background 0.25s;
     }
