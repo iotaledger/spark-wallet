@@ -2,7 +2,7 @@
     import { onMount } from 'svelte'
     import Chartist from 'chartist'
 
-    import { marketData } from '~/lib/market'
+    import { marketData, marketPrice } from '~/lib/market'
     import { fiatCurrency } from '~/lib/app'
     import { formatDate } from '~/lib/helpers'
 
@@ -106,14 +106,21 @@
                     cy: data.y,
                     r: 6
                 })
+
+                const fiatValue = data.value.y.toLocaleString('en-US', {
+                    style: 'currency',
+                    currency: $marketPrice.currency,
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 4
+                })
+
                 data.group
                     .elem('text', {
-                        x: data.x - 12,
+                        x: data.x,
                         y: data.y - 16,
-                        textAnchor: 'middle',
-                        align: 'center'
+                        'text-anchor': 'middle'
                     })
-                    .text('$' + Math.round(data.value.y * 1000) / 1000)
+                    .text(fiatValue)
                 data.element.replace(circle)
             }
         })
