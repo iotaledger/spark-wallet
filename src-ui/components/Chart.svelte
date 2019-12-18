@@ -2,7 +2,7 @@
     import { onMount } from 'svelte'
     import Chartist from 'chartist'
 
-    import { marketData } from '~/lib/market'
+    import { marketData, marketPrice } from '~/lib/market'
     import { fiatCurrency } from '~/lib/app'
     import { formatDate } from '~/lib/helpers'
 
@@ -99,6 +99,13 @@
             })
         )
 
+        const fiatValue = $marketPrice.value.toLocaleString('en-US', {
+            style: 'currency',
+            currency: $marketPrice.currency,
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 4
+        })
+
         chart.on('draw', function(data) {
             if (data.type === 'point') {
                 const circle = new Chartist.Svg('circle', {
@@ -106,14 +113,14 @@
                     cy: data.y,
                     r: 6
                 })
+
                 data.group
                     .elem('text', {
-                        x: data.x - 12,
+                        x: data.x,
                         y: data.y - 16,
-                        textAnchor: 'middle',
-                        align: 'center'
+                        'text-anchor': 'middle'
                     })
-                    .text('$' + Math.round(data.value.y * 1000) / 1000)
+                    .text(fiatValue)
                 data.element.replace(circle)
             }
         })
