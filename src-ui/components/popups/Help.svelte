@@ -49,7 +49,7 @@
 
     @media (max-height: 660px) {
         article {
-            overflow-y: scroll;
+            overflow-y: auto;
         }
     }
 
