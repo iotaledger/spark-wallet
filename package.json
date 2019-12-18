@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "description": "A low-security IOTA wallet for short-term use",
     "scripts": {
-        "dev": "ts-node index.ts",
+        "dev": "ts-node --project tsconfig.server.json index.ts",
         "run:ios": "yarn build && cap copy && cap open ios",
         "build": "cross-env NODE_ENV=production webpack",
         "build:desktop": "npm run build && tauri build",
