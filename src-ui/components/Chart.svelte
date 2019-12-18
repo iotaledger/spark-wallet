@@ -99,19 +99,19 @@
             })
         )
 
+        const fiatValue = $marketPrice.value.toLocaleString('en-US', {
+            style: 'currency',
+            currency: $marketPrice.currency,
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 4
+        })
+
         chart.on('draw', function(data) {
             if (data.type === 'point') {
                 const circle = new Chartist.Svg('circle', {
                     cx: data.x,
                     cy: data.y,
                     r: 6
-                })
-
-                const fiatValue = data.value.y.toLocaleString('en-US', {
-                    style: 'currency',
-                    currency: $marketPrice.currency,
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 4
                 })
 
                 data.group
