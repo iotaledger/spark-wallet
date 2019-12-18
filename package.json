@@ -48,7 +48,7 @@
     "dependencies": {
         "@capacitor/core": "^1.4.0",
         "@capacitor/ios": "^1.4.0",
-        "@iota/account": "^1.0.0-beta.24",
+        "@iota/account": "^1.0.0-beta.25",
         "@iota/cda": "^1.0.0-beta.23",
         "@iota/converter": "^1.0.0-beta.23",
         "@iota/persistence": "^1.0.0-beta.23",
