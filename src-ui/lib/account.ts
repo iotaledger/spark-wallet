@@ -57,8 +57,6 @@ export const updateHistory = async (
     
     const bundle = !(payload instanceof Array) ? payload.bundle : payload
 
-    console.log(incoming, bundle)
-
     const tx =
         incoming && !(payload instanceof Array)
             ? bundle.find((item) => item.value > 0 && item.address === payload.address)
