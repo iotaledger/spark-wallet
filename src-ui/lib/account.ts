@@ -44,18 +44,23 @@ export const sendState = persistent<string>('send-state', 'idle')
 /**
  * Adds new transactions to history
  */
-export const updateHistory = async (incoming: boolean, payload: { address: string; bundle: Transaction[] }): Promise<void> => {
+export const updateHistory = async (
+    incoming: boolean,
+    payload: { address: string; bundle: Transaction[] } | Transaction[]
+): Promise<void> => {
     if (!address) {
         return
     }
 
     const $history = get(history) as Transaction[]
     const $address = get(address) as cda
+    
+    const bundle = !(payload instanceof Array) ? payload.bundle : payload
 
-    // Filter incoming or outgoing transaction from the bundle that match the CDA address
-    const incomingTx = incoming
-        ? payload.bundle.find((item) => item.value > 0 && item.address === payload.address)
-        : payload.bundle.find((item) => item.currentIndex === 0)
+    const incomingTx =
+        incoming && !(payload instanceof Array)
+            ? bundle.find((item) => item.value > 0 && item.address === payload.address)
+            : bundle.find((item) => item.currentIndex === 0)
 
     if (!incomingTx) {
         return
