@@ -71,7 +71,7 @@
             <animation>
                 <Animation type="president" />
             </animation>
-            <p>If you use your browser in Incognito mode, or your browser cache is reset, you can loose your funds.</p>
+            <p>If you use your browser in Incognito mode, or your browser cache is reset, you can lose your funds.</p>
             <p>
                 <strong>Would you like to backup your wallet now?</strong>
             </p>
