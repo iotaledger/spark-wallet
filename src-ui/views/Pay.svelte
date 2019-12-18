@@ -112,7 +112,7 @@
         }
     }
 
-    const scannerWeb = (stream) => {
+    const scannerWeb = async (stream) => {
         try {
             navigator.getUserMedia =
                 navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia
@@ -126,7 +126,7 @@
                         setCDA(result)
                     }
                 })
-                scanner.start()
+                await scanner.start()
             }
         } catch (err) {
             cameraError = true

@@ -197,6 +197,12 @@
         transition: border-color 0.12s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
+    :global(input::-ms-clear) {
+        display: none;
+        width: 0;
+        height: 0;
+    }
+
     :global(input:focus) {
         border-color: var(--input-active);
     }
