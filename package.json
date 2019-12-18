@@ -36,6 +36,7 @@
         "mini-css-extract-plugin": "^0.8.2",
         "script-ext-html-webpack-plugin": "^2.1.4",
         "svelte-loader": "^2.13.6",
+        "tauri": "^0.2.0",
         "ts-loader": "^6.2.1",
         "ts-node": "^8.5.4",
         "typescript": "^3.7.3",
@@ -64,7 +65,6 @@
         "qr-scanner": "^1.1.1",
         "qrcode": "^1.4.4",
         "svelte": "^3.16.5",
-        "tauri": "^0.2.0",
         "url-parse": "^1.4.7"
     }
 }
