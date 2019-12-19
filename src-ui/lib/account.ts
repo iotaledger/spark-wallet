@@ -91,7 +91,7 @@ export const updateHistory = async (
         }
 
         // Show notification if incoming payment
-        if (incoming) {
+        if (typeof Notification === "function" && incoming) {
             const value = formatValue(incomingTx.value)
 
             if (!existingTx.bundle) {
@@ -110,7 +110,7 @@ export const updateHistory = async (
         }
 
         // Show notification if outgoing payment
-        if (!incoming) {
+        if (typeof Notification === "function" && !incoming) {
             const value = formatValue(incomingTx.value)
 
             if (!existingTx.bundle) {
