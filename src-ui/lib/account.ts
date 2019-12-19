@@ -91,42 +91,47 @@ export const updateHistory = async (
         }
 
         // Show notification if incoming payment
-        if (typeof Notification === "function" && incoming) {
+        if (typeof Notification === 'function' && incoming) {
             const value = formatValue(incomingTx.value)
+            try {
+                if (!existingTx.bundle) {
+                    new Notification(`New pending payment`, {
+                        icon: '/icons/512x512.png',
+                        body: `You are receiving ${value.rounded}${value.unit}`
+                    })
+                }
 
-            if (!existingTx.bundle) {
-                new Notification(`New pending payment`, {
-                    icon: '/icons/512x512.png',
-                    body: `You are receiving ${value.rounded}${value.unit}`
-                })
-            }
-
-            if (!existingTx.persistence && incomingTx.persistence) {
-                new Notification(`Payment confirmed`, {
-                    icon: '/icons/512x512.png',
-                    body: `Incoming payment of ${value.rounded}${value.unit} has confirmed`
-                })
+                if (!existingTx.persistence && incomingTx.persistence) {
+                    new Notification(`Payment confirmed`, {
+                        icon: '/icons/512x512.png',
+                        body: `Incoming payment of ${value.rounded}${value.unit} has confirmed`
+                    })
+                }
+            } catch (err) {
+                console.log(err)
             }
         }
 
         // Show notification if outgoing payment
-        if (typeof Notification === "function" && !incoming) {
+        if (typeof Notification === 'function' && !incoming) {
             const value = formatValue(incomingTx.value)
 
-            if (!existingTx.bundle) {
-                sendState.set('done')
+            try {
+                if (!existingTx.bundle) {
+                    new Notification(`Payment sent`, {
+                        icon: '/icons/512x512.png',
+                        body: `Payment of ${value.rounded}${value.unit} was just sent`
+                    })
+                }
 
-                new Notification(`Payment sent`, {
-                    icon: '/icons/512x512.png',
-                    body: `Payment of ${value.rounded}${value.unit} was just sent`
-                })
-            }
-
-            if (!existingTx.persistence && incomingTx.persistence) {
-                new Notification(`Payment confirmed`, {
-                    icon: '/icons/512x512.png',
-                    body: `Outgoing payment of ${value.rounded}${value.unit} has confirmed`
-                })
+                if (!existingTx.persistence && incomingTx.persistence) {
+                    new Notification(`Payment confirmed`, {
+                        icon: '/icons/512x512.png',
+                        body: `Outgoing payment of ${value.rounded}${value.unit} has confirmed`
+                    })
+                }
+            } catch (err) {
+                console.log(err)
             }
         }
 
