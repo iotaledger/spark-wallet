@@ -205,7 +205,10 @@
                     clip-rule="evenodd"
                     d="M18 9A9 9 0 110 9a9 9 0 0118 0zm-2 0A7 7 0 112 9a7 7 0 0114 0z" />
             </svg>
-            <h5>{tx.persistence ? (tx.incoming ? 'Received' : 'Sent') : tx.incoming ? 'Receiving' : 'Sending'}</h5>
+            <h5>
+                {tx.persistence ? (tx.incoming ? 'Received' : 'Sent') : tx.incoming ? 'Receiving' : 'Sending'}
+                {tx.locked ? 'locked' : ''}
+            </h5>
             <article>
                 <strong>
                     <em>{tx.value.rounded}</em>

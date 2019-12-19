@@ -26,6 +26,7 @@ export const receiver = persistent<string>('receiver', null)
 export type Transaction = {
     address: string
     incoming: boolean
+    locked?: boolean
     hash?: string
     bundle?: string
     reference?: string
@@ -80,6 +81,12 @@ export const updateHistory = async (
             item.incoming === incoming &&
             (!item.bundle || item.bundle === incomingTx.bundle)
     )
+
+    // Check if incoming transaction is to a spent address
+    const locked =
+        incoming &&
+        $history.findIndex((item) => item.address === incomingTx.address && !item.incoming && typeof item.bundle === 'string') >
+            -1
 
     const existingTx = $history[existingIndex]
 
@@ -137,11 +144,12 @@ export const updateHistory = async (
         $history[existingIndex] = {
             ...existingTx,
             ...incomingTx,
-            persistence: existingTx.persistence || incomingTx.persistence
+            persistence: existingTx.persistence || incomingTx.persistence,
+            locked
         }
         history.set($history)
     } else {
-        history.update((item) => item.concat([{ ...addressExists, ...incomingTx }]))
+        history.update((item) => item.concat([{ ...addressExists, ...incomingTx, locked }]))
     }
 }
 
