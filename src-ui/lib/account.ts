@@ -54,7 +54,7 @@ export const updateHistory = async (
 
     const $history = get(history) as Transaction[]
     const $address = get(address) as cda
-    
+
     const bundle = !(payload instanceof Array) ? payload.bundle : payload
 
     const incomingTx =
@@ -108,7 +108,7 @@ export const updateHistory = async (
             if (!existingTx.persistence && incomingTx.persistence) {
                 new Notification(`Payment confirmed`, {
                     icon: '/icons/512x512.png',
-                    body: `Incoming payment of ${value.rounded}${value.unit} was just confirmed`
+                    body: `Incoming payment of ${value.rounded}${value.unit} has confirmed`
                 })
             }
         }
@@ -116,7 +116,7 @@ export const updateHistory = async (
         // Show notification if outgoing payment
         if (!incoming) {
             const value = formatValue(incomingTx.value)
-            
+
             if (!existingTx.bundle) {
                 sendState.set('done')
 
@@ -129,7 +129,7 @@ export const updateHistory = async (
             if (!existingTx.persistence && incomingTx.persistence) {
                 new Notification(`Payment confirmed`, {
                     icon: '/icons/512x512.png',
-                    body: `Outgoing payment of ${value.rounded}${value.unit} was just confirmed`
+                    body: `Outgoing payment of ${value.rounded}${value.unit} has confirmed`
                 })
             }
         }

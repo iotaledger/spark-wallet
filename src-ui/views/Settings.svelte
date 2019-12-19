@@ -181,7 +181,7 @@
                 </span>
             </label>
             {#if disabledNotifications}
-                <p>Notifications are blocked by the browser. Allow them in browser settings and restart Spark.</p>
+                <p>Notifications are blocked by your browser. Enable them in the browser settings and restart Spark.</p>
             {:else}
                 <p>Show new and confirmed payment notifications</p>
             {/if}
