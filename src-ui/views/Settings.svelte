@@ -217,7 +217,7 @@
             <article>
                 <div>
                     <h6 class="dark">EXPORT TRANSACTION HISTORY</h6>
-                    <p>You can export your transaction history for future reference or for debugging purposes.</p>
+                    <p>You can export your transaction history for future reference.</p>
                 </div>
             </article>
             <Button onClick={exportHistory} label="Export history" />
