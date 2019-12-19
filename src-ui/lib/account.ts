@@ -48,6 +48,10 @@ export const updateHistory = async (
     incoming: boolean,
     payload: { address: string; bundle: Transaction[] } | Transaction[]
 ): Promise<void> => {
+    if (!address) {
+        return
+    }
+
     const $history = get(history) as Transaction[]
     const $address = get(address) as cda
 
