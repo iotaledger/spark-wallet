@@ -3,7 +3,7 @@
     import * as FileSaver from 'file-saver'
 
     import { Export, Button, Dropdown, Footer, Header, Icon, Tabs, Toggle, Warning } from '~/components'
-    import { account, seed } from '~/lib/account'
+    import { account, seed, history } from '~/lib/account'
     import { marketData } from '~/lib/market'
     import { darkMode, fiatCurrency, showNotifications } from '~/lib/app'
 
@@ -60,7 +60,8 @@
 
     const exportHistory = async () => {
         const state = await $account.exportState()
-        const blob = new Blob([JSON.stringify(state)], { type: 'text/plain;charset=utf-8' })
+
+        const blob = new Blob([JSON.stringify(state) + '|' + JSON.stringify($history)], { type: 'text/plain;charset=utf-8' })
         FileSaver.saveAs(blob, 'spark-state.txt')
     }
 
