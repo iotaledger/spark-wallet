@@ -1,9 +1,8 @@
 <script>
     import cc from 'currency-codes'
-    import * as FileSaver from 'file-saver'
 
     import { Export, Button, Dropdown, Footer, Header, Icon, Tabs, Toggle, Warning } from '~/components'
-    import { account, seed, history } from '~/lib/account'
+    import { account, seed } from '~/lib/account'
     import { marketData } from '~/lib/market'
     import { darkMode, fiatCurrency, showNotifications } from '~/lib/app'
 
@@ -58,13 +57,6 @@
         }
     }
 
-    const exportHistory = async () => {
-        const state = await $account.exportState()
-
-        const blob = new Blob([JSON.stringify(state) + '|' + JSON.stringify($history)], { type: 'text/plain;charset=utf-8' })
-        FileSaver.saveAs(blob, 'spark-state.txt')
-    }
-
     let tabs = ['Basic', 'Wallet']
     let tab = 'Basic'
 </script>
@@ -76,7 +68,7 @@
         flex-direction: column;
     }
 
-    @media (max-height: 680px) {
+    @media (max-height: 550px) {
         main {
             overflow-y: scroll;
         }
@@ -112,16 +104,16 @@
 
     article {
         display: flex;
-        padding: 12px 15px;
-    }
-
-    article:nth-last-child(2) {
-        padding-top: 24px;
+        padding: 12px 15px 24px;
     }
 
     article icon {
         width: 110px;
         text-align: center;
+    }
+
+    article div {
+        padding-left: 28px;
     }
 
     article p {
@@ -200,6 +192,9 @@
     {#if tab === 'Wallet'}
         <section>
             <article>
+                <icon>
+                    <Icon icon="seedvault" />
+                </icon>
                 <div>
                     <h6 class="dark">BACK UP WITH SEEDVAULT</h6>
                     <p>
@@ -214,14 +209,6 @@
                     showExport = true
                 }}
                 label="Create SeedVault" />
-
-            <article>
-                <div>
-                    <h6 class="dark">EXPORT TRANSACTION HISTORY</h6>
-                    <p>You can export your transaction history for future reference.</p>
-                </div>
-            </article>
-            <Button onClick={exportHistory} label="Export history" />
         </section>
         <Footer tooltip>
             <article>
@@ -230,7 +217,11 @@
                 </icon>
                 <div>
                     <h6>BURN YOUR WALLET</h6>
-                    <p>Be sure to back up your wallet before proceeding, otherwise your tokens will be unrecoverable.</p>
+                    <p>
+                        You can destroy this wallet, but you will lose access to your tokens and transaction history.
+                        <br />
+                        Be sure to back up your wallet before proceeding, otherwise your tokens will be unrecoverable.
+                    </p>
                 </div>
             </article>
             <Button
