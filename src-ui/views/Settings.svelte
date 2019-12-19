@@ -137,12 +137,7 @@
 <Warning bind:active={showWarning} onConfirm={destroyWallet}>
     <h5>Destroy wallet?</h5>
     <p>
-        You will permanently lose your:
-        <br />
-        – tokens in the wallet
-        <br />
-        – transaction history
-        <br />
+        Your transaction history will be cleared. If you have not backed up, you will permanently lose the tokens in your wallet.
     </p>
 </Warning>
 
