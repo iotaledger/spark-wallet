@@ -12,7 +12,7 @@
 
     $: balanceDisplay = formatValue($balance, $marketPrice)
 
-    $: checkPaymentLink($balance)
+    $: checkPaymentLink($account, $balance)
 
     const setFaucetAddress = async (id) => {
         const { address } = await setAddress(null, '')
@@ -30,8 +30,10 @@
         })
     }
 
-    const checkPaymentLink = ($balance) => {
-        const cda = parseLink()
+    const checkPaymentLink = ($account, $balance) => {
+        if (!$account) {
+            return
+        }
 
         try {
             const id = new URLSearchParams(window.location.search).get('id')
@@ -41,6 +43,8 @@
         } catch (err) {
             console.log(err)
         }
+
+        const cda = parseLink()
 
         if ($balance === 0 || !cda || cda.expectedAmount > $balance) {
             window.history.pushState('Dashboard', null, '/')
