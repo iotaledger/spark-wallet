@@ -1,6 +1,7 @@
 <script>
+    import { onMount } from 'svelte'
     import API from '~/lib/api'
-    import { error, backupReminder } from '~/lib/app'
+    import { error, backupReminder, showNotifications } from '~/lib/app'
     import { goto, formatValue, parseLink } from '~/lib/helpers'
     import { account, balance, history, setAddress } from '~/lib/account'
     import { marketPrice } from '~/lib/market'
@@ -47,6 +48,12 @@
             goto('pay')
         }
     }
+
+    onMount(() => {
+        if ($showNotifications && typeof Notification === 'function' && Notification.permission === 'default') {
+            Notification.requestPermission()
+        }
+    })
 </script>
 
 <style>

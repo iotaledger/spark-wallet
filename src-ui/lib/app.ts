@@ -27,6 +27,11 @@ export const fiatCurrency = persistent<string>('fiatCurrency', 'USD')
 export const backupReminder = persistent<boolean>('backupReminder', true)
 
 /**
+ * Application notifications enabled state
+ */
+export const showNotifications = persistent<boolean>('showNotifications', true)
+
+/**
  * Unset notification timeout
  */
 let notificationTimeout: NodeJS.Timeout
