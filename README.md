@@ -4,9 +4,6 @@
 
 <p>
   <a href="https://github.com/iotaledger/spark-wallet/actions?query=workflow%3ATests"><img src="https://github.com/iotaledger/spark-wallet/workflows/Tests/badge.svg" alt="Build status"></a>
-  <a href="https://github.com/iotaledger/spark-wallet/blob/master/LICENSE">
-    <img src="https://img.shields.io/github/license/iotaledger/spark-wallet.svg" alt="license">
-  </a>
 </p>
 
 Spark is a low-security wallet intended for short-term use and to send small amounts of [IOTA](https://www.iota.org) tokens.
