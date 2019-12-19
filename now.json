@@ -1,6 +1,7 @@
 {
     "version": 2,
     "name": "spark-wallet",
+    "alias": ["spark.iota.org", "spark-devnet.iota.org"],
     "builds": [
         {
             "src": "api/**/*.ts",
