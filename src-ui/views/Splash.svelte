@@ -27,7 +27,7 @@
         justify-content: space-between;
         flex-direction: column;
         align-items: center;
-        height: 100vh;
+        height: 100%;
         background: var(--primary);
         color: var(--primary-fg);
         padding: 66px 0 55px;
@@ -50,6 +50,24 @@
     :global(main.splash p span) {
         letter-spacing: 0.1em;
     }
+
+    :global(main.splash div) {
+        height: 242px;
+    }
+
+    :global(main.splash div svg) {
+        height: 100%;
+    }
+
+    @media (max-height: 560px) {
+        :global(main.splash) {
+            padding: 30px 0;
+        }
+
+        :global(main.splash div) {
+            height: 160px;
+        }
+    }
 </style>
 
 <main class="splash">
@@ -60,7 +78,9 @@
         experiment
     </h1>
 
-    <Rocketman />
+    <div>
+        <Rocketman />
+    </div>
 
     <p>
         Launching

@@ -161,15 +161,18 @@
         height: 100%;
         overflow: hidden;
         background: #e5e5e5;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         font-family: 'Poppins', sans-serif;
         font-weight: 400;
         background: url('/bg.jpg') no-repeat;
 
         background-size: cover;
         transition: background 0.25s;
+    }
+
+    :global(body) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     :global(body.dark) {
@@ -251,9 +254,9 @@
     :global(body > main) {
         width: 100%;
         height: 100%;
+        margin: 0 auto;
         max-width: var(--max-width);
         max-height: var(--max-height);
-        min-height: 560px;
         background: var(--bg);
         color: var(--fg);
         user-select: none;
@@ -275,15 +278,9 @@
         }
     }
 
-    @media only screen and (max-height: 560px) {
-        :global(html, body) {
+    @media only screen and (max-height: 680px) {
+        :global(body) {
             display: block;
-            overflow-y: scroll;
-            -webkit-overflow-scrolling: touch;
-        }
-        main {
-            display: block;
-            margin: 0 auto;
         }
     }
 </style>

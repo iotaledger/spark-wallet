@@ -50,6 +50,7 @@
     @media (max-height: 660px) {
         article {
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
     }
 

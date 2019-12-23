@@ -1,7 +1,7 @@
 <script>
     import cc from 'currency-codes'
 
-    import { Export, Button, Dropdown, Footer, Header, Icon, Tabs, Toggle, Warning } from '~/components'
+    import { Export, Button, Dropdown, Footer, Header, Icon, Tabs, Toggle, View, Warning } from '~/components'
     import { account, seed } from '~/lib/account'
     import { marketData } from '~/lib/market'
     import { darkMode, fiatCurrency, showNotifications } from '~/lib/app'
@@ -63,15 +63,9 @@
 
 <style>
     main {
-        height: calc(100% - 123px);
+        flex: 1;
         display: flex;
         flex-direction: column;
-    }
-
-    @media (max-height: 550px) {
-        main {
-            overflow-y: scroll;
-        }
     }
 
     section {
@@ -143,93 +137,92 @@
 
 <Export bind:active={showExport} />
 
-<Header label="Settings" secondary />
+<View label="Settings" secondary>
+    <Tabs {tabs} bind:tab />
+    <main>
+        {#if tab === 'Basic'}
+            <section>
+                <label>Language</label>
+                <Dropdown value="English" flag="United Kingdom" disabled />
 
-<Tabs {tabs} bind:tab />
+                <label>Currency</label>
+                <Dropdown
+                    onSelect={changeCurrency}
+                    flag={cc.code($fiatCurrency).countries[0]}
+                    value={cc.code($fiatCurrency).currency}
+                    items={currencies} />
+                <hr />
 
-<main>
-    {#if tab === 'Basic'}
-        <section>
-            <label>Language</label>
-            <Dropdown value="English" flag="United Kingdom" disabled />
+                <label class="inline">
+                    <span>Dark mode</span>
+                    <span>
+                        <Toggle on={darkMode} />
+                    </span>
+                </label>
+                <p>Visual theme optimised for night time use</p>
+                <hr />
+                <label class="inline">
+                    <span>Notifications</span>
+                    <span>
+                        <Toggle disabled={disabledNotifications} on={showNotifications} />
+                    </span>
+                </label>
+                {#if disabledNotifications}
+                    <p>Notifications are blocked by your browser. Enable them in the browser settings and restart Spark.</p>
+                {:else}
+                    <p>Show new and confirmed payment notifications</p>
+                {/if}
+                <hr />
+            </section>
+        {/if}
+        {#if tab === 'Advanced'}
+            <section>
+                <label>Set node</label>
+                <input type="text" value="https://wallet2.iota.town:443" />
+            </section>
+        {/if}
+        {#if tab === 'Wallet'}
+            <section>
+                <article>
+                    <icon>
+                        <Icon icon="seedvault" />
+                    </icon>
+                    <div>
+                        <h6 class="dark">BACK UP WITH SEEDVAULT</h6>
+                        <p>
+                            You can backup this wallet by exporting a seedvault. The exported SeedVault can then be imported into
+                            Trinity wallet.
+                        </p>
 
-            <label>Currency</label>
-            <Dropdown
-                onSelect={changeCurrency}
-                flag={cc.code($fiatCurrency).countries[0]}
-                value={cc.code($fiatCurrency).currency}
-                items={currencies} />
-            <hr />
-
-            <label class="inline">
-                <span>Dark mode</span>
-                <span>
-                    <Toggle on={darkMode} />
-                </span>
-            </label>
-            <p>Visual theme optimised for night time use</p>
-            <hr />
-            <label class="inline">
-                <span>Notifications</span>
-                <span>
-                    <Toggle disabled={disabledNotifications} on={showNotifications} />
-                </span>
-            </label>
-            {#if disabledNotifications}
-                <p>Notifications are blocked by your browser. Enable them in the browser settings and restart Spark.</p>
-            {:else}
-                <p>Show new and confirmed payment notifications</p>
-            {/if}
-            <hr />
-        </section>
-    {/if}
-    {#if tab === 'Advanced'}
-        <section>
-            <label>Set node</label>
-            <input type="text" value="https://wallet2.iota.town:443" />
-        </section>
-    {/if}
-    {#if tab === 'Wallet'}
-        <section>
-            <article>
-                <icon>
-                    <Icon icon="seedvault" />
-                </icon>
-                <div>
-                    <h6 class="dark">BACK UP WITH SEEDVAULT</h6>
-                    <p>
-                        You can backup this wallet by exporting a seedvault. The exported SeedVault can then be imported into
-                        Trinity wallet.
-                    </p>
-
-                </div>
-            </article>
-            <Button
-                onClick={() => {
-                    showExport = true
-                }}
-                label="Create SeedVault" />
-        </section>
-        <Footer tooltip>
-            <article>
-                <icon>
-                    <Icon icon="warning" warning />
-                </icon>
-                <div>
-                    <h6>BURN YOUR WALLET</h6>
-                    <p>
-                        You can destroy this wallet, but you will lose access to your tokens and transaction history.
-                        <br />
-                        Be sure to back up your wallet before proceeding, otherwise your tokens will be unrecoverable.
-                    </p>
-                </div>
-            </article>
-            <Button
-                onClick={() => {
-                    showWarning = true
-                }}
-                warning
-                label="Destroy this wallet" />
-        </Footer>
-    {/if}
-</main>
+                    </div>
+                </article>
+                <Button
+                    onClick={() => {
+                        showExport = true
+                    }}
+                    label="Create SeedVault" />
+            </section>
+            <Footer tooltip>
+                <article>
+                    <icon>
+                        <Icon icon="warning" warning />
+                    </icon>
+                    <div>
+                        <h6>BURN YOUR WALLET</h6>
+                        <p>
+                            You can destroy this wallet, but you will lose access to your tokens and transaction history.
+                            <br />
+                            Be sure to back up your wallet before proceeding, otherwise your tokens will be unrecoverable.
+                        </p>
+                    </div>
+                </article>
+                <Button
+                    onClick={() => {
+                        showWarning = true
+                    }}
+                    warning
+                    label="Destroy this wallet" />
+            </Footer>
+        {/if}
+    </main>
+</View>

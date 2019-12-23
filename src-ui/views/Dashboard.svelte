@@ -62,10 +62,12 @@
 
 <style>
     main {
-        flex: 1;
+        height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     header {

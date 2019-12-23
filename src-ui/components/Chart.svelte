@@ -99,12 +99,14 @@
             })
         )
 
-        const fiatValue = $marketPrice.value.toLocaleString('en-US', {
-            style: 'currency',
-            currency: $marketPrice.currency,
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 4
-        })
+        const fiatValue = $marketPrice
+            ? $marketPrice.value.toLocaleString('en-US', {
+                  style: 'currency',
+                  currency: $marketPrice.currency,
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 4
+              })
+            : ''
 
         chart.on('draw', function(data) {
             if (data.type === 'point') {

@@ -12,7 +12,7 @@
     import { notification, error } from '~/lib/app'
     import API from '~/lib/api'
 
-    import { Animation, Address, Amount, Berny, Button, Footer, Header, Spinner } from '~/components'
+    import { Animation, Address, Amount, Berny, Button, Footer, Header, Spinner, View } from '~/components'
 
     $: currentBalance = formatValue($balance)
 
@@ -205,6 +205,7 @@
     }
 
     main.center {
+        height: calc(100% - 94px);
         align-items: center;
         justify-content: center;
     }
@@ -298,74 +299,75 @@
 
 <svelte:window on:paste={onPaste} />
 
-{#if $sendState === 'sending'}
-    <main class="center">
-        <Spinner />
-        <p>Your payment is being processed, please wait...</p>
-    </main>
-{:else if $sendState === 'done'}
-    <main class="center">
-        <div style="height: 200px; margin-bottom: 30px;">
-            <Animation type="pay-ok" />
-        </div>
-        <p>Your payment is complete</p>
-    </main>
-    <Footer>
-        <Button onClick={resetSend} label="OK" />
-    </Footer>
-{:else}
-    <Header label="Send a payment" />
-    <balance>Current balance: {currentBalance.rounded} {currentBalance.unit}</balance>
-    {#if !cda}
-        {#if cameraError}
-            <main class="center">
+<View label="Send a payment" hideHeader={$sendState !== 'idle'}>
+    {#if $sendState === 'sending'}
+        <main class="center">
+            <Spinner />
+            <p>Your payment is being processed, please wait...</p>
+        </main>
+    {:else if $sendState === 'done'}
+        <main class="center">
+            <div style="height: 200px; margin-bottom: 30px;">
+                <Animation type="pay-ok" />
+            </div>
+            <p>Your payment is complete</p>
+        </main>
+        <Footer>
+            <Button onClick={resetSend} label="OK" />
+        </Footer>
+    {:else}
+        <balance>Current balance: {currentBalance.rounded} {currentBalance.unit}</balance>
+        {#if !cda}
+            {#if cameraError}
+                <main class="center">
+                    <form>
+                        <label>Payment link</label>
+                        <input placeholder={`${getDomain()}/?address=ABC...`} type="text" bind:value={paymentLink} />
+                    </form>
+                </main>
+                <Footer>
+                    <Button disabled={paymentLink.length === 0} onClick={onPaymentLink} label="Send" />
+                </Footer>
+            {:else}
+                <scanner class:enabled={scanner}>
+                    <video bind:this={video} autoplay playsinline />
+                    <svg width="204" height="204" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M167 10V0h26.976c5.523 0 10 4.477 10 10v27h-10V10H167zM36.976 10H10v27H0V10C0 4.477 4.477 0 10
+                            0h26.976v10zM167 194h26.976v-27h10v27c0 5.523-4.477 10-10 10H167v-10zm-130.024 0v10H10c-5.523
+                            0-10-4.477-10-10v-27h10v27h26.976z" />
+                    </svg>
+                </scanner>
+            {/if}
+        {:else}
+            <main>
+                <div />
+                <animation>
+                    <Animation type="pay" />
+                </animation>
+                <div>
+                    {#if cda && cda.expectedAmount}
+                        <h4>
+                            <strong>{amount}</strong>
+                            <small>{unit}</small>
+                        </h4>
+                    {/if}
+                    <receiver>{`To ${cda && cda.receiver ? cda.receiver : 'anonymous recipient'}`}</receiver>
+                </div>
                 <form>
-                    <label>Payment link</label>
-                    <input placeholder={`${getDomain()}/?address=ABC...`} type="text" bind:value={paymentLink} />
+                    {#if !cda || !cda.expectedAmount}
+                        <label>Amount</label>
+                        <Amount bind:amount bind:unit />
+                    {/if}
+
+                    <label>Transaction note</label>
+                    <input placeholder="Optional reference" type="text" bind:value={reference} />
                 </form>
             </main>
+
             <Footer>
-                <Button disabled={paymentLink.length === 0} onClick={onPaymentLink} label="Send" />
+                <Button onClick={onSend} label="Send" />
             </Footer>
-        {:else}
-            <scanner class:enabled={scanner}>
-                <video bind:this={video} autoplay playsinline />
-                <svg width="204" height="204" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M167 10V0h26.976c5.523 0 10 4.477 10 10v27h-10V10H167zM36.976 10H10v27H0V10C0 4.477 4.477 0 10
-                        0h26.976v10zM167 194h26.976v-27h10v27c0 5.523-4.477 10-10 10H167v-10zm-130.024 0v10H10c-5.523
-                        0-10-4.477-10-10v-27h10v27h26.976z" />
-                </svg>
-            </scanner>
         {/if}
-    {:else}
-        <main>
-            <div />
-            <animation>
-                <Animation type="pay" />
-            </animation>
-            <div>
-                {#if cda && cda.expectedAmount}
-                    <h4>
-                        <strong>{amount}</strong>
-                        <small>{unit}</small>
-                    </h4>
-                {/if}
-                <receiver>{`To ${cda && cda.receiver ? cda.receiver : 'anonymous recipient'}`}</receiver>
-            </div>
-            <form>
-                {#if !cda || !cda.expectedAmount}
-                    <label>Amount</label>
-                    <Amount bind:amount bind:unit />
-                {/if}
-
-                <label>Transaction note</label>
-                <input placeholder="Optional reference" type="text" bind:value={reference} />
-            </form>
-        </main>
-
-        <Footer>
-            <Button onClick={onSend} label="Send" />
-        </Footer>
     {/if}
-{/if}
+</View>
