@@ -243,11 +243,17 @@
         }
     }
 
-    video {
+    .video-container {
         position: absolute;
-        top: 50%;
+        top: 0px;
         left: 50%;
-        transform: translate(-50%, -50%) scaleX(-1) !important;
+        height: 100%;
+        width: auto;
+        transform: translate(-50%, 0);
+    }
+
+    video {
+        display: block;
         height: 100%;
     }
 
@@ -328,9 +334,11 @@
                 <Footer>
                     <Button disabled={paymentLink.length === 0} onClick={onPaymentLink} label="Send" />
                 </Footer>
-            {:else}
+                {:else}
                 <scanner class:enabled={scanner}>
-                    <video bind:this={video} autoplay playsinline />
+                    <div class="video-container">
+                        <video bind:this={video} autoplay playsinline />
+                    </div>
                     <svg width="204" height="204" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M167 10V0h26.976c5.523 0 10 4.477 10 10v27h-10V10H167zM36.976 10H10v27H0V10C0 4.477 4.477 0 10
