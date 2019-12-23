@@ -10,6 +10,14 @@
     $: marketValue = formatValue(amount, $marketPrice, unit)
     $: units = ['i', 'Ki', 'Mi', 'Gi', 'Ti', $marketPrice ? $marketPrice.currency : 'USD']
 
+    function onKey(e) {
+        if (e.keyCode === 8 || e.target.value.length <= 12) {
+            return true
+        } else {
+            e.target.value = e.target.value.substring(0, 12)
+        }
+    }
+
     const clickOutside = () => {
         dropdown = false
     }
@@ -107,7 +115,7 @@
 <svelte:window on:click={clickOutside} />
 
 <div>
-    <input type="number" placeholder="Enter your amount" min="0" bind:value={amount} />
+    <input type="number" placeholder="Enter your amount" on:keydown={onKey} bind:value={amount} />
     {#if amount}
         <span>={unit !== $marketPrice.currency ? marketValue.fiat : `${marketValue.rounded} ${marketValue.unit}`}</span>
     {/if}
