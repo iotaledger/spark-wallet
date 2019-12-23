@@ -39,7 +39,9 @@
         flex: 1;
         flex-direction: column;
         padding: 0 20px;
+        height: calc(100% - 58px - 65px);
         overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     main.empty {

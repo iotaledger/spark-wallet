@@ -4,7 +4,7 @@
     import { marketPrice } from '~/lib/market'
     import { getIotas, goto, createLink, getTimeUnits, setClipboard } from '~/lib/helpers'
 
-    import { Animation, Amount, Berny, Footer, Header, Button } from '~/components'
+    import { Animation, Amount, Berny, Button, Footer, Header, View } from '~/components'
     import { error, notification } from '~/lib/app'
     import { QR } from '~/components'
 
@@ -109,42 +109,42 @@
     }
 </style>
 
-<Header label="Request a payment" help />
+<View label="Request a payment" help={true}>
+    {#if !$address}
+        <main>
+            <icon>
+                <Animation type="receive" />
+            </icon>
+            <label>Amount</label>
+            <Amount bind:amount bind:unit />
 
-{#if !$address}
-    <main>
-        <icon>
-            <Animation type="receive" />
-        </icon>
-        <label>Amount</label>
-        <Amount bind:amount bind:unit />
+            <label>From</label>
+            <input placeholder="e.g. John Doe" type="text" bind:value={$receiver} />
 
-        <label>From</label>
-        <input placeholder="e.g. John Doe" type="text" bind:value={$receiver} />
+            <label>Transaction note</label>
+            <input maxlength="100" placeholder="e.g. Payment for 2 pizzas" type="text" bind:value={reference} />
+        </main>
 
-        <label>Transaction note</label>
-        <input maxlength="100" placeholder="e.g. Payment for 2 pizzas" type="text" bind:value={reference} />
-    </main>
+        <Footer tooltip>
+            <p>Your request will be valid for 24 hours</p>
+            <Button onClick={generate} {loading} label="Generate request" loadingLabel="Generating ..." />
+        </Footer>
+    {:else}
+        <main>
+            <h5>Valid for</h5>
+            <h3>
+                <strong>{getTimeUnits(time, 'h')}</strong>
+                <small>h</small>
+                <strong>{getTimeUnits(time, 'm')}</strong>
+                <small>m</small>
+                <strong>{getTimeUnits(time, 's')}</strong>
+                <small>s</small>
+            </h3>
+            <QR value={link} />
+        </main>
 
-    <Footer tooltip>
-        <p>Your request will be valid for 24 hours</p>
-        <Button onClick={generate} {loading} label="Generate request" loadingLabel="Generating ..." />
-    </Footer>
-{:else}
-    <main>
-        <h5>Valid for</h5>
-        <h3>
-            <strong>{getTimeUnits(time, 'h')}</strong>
-            <small>h</small>
-            <strong>{getTimeUnits(time, 'm')}</strong>
-            <small>m</small>
-            <strong>{getTimeUnits(time, 's')}</strong>
-            <small>s</small>
-        </h3>
-        <QR value={link} />
-    </main>
-
-    <Footer>
-        <Button onClick={copyAddress} label="Copy shareable link" />
-    </Footer>
-{/if}
+        <Footer>
+            <Button onClick={copyAddress} label="Copy shareable link" />
+        </Footer>
+    {/if}
+</View>

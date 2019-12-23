@@ -24,6 +24,7 @@
         justify-content: space-between;
         align-items: center;
         padding: 60px 0 0;
+        height: 100%;
     }
 
     @media only screen and (max-height: 600px) {

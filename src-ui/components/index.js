@@ -12,6 +12,7 @@ import Route from '~/components/Route'
 import Tabs from '~/components/Tabs'
 import Theme from '~/components/Theme'
 import Spinner from '~/components/Spinner'
+import View from '~/components/View'
 
 import Address from '~/components/inputs/Address'
 import Amount from '~/components/inputs/Amount'
@@ -47,5 +48,6 @@ export {
     Transaction,
     Theme,
     Spinner,
+    View,
     Warning
 }
