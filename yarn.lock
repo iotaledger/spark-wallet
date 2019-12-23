@@ -77,16 +77,16 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
-"@iota/account@^1.0.0-beta.25":
-  version "1.0.0-beta.25"
-  resolved "https://registry.yarnpkg.com/@iota/account/-/account-1.0.0-beta.25.tgz#1f9534c0c558576c52a128c96b053448a385e7d9"
-  integrity sha512-DNVx3ILomb9Pr8GFo9awXS25I81Z8SDG+fBcViZmh9hfxn6cOryRBUW+l4X7hv/5ZrBT2dr8mOmhvhIfvr4REg==
+"@iota/account@1.0.0-beta.27":
+  version "1.0.0-beta.27"
+  resolved "https://registry.yarnpkg.com/@iota/account/-/account-1.0.0-beta.27.tgz#40b2ab97038c898acb2fb2efff19c108133c7efc"
+  integrity sha512-UMMyiRwIFeeQvXj8MlDuR986MfZ4MoNApNUGKh6UYKVVprYd2zxxkq/hfM1ikIZ8omf4SaFq9SZuD1haMFgAdw==
   dependencies:
     "@iota/async-buffer" "^1.0.0-beta.23"
     "@iota/bundle" "^1.0.0-beta.23"
     "@iota/cda" "^1.0.0-beta.23"
     "@iota/converter" "^1.0.0-beta.23"
-    "@iota/core" "^1.0.0-beta.24"
+    "@iota/core" "^1.0.0-beta.27"
     "@iota/curl" "^1.0.0-beta.19"
     "@iota/http-client" "^1.0.0-beta.23"
     "@iota/persistence" "^1.0.0-beta.23"
@@ -151,10 +151,10 @@
   dependencies:
     core-js "^3.1.4"
 
-"@iota/core@^1.0.0-beta.24":
-  version "1.0.0-beta.24"
-  resolved "https://registry.yarnpkg.com/@iota/core/-/core-1.0.0-beta.24.tgz#1304f97682e357d7301888de68302cc775418b45"
-  integrity sha512-WPRA2VJN4cgp03aglM+IXRq3plIYvPd/Uxbw5tp8uLnsJPGzwVeKRNn7g4h1Pz9Jc6u09/Aymke+C4BORO7Wfg==
+"@iota/core@^1.0.0-beta.27":
+  version "1.0.0-beta.27"
+  resolved "https://registry.yarnpkg.com/@iota/core/-/core-1.0.0-beta.27.tgz#d2e7aaca6713b357b22f0d6fbb5cdbd93059a732"
+  integrity sha512-LprJRSW3kIITlGkhJlItQLlimlgvIUo3NuUDJgzRZ1eAEhL0JVckjiOCWkQd/MX7ngsBsDhY81Zevhp/JT1qsg==
   dependencies:
     "@iota/bundle" "^1.0.0-beta.23"
     "@iota/bundle-validator" "^1.0.0-beta.23"
