@@ -36,7 +36,7 @@ unwrap = "1.2.0"
   default-features = false
 
 [features]
-dev = [ "tauri/dev-server" ]
+dev-server = [ "tauri/dev-server" ]
 embedded-server = [ "tauri/embedded-server" ]
 
 [[bin]]
