@@ -1,3 +1,5 @@
+#![windows_subsystem = "windows"]
+
 extern crate keyring;
 extern crate system_uri;
 extern crate unwrap;
