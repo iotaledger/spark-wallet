@@ -62,7 +62,7 @@
         "kdbxweb": "^1.5.7",
         "lottie-web": "^5.5.10",
         "ntpclient": "^1.0.2",
-        "qr-scanner": "^1.1.1",
+        "qr-scanner": "rihardsgravis/qr-scanner",
         "qrcode": "^1.4.4",
         "svelte": "^3.16.5",
         "url-parse": "^1.4.7"
