@@ -77,10 +77,10 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
-"@iota/account@1.0.0-beta.27":
-  version "1.0.0-beta.27"
-  resolved "https://registry.yarnpkg.com/@iota/account/-/account-1.0.0-beta.27.tgz#40b2ab97038c898acb2fb2efff19c108133c7efc"
-  integrity sha512-UMMyiRwIFeeQvXj8MlDuR986MfZ4MoNApNUGKh6UYKVVprYd2zxxkq/hfM1ikIZ8omf4SaFq9SZuD1haMFgAdw==
+"@iota/account@1.0.0-beta.28":
+  version "1.0.0-beta.28"
+  resolved "https://registry.yarnpkg.com/@iota/account/-/account-1.0.0-beta.28.tgz#b420f2da8835edf06df501de1c10b621f46bd8c2"
+  integrity sha512-bDKZb0Rnv5BYzGNi5XrGAK7YoBt5nmlLhnqMVUfHPhwzaYhAEw8TPCX1Y/0WvkeB8y7D5bXKbCbEquUfWtIKCw==
   dependencies:
     "@iota/async-buffer" "^1.0.0-beta.23"
     "@iota/bundle" "^1.0.0-beta.23"
