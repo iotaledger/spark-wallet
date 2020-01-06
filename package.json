@@ -4,7 +4,8 @@
     "description": "A low-security IOTA wallet for short-term use",
     "scripts": {
         "dev": "ts-node --project tsconfig.server.json index.ts",
-        "run:ios": "yarn build && cap copy && cap open ios",
+        "dev:ios": "yarn build && cap copy && cap open ios",
+        "dev:desktop": "concurrently \"yarn dev\" \"yarn tauri dev\"",
         "build": "cross-env NODE_ENV=production webpack",
         "build:desktop": "yarn build && yarn tauri build",
         "test": "cd .tests && yarn test"
