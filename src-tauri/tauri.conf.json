@@ -1,0 +1,33 @@
+{
+    "build": {
+        "distDir": "../.build",
+        "devPath": "http://localhost:3000"
+    },
+    "ctx": {},
+    "tauri": {
+        "embeddedServer": {
+            "active": true
+        },
+        "bundle": {
+            "active": true
+        },
+        "whitelist": {
+            "all": false
+        },
+        "window": {
+            "title": "Spark",
+            "width": 460,
+            "height": 680,
+            "resizable": false
+        },
+        "security": {
+            "csp": "default-src blob: data: filesystem: ws: http: https: 'unsafe-eval' 'unsafe-inline'"
+        },
+        "edge": {
+            "active": true
+        },
+        "automaticStart": {
+            "active": true
+        }
+    }
+}
