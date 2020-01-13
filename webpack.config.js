@@ -5,6 +5,8 @@ const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 const WorkboxPlugin = require('workbox-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const LiveReloadPlugin = require('webpack-livereload-plugin')
+const tauriWebpackConfig = require('@tauri-apps/tauri-webpack').config()
+const merge = require('webpack-merge')
 
 const mode = process.env.NODE_ENV || 'development'
 const devMode = mode !== 'production'
@@ -23,7 +25,7 @@ const config = {
     },
     output: {
         path: __dirname + '/.build',
-        publicPath: '/',
+        publicPath: process.env.TAURI ? '' : '/',
         filename: '[name].[contenthash].js'
     },
     node: {
@@ -106,4 +108,8 @@ if (devMode) {
     config.plugins.push(new LiveReloadPlugin())
 }
 
-module.exports = config
+if (process.env.TAURI) {
+    module.exports = merge(config, tauriWebpackConfig)
+} else {
+    module.exports = config
+}
