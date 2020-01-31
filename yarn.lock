@@ -3180,6 +3180,10 @@ file-saver@^2.0.2:
   resolved "https://registry.yarnpkg.com/file-saver/-/file-saver-2.0.2.tgz#06d6e728a9ea2df2cce2f8d9e84dfcdc338ec17a"
   integrity sha512-Wz3c3XQ5xroCxd1G8b7yL0Ehkf0TC9oYC6buPFkNnU9EnaPlifeAFCyCh+iewXTyFRcg0a6j3J7FmJsIhlhBdw==
 
+"file-saver@https://github.com/rajivshah3/FileSaver.js#feature/webkit-macos":
+  version "2.0.3"
+  resolved "https://github.com/rajivshah3/FileSaver.js#0a2e868b48b6d745a0f2b9bf448f9226925efcd0"
+
 file-type@5.2.0, file-type@^5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/file-type/-/file-type-5.2.0.tgz#2ddbea7c73ffe36368dfae49dc338c058c2b8ad6"

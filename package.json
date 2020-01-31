@@ -57,7 +57,7 @@
         "capacitor-camera-preview": "^0.2.0",
         "chartist": "^0.11.4",
         "currency-codes": "^1.5.1",
-        "file-saver": "^2.0.2",
+        "file-saver": "https://github.com/rajivshah3/FileSaver.js#feature/webkit-macos",
         "hammerjs": "^2.0.8",
         "kdbxweb": "^1.5.7",
         "lottie-web": "^5.5.10",
