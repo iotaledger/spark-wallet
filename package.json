@@ -66,5 +66,9 @@
         "qrcode": "^1.4.4",
         "svelte": "^3.16.5",
         "url-parse": "^1.4.7"
+    },
+    "resolutions": {
+        "minimist": "^1.2.5",
+        "acorn": "^7.1.1"
     }
 }
