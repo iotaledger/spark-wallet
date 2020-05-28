@@ -6,27 +6,16 @@ license = "mit"
 repository = "https://github.com/iotaledger/spark-wallet"
 default-run = "spark-wallet"
 
-[package.metadata.bundle]
-identifier = "org.iota.spark"
-icon = [
-  "./icons/32x32.png",
-  "./icons/128x128.png",
-  "./icons/128x128@2x.png",
-  "./icons/icon.icns",
-  "./icons/icon.ico"
-]
-
 [dependencies]
 serde_json = "1.0.44"
 serde = "1.0"
 serde_derive = "1.0"
 keyring = "0.7.1"
 unwrap = "1.2.1"
-tauri = { version = "0.3.2", features = [ "edge" ] }
+tauri = { version = "0.5.2", features = [ "edge" ] }
 system_uri = { version = "0.4.0", default-features = false }
 
 [features]
-dev-server = [ "tauri/dev-server" ]
 embedded-server = [ "tauri/embedded-server" ]
 no-server = [ "tauri/no-server" ]
 

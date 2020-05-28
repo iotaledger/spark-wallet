@@ -42,7 +42,9 @@ fn main() {
     .invoke_handler(|_webview, arg| {
       use cmd::Cmd::*;
       match serde_json::from_str(arg) {
-        Err(_) => {}
+          Err(e) => {
+            Err(e.to_string())
+          }
         Ok(command) => {
           match command {
             SetSecret { callback, secret } => {
@@ -61,7 +63,7 @@ fn main() {
               let username = "wallet";
 
               let keyring = keyring::Keyring::new(&service, &username);
-              
+
               match keyring.get_password() {
                 Ok(s) => _webview.eval(&format!("window[\"{}\"]({:?})", callback, s)).unwrap(),
                 Err(_e) => _webview.eval(&format!("window[\"{}\"]()", callback)).unwrap(),
