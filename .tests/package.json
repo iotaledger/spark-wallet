@@ -24,7 +24,7 @@
         "jest": "^25.2.7",
         "jest-transform-svelte": "^2.1.0",
         "prettier": "^1.19.1",
-        "ts-jest": "^24.1.0",
+        "ts-jest": "^25.5.1",
         "typescript": "^3.7.2"
     },
     "jest": {
