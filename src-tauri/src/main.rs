@@ -75,6 +75,7 @@ fn main() {
               _webview.eval(&format!("window[\"{}\"]({:?})", callback, timestamp)).unwrap();
             }
           }
+          Ok(())
         }
       }
     })
