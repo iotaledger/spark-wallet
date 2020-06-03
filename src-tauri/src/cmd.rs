@@ -3,5 +3,5 @@
 pub enum Cmd {
   SetSecret { callback: String, secret: String },
   GetSecret { callback: String },
-  GetTime { callback: String }
+  GetTime { callback: String },
 }
