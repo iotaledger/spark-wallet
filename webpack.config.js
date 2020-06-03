@@ -5,7 +5,6 @@ const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 const WorkboxPlugin = require('workbox-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const LiveReloadPlugin = require('webpack-livereload-plugin')
-const merge = require('webpack-merge')
 
 const mode = process.env.NODE_ENV || 'development'
 const devMode = mode !== 'production'
