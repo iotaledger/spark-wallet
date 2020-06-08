@@ -14,17 +14,17 @@
         "@testing-library/svelte": "^1.9.0",
         "@typescript-eslint/eslint-plugin": "^2.7.0",
         "@typescript-eslint/parser": "^2.7.0",
-        "babel-jest": "^24.9.0",
+        "babel-jest": "^25.2.6",
         "eslint": "^6.6.0",
         "eslint-config-airbnb-base": "^14.0.0",
         "eslint-config-prettier": "^6.6.0",
         "eslint-import-resolver-alias": "^1.1.2",
         "eslint-plugin-import": "^2.18.2",
         "eslint-plugin-prettier": "^3.1.1",
-        "jest": "^24.9.0",
+        "jest": "^25.2.7",
         "jest-transform-svelte": "^2.1.0",
         "prettier": "^1.19.1",
-        "ts-jest": "^24.1.0",
+        "ts-jest": "^25.5.1",
         "typescript": "^3.7.2"
     },
     "jest": {
@@ -53,6 +53,8 @@
     },
     "resolutions": {
         "minimist": "^1.2.5",
-        "acorn": "^7.1.1"
+        "acorn": "^7.1.1",
+        "**/sane/micromatch/kind-of": "^6.0.3",
+        "**/is-data-descriptor/kind-of": "^6.0.3"
     }
 }
