@@ -12,7 +12,7 @@ serde = "1.0"
 serde_derive = "1.0"
 keyring = "0.7.1"
 unwrap = "1.2.1"
-tauri = { version = "0.5.2", features = [ "edge" ] }
+tauri = { version = "0.5.3", features = [ "edge" ] }
 system_uri = { version = "0.4.0", default-features = false }
 
 [features]
