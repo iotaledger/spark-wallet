@@ -65,10 +65,10 @@ on Windows you can use the [rustup installer](https://rustup.rs).
 
 #### 2. Install Tauri
 
-Install the [tauri-cli](https://crates.io/crates/tauri-cli) Rust crate:
+Install the [tauri-bundler](https://crates.io/crates/tauri-bundler) Cargo subcommand:
 
 ```
-cargo install tauri-cli --force
+cargo install tauri-bundler --force
 ```
 
 #### 2.1. Linux only - Install WebKit
