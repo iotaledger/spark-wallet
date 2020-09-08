@@ -4,10 +4,11 @@
     "description": "A low-security IOTA wallet for short-term use",
     "scripts": {
         "dev": "ts-node --project tsconfig.server.json index.ts",
-        "run:ios": "yarn build && cap copy && cap open ios",
+        "dev:ios": "yarn build && cap copy && cap open ios",
+        "dev:desktop": "concurrently \"yarn dev\" \"yarn tauri dev\"",
         "build": "cross-env NODE_ENV=production webpack",
-        "build:desktop": "npm run build && tauri build",
-        "test": "cd .tests && npm run test"
+        "build:desktop": "cross-env TAURI=1 yarn build && yarn tauri build",
+        "test": "cd .tests && yarn test"
     },
     "keywords": [],
     "author": "IOTA Foundation <contact@iota.org>",
@@ -36,7 +37,7 @@
         "mini-css-extract-plugin": "^0.8.2",
         "script-ext-html-webpack-plugin": "^2.1.4",
         "svelte-loader": "^2.13.6",
-        "tauri": "^0.2.0",
+        "tauri": "^0.6.3",
         "ts-loader": "^6.2.1",
         "ts-node": "^8.5.4",
         "typescript": "^3.7.3",
@@ -71,6 +72,7 @@
         "minimist": "^1.2.5",
         "acorn": "^6.4.1",
         "**/sane/micromatch/kind-of": "^6.0.3",
-        "**/is-data-descriptor/kind-of": "^6.0.3"
+        "**/is-data-descriptor/kind-of": "^6.0.3",
+        "lodash": ">=4.17.19"
     }
 }

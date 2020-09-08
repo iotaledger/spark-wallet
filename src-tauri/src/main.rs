@@ -1,31 +1,34 @@
+#![cfg_attr(
+  all(not(debug_assertions), target_os = "windows"),
+  windows_subsystem = "windows"
+)]
+
 extern crate keyring;
 extern crate system_uri;
-extern crate unwrap;
 extern crate tauri;
+extern crate unwrap;
 
 #[macro_use]
 extern crate serde_derive;
 
-use unwrap::unwrap;
-use system_uri::{install, App, SystemUriError};
 use std::time::{SystemTime, UNIX_EPOCH};
+use system_uri::{install, App, SystemUriError};
+use unwrap::unwrap;
 
 mod cmd;
 
 fn install_schema() -> Result<(), SystemUriError> {
-    let exec = String::from(unwrap!(unwrap!(std::env::current_exe()).to_str()));
-    let app = App::new(
-        "org.iota.spark".to_string(),
-        "IOTA Foundation".to_string(),
-        "Spark wallet".to_string(),
-        exec,
-        None,
-    );
-    let schema = "iota".to_string();
+  let exec = String::from(unwrap!(unwrap!(std::env::current_exe()).to_str()));
+  let app = App::new(
+    "org.iota.spark".to_string(),
+    "IOTA Foundation".to_string(),
+    "Spark wallet".to_string(),
+    exec,
+    None,
+  );
+  let schema = "iota".to_string();
 
-    install(&app, &[schema.clone()]).and_then(|()| {
-      Ok(())
-    })
+  install(&app, &[schema.clone()]).and_then(|()| Ok(()))
 }
 
 fn main() {
@@ -37,7 +40,7 @@ fn main() {
     .invoke_handler(|_webview, arg| {
       use cmd::Cmd::*;
       match serde_json::from_str(arg) {
-        Err(_) => {}
+        Err(e) => Err(e.to_string()),
         Ok(command) => {
           match command {
             SetSecret { callback, secret } => {
@@ -47,27 +50,40 @@ fn main() {
               let keyring = keyring::Keyring::new(&service, &username);
 
               match keyring.set_password(&secret) {
-                Ok(_s) => _webview.eval(&format!("window[\"{}\"]()", callback)).unwrap(),
-                Err(_e) => _webview.eval(&format!("window[\"{}\"]()", callback)).unwrap(),
+                Ok(_s) => _webview
+                  .eval(&format!("window[\"{}\"]()", callback))
+                  .unwrap(),
+                Err(_e) => _webview
+                  .eval(&format!("window[\"{}\"]()", callback))
+                  .unwrap(),
               };
-            },
+            }
             GetSecret { callback } => {
               let service = "spark_wallet";
               let username = "wallet";
 
               let keyring = keyring::Keyring::new(&service, &username);
-              
+
               match keyring.get_password() {
-                Ok(s) => _webview.eval(&format!("window[\"{}\"]({:?})", callback, s)).unwrap(),
-                Err(_e) => _webview.eval(&format!("window[\"{}\"]()", callback)).unwrap(),
+                Ok(s) => _webview
+                  .eval(&format!("window[\"{}\"]({:?})", callback, s))
+                  .unwrap(),
+                Err(_e) => _webview
+                  .eval(&format!("window[\"{}\"]()", callback))
+                  .unwrap(),
               };
-            },
+            }
             GetTime { callback } => {
-              let now = SystemTime::now().duration_since(UNIX_EPOCH).expect("Get time error");
+              let now = SystemTime::now()
+                .duration_since(UNIX_EPOCH)
+                .expect("Get time error");
               let timestamp = now.as_millis();
-              _webview.eval(&format!("window[\"{}\"]({:?})", callback, timestamp)).unwrap();
+              _webview
+                .eval(&format!("window[\"{}\"]({:?})", callback, timestamp))
+                .unwrap();
             }
           }
+          Ok(())
         }
       }
     })

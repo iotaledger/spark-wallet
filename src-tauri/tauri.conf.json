@@ -1,0 +1,41 @@
+{
+    "build": {
+        "distDir": "../.build",
+        "devPath": "http://localhost:3000"
+    },
+    "ctx": {},
+    "tauri": {
+        "embeddedServer": {
+            "active": true
+        },
+        "bundle": {
+            "active": true,
+            "identifier": "org.iota.spark",
+            "icon": [
+              "./icons/32x32.png",
+              "./icons/128x128.png",
+              "./icons/128x128@2x.png",
+              "./icons/icon.icns",
+              "./icons/icon.ico"
+            ]
+        },
+        "whitelist": {
+            "all": false
+        },
+        "window": {
+            "title": "Spark",
+            "width": 460,
+            "height": 680,
+            "resizable": false
+        },
+        "security": {
+            "csp": "default-src blob: data: filesystem: ws: http: https: 'unsafe-eval' 'unsafe-inline'"
+        },
+        "edge": {
+            "active": true
+        },
+        "automaticStart": {
+            "active": true
+        }
+    }
+}

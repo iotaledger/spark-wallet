@@ -23,7 +23,7 @@ const config = {
     },
     output: {
         path: __dirname + '/.build',
-        publicPath: '/',
+        publicPath: process.env.TAURI ? '' : '/',
         filename: '[name].[contenthash].js'
     },
     node: {
