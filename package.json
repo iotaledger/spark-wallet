@@ -29,7 +29,7 @@
         "@types/webpack": "^4.41.0",
         "base64-loader": "^1.0.0",
         "concurrently": "^5.0.2",
-        "copy-webpack-plugin": "^5.1.1",
+        "copy-webpack-plugin": "^6.0.0",
         "cross-env": "^6.0.3",
         "css-loader": "^3.4.0",
         "express": "^4.17.1",
@@ -43,7 +43,7 @@
         "typescript": "^3.7.3",
         "webpack": "^4.41.3",
         "webpack-cli": "^3.3.10",
-        "webpack-dev-server": "^3.9.0",
+        "webpack-dev-server": "^3.11.0",
         "webpack-livereload-plugin": "^2.2.0",
         "workbox-webpack-plugin": "^4.3.1"
     },
