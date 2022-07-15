@@ -65,7 +65,7 @@
         "ntpclient": "^1.0.2",
         "qr-scanner": "rihardsgravis/qr-scanner",
         "qrcode": "^1.4.4",
-        "svelte": "^3.16.5",
+        "svelte": "^3.49.0",
         "url-parse": "^1.4.7"
     },
     "resolutions": {
